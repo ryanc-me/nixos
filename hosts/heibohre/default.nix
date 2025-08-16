@@ -34,8 +34,7 @@ in
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "heibohre";
-  networking.wireless.enable = true;
-  networking.networkmanager.enable = false;
+  networking.networkmanager.enable = true;
 
   # Set your time zone.
   time.timeZone = "Pacific/Auckland";
