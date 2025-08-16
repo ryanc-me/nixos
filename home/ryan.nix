@@ -8,9 +8,9 @@
   ];
 
   home.username = "ryan";
-  home.homeDirectory = "/home/ryan";
+  home.homeDirectory = "/home/${config.home.username}";
 
-  sops.age.keyFile = "/home/ryan/.config/sops/age/keys.txt";
+  sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
 
   gtk = {

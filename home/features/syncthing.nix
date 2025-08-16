@@ -65,28 +65,28 @@
       folders = {
         work = {
           id = "ckker-ntjru";
-          path = "/home/ryan/work";
+          path = "${config.home.homeDirectory}/work";
           devices = [ "heibohre" "idir" "sorpen" ];
         };
         calibre = {
           id = "ou3jn-qhrwn";
-          path = "/home/ryan/calibre";
+          path = "${config.home.homeDirectory}/calibre";
           devices = [ "heibohre" "idir" "sorpen" ];
         };
         temp = {
           id = "gtlm3-cyz4n";
-          path = "/home/ryan/temp";
+          path = "${config.home.homeDirectory}/temp";
           devices = [ "heibohre" "idir" "sorpen" ];
         };
         projects = {
           id = "ibzk4-hgtmj";
-          path = "/home/ryan/projects";
+          path = "${config.home.homeDirectory}/projects";
           devices = [ "heibohre" "idir" "sorpen" ];
         };
         dot-ssh = {
           label = ".ssh";
           id = "wpaud-nunjg";
-          path = "/home/ryan/.ssh";
+          path = "${config.home.homeDirectory}/.ssh";
           devices = [ "heibohre" "idir" "sorpen" ];
         };
       };
