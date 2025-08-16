@@ -1,5 +1,8 @@
 { config, pkgs, lib, ... }:
 
+let
+  wallpaper = ./wallpaper/wallhaven-wyrqg7.png;
+in
 {
   imports = [
     ./features/bash.nix
@@ -45,6 +48,15 @@
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";
         gtk-enable-primary-paste = false;
+      };
+      "org/gnome/desktop/background" = {
+        color-shading-type = "solid";
+        picture-options = "zoom";
+        picture-uri = "file://${wallpaper}";
+        picture-uri-dark = "file://${wallpaper}";
+      };
+      "org/gnome/desktop/screensaver" = {
+        picture-uri = "file://${wallpaper}";
       };
     };
   };
