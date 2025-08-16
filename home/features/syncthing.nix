@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, osConfig, ... }:
 
 {
   sops = {
@@ -6,19 +6,19 @@
       "guiPassword" = {
         sopsFile = ../../secrets/syncthing.yaml;
       };
-      "heibohre/key" = {
+      "${osConfig.networking.hostName}/key" = {
         sopsFile = ../../secrets/syncthing.yaml;
       };
-      "heibohre/cert" = {
+      "${osConfig.networking.hostName}/cert" = {
         sopsFile = ../../secrets/syncthing.yaml;
       };
     };
   };
-  
+
   services.syncthing = {
     enable = true;
-    key = config.sops.secrets."heibohre/key".path;
-    cert = config.sops.secrets."heibohre/cert".path;
+    key = config.sops.secrets."${osConfig.networking.hostName}/key".path;
+    cert = config.sops.secrets."${osConfig.networking.hostName}/cert".path;
     extraOptions = [ "--no-default-folder" ];
     overrideFolders = true;
     overrideDevices = true;
