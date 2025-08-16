@@ -15,13 +15,6 @@
     };
   };
   
-  #TODO:
-  # - disable relays
-  # - hard-coded LAN IPs
-  # - hard-coded Mixeto IP
-  # - set up Mixeto to listen on mixeto.io:22000
-  # - QUIC?
-  # - disable discovery
   services.syncthing = {
     enable = true;
     key = config.sops.secrets."heibohre/key".path;
