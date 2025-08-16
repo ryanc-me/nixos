@@ -56,6 +56,10 @@
     zstd
     gnupg
     age
+    imagemagick
+
+    # glib
+    glib
 
     # nix related
     #
