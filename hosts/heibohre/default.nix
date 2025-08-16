@@ -1,5 +1,8 @@
 { config, lib, pkgs, ... }:
 
+let
+  monitors-xml = ./monitors.xml;
+in
 {
   imports = [
     ./hardware-configuration.nix
@@ -12,7 +15,6 @@
     ../common/features/1password.nix
     ../common/desktop/gnome.nix
   ];
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Use the systemd-boot EFI boot loader.
@@ -40,6 +42,25 @@
 
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
+  ];
+
+  programs.dconf.profiles.gdm.databases = [{
+    settings."org/gnome/mutter" = {
+      experimental-features = ["scale-monitor-framebuffer"];
+    };
+    settings."org/gnome/desktop/interface" = {
+      cursor-theme = "Capitaine Cursors";
+      cursor-size = lib.gvariant.mkInt32 24;
+    };
+    settings."org/gnome/desktop/interface" = {
+      color-scheme = "prefer-light";
+      gtk-theme    = "Adwaita";
+    };
+  }];
+
+  # for GDM
+  systemd.tmpfiles.rules = [
+    "L+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitors-xml}"
   ];
 
   system.stateVersion = "25.05";
