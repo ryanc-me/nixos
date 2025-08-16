@@ -1,0 +1,4 @@
+[submodule "nixos-secrets"]
+	path = secrets
+	url = git@github.com:ryanc-me/nixos-secrets.git
+	branch = main
