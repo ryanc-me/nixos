@@ -13,6 +13,7 @@ in
     ../common/features/electron-wayland.nix
     ../common/features/utils.nix
     ../common/features/1password.nix
+    ../common/features/boot.nix
     ../common/desktop/gnome.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -51,16 +52,14 @@ in
       cursor-theme = "Capitaine Cursors";
       cursor-size = lib.gvariant.mkInt32 24;
     };
-    settings."org/gnome/desktop/interface" = {
-      color-scheme = "prefer-light";
-      gtk-theme    = "Adwaita";
-    };
   }];
 
   # for GDM
   systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitors-xml}"
   ];
+
+  hardware.bluetooth.enable = true;
 
   system.stateVersion = "25.05";
 }
