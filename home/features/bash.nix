@@ -10,9 +10,6 @@
       export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/ssh-agent"
       export TERM="xterm-256color"
 
-      if [ -z "''${WAYLAND_DISPLAY}" ] && [ "''${XDG_VTNR}" -eq 1 ]; then
-        exec Hyprland >/dev/null
-      fi
       if [[ $(tty) == *"pts"* ]]; then
         fastfetch
       fi
