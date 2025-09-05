@@ -14,6 +14,7 @@ in
     ../common/features/utils.nix
     ../common/features/1password.nix
     ../common/features/boot.nix
+    ../common/features/sshd.nix
     ../common/desktop/gnome.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
