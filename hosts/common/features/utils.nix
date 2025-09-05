@@ -14,6 +14,8 @@
     obsidian
     inkscape
     gimp
+    libreoffice-qt6
+
 
     # network tools
     wget
