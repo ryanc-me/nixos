@@ -15,6 +15,12 @@ in
 
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
+  fonts.fontconfig.enable = true;
+  home.packages = with pkgs; [
+    nerd-fonts.droid-sans-mono
+    nerd-fonts.fira-code
+    satdump
+  ];
 
   gtk = {
     enable = true;
@@ -43,6 +49,11 @@ in
           pkgs.gnomeExtensions.blur-my-shell.extensionUuid
           pkgs.gnomeExtensions.just-perfection.extensionUuid
           pkgs.gnomeExtensions.caffeine.extensionUuid
+          pkgs.gnomeExtensions.tailscale-qs.extensionUuid
+          pkgs.gnomeExtensions.emoji-copy.extensionUuid
+          pkgs.gnomeExtensions.iso-clock.extensionUuid
+          pkgs.gnomeExtensions.clipboard-indicator.extensionUuid
+          pkgs.gnomeExtensions.color-picker.extensionUuid
         ];
       };
       "org/gnome/desktop/interface" = {

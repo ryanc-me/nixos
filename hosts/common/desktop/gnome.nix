@@ -20,6 +20,11 @@
     gnomeExtensions.blur-my-shell
     gnomeExtensions.just-perfection
     gnomeExtensions.caffeine
+    gnomeExtensions.tailscale-qs
+    gnomeExtensions.emoji-copy
+    gnomeExtensions.iso-clock
+    gnomeExtensions.clipboard-indicator
+    gnomeExtensions.color-picker
 
     # cursor
     capitaine-cursors-themed
