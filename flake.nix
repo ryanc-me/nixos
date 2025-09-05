@@ -45,6 +45,40 @@
 
           ./modules/nixos/wallpaper.nix
           ./modules/nixos/gdm-wallpaper.nix
+          #sops-nix.nixosModules.sops
+          #home-manager.nixosModules.home-manager {
+          #  home-manager.sharedModules = [
+          #    inputs.sops-nix.homeManagerModules.sops
+          #    ./modules/home-manager/gnome-wallpaper.nix
+          #  ];
+          #  home-manager.useGlobalPkgs = true;
+          #  home-manager.useUserPackages = true;
+          #  home-manager.users.ryan = import ./home/ryan.nix;
+          #  home-manager.users.angel = import ./home/angel.nix;
+          #}
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+      idir = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/idir
+          {
+            my = {
+              screenW = 3840;
+              screenH = 2160;
+              screenScale = 1.5;
+              wallpaper = {
+                enable = true;
+                path = ./wallpapers/wallhaven-wyrqg7.png;
+              };
+            };
+          }
+
+          ./modules/nixos/wallpaper.nix
+          ./modules/nixos/gdm-wallpaper.nix
           sops-nix.nixosModules.sops
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
