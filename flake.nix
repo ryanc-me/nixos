@@ -10,6 +10,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mac-style-plymouth = {
+      url = "github:SergioRibera/s4rchiso-plymouth-theme";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # make Nix copy the `secrets` submodule into the store
     self = {
@@ -27,9 +31,21 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/heibohre
+          {
+            my = {
+              screenW = 2256;
+              screenH = 1504;
+              screenScale = 1.5;
+              wallpaper = {
+                enable = true;
+                path = ./wallpapers/wallhaven-wyrqg7.png;
+              };
+            };
+          }
 
+          ./modules/nixos/wallpaper.nix
+          ./modules/nixos/gdm-wallpaper.nix
           sops-nix.nixosModules.sops
-
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
@@ -39,17 +55,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.ryan = import ./home/ryan.nix;
             home-manager.users.angel = import ./home/angel.nix;
-          }
-
-          ./modules/nixos/wallpaper.nix
-          ./modules/nixos/gdm-wallpaper.nix
-          {
-            my.wallpaper = {
-              enable = true;
-              path   = ./wallpapers/wallhaven-wyrqg7.png;
-              blur   = 10;
-              darken = 40;
-            };
           }
         ];
         specialArgs = {

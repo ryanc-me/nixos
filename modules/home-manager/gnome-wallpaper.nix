@@ -1,11 +1,6 @@
-# modules/hm/gnome-wallpaper.nix
 { lib, config, osConfig, ... }:
 let
-  # using this, it works properly:
-  # wp = osConfig.my.wallpaper.processedPath;
-
-  # but this does not
-  wp = osConfig.my.wallpaper.path;
+  wp = osConfig.my.wallpaper.processed.plain;
   enable = osConfig.my.wallpaper.enable;
 in
 {
@@ -14,12 +9,12 @@ in
     dconf.enable = true;
     dconf.settings = {
       "org/gnome/desktop/background" = {
-        picture-uri       = "file://${wp}";
-        picture-uri-dark  = "file://${wp}";
+        picture-uri       = "file://${wp}/share/wallpapers/plain.png";
+        picture-uri-dark  = "file://${wp}/share/wallpapers/plain.png";
         picture-options  = "centered";
       };
       "org/gnome/desktop/screensaver" = {
-        picture-uri      = "file://${wp}";
+        picture-uri      = "file://${wp}/share/wallpapers/plain.png";
         picture-options  = "centered";
       };
     };
