@@ -1,23 +1,27 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
+  nixpkgs.overlays = [ inputs.mac-style-plymouth.overlays.default ];
+  environment.systemPackages = with pkgs; [
+    hack-font
+    nixos-icons
+  ];
   boot = {
     plymouth = {
       enable = true;
-      theme = "breeze";
-      # theme = "hexagon_2";
-      # themePackages = with pkgs; [
-      #   (adi1090x-plymouth-themes.override {
-      #     selected_themes = [ "hexagon_2" ];
-      #   })
-      # ];
+      theme = "mac-style";
+      themePackages = [ pkgs.mac-style-plymouth ];
       extraConfig = ''
         DeviceScale=2
       '';
     };
 
+    plymouth.font = "${pkgs.hack-font}/share/fonts/truetype/Hack-Regular.ttf";
+    plymouth.logo = "${pkgs.nixos-icons}/share/icons/hicolor/128x128/apps/nix-snowflake.png";
+
     consoleLogLevel = 3;
     initrd.verbose = false;
+    initrd.systemd.enable = true;
     kernelParams = [
       "quiet"
       "splash"
