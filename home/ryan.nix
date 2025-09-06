@@ -13,6 +13,14 @@ in
   home.username = "ryan";
   home.homeDirectory = "/home/${config.home.username}";
 
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
+  xdg.configFile."electron-flags.conf".text = ''
+    --enable-features=UseOzonePlatform
+    --ozone-platform=wayland
+  '';
+
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   fonts.fontconfig.enable = true;
@@ -20,6 +28,7 @@ in
     nerd-fonts.droid-sans-mono
     nerd-fonts.fira-code
     satdump
+    spotify
   ];
 
   gtk = {
