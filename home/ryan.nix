@@ -54,6 +54,8 @@ in
           pkgs.gnomeExtensions.iso-clock.extensionUuid
           pkgs.gnomeExtensions.clipboard-indicator.extensionUuid
           pkgs.gnomeExtensions.color-picker.extensionUuid
+          pkgs.gnomeExtensions.launch-new-instance.extensionUuid
+          pkgs.gnomeExtensions.forge.extensionUuid
         ];
       };
       "org/gnome/desktop/interface" = {

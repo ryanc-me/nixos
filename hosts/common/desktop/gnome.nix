@@ -25,6 +25,8 @@
     gnomeExtensions.iso-clock
     gnomeExtensions.clipboard-indicator
     gnomeExtensions.color-picker
+    gnomeExtensions.launch-new-instance
+    gnomeExtensions.forge
 
     # cursor
     capitaine-cursors-themed
