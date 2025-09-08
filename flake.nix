@@ -70,7 +70,7 @@
             my = {
               screenW = 3840;
               screenH = 2160;
-              screenScale = 1.5;
+              screenScale = 1.25;
               wallpaper = {
                 enable = true;
                 path = ./wallpapers/wallhaven-wyrqg7.png;
