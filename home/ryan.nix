@@ -7,6 +7,7 @@ in
   imports = [
     ./features/bash.nix
     ./features/syncthing.nix
+    ./features/flatpaks.nix
     ./apps
   ];
 
@@ -28,7 +29,6 @@ in
     nerd-fonts.droid-sans-mono
     nerd-fonts.fira-code
     satdump
-    spotify
   ];
 
   gtk = {

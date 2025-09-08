@@ -14,6 +14,9 @@
       url = "github:SergioRibera/s4rchiso-plymouth-theme";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flatpaks = {
+      url = "github:in-a-dil-emma/declarative-flatpak/stable-v3";
+    };
 
     # make Nix copy the `secrets` submodule into the store
     self = {
@@ -50,6 +53,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
+              inputs.flatpaks.homeModule
               ./modules/home-manager/gnome-wallpaper.nix
             ];
             home-manager.useGlobalPkgs = true;
@@ -84,6 +88,7 @@
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
+              inputs.flatpaks.homeModule
               ./modules/home-manager/gnome-wallpaper.nix
             ];
             home-manager.useGlobalPkgs = true;
