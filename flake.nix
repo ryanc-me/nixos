@@ -40,6 +40,7 @@
                 enable = true;
                 path = ./wallpapers/wallhaven-wyrqg7.png;
               };
+              mode = "centered";
             };
           }
 

@@ -71,6 +71,11 @@ in
       };
       blur = lib.mkOption { type = lib.types.int;  default = 30;  description = "ImageMagick blur radius (sigma)"; };
       darken = lib.mkOption { type = lib.types.int;  default = 40; description = "black veil percent (0-100)"; };
+      mode = lib.mkOption {
+        type = lib.types.enum [ "centered" "zoom" ];
+        default = "zoom";
+        description = "How to display the wallpaper (for Gnome)";
+      };
 
       processed = {
         plain = lib.mkOption {

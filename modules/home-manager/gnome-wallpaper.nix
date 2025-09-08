@@ -9,13 +9,13 @@ in
     dconf.enable = true;
     dconf.settings = {
       "org/gnome/desktop/background" = {
-        picture-uri       = "file://${wp}/share/wallpapers/plain.png";
-        picture-uri-dark  = "file://${wp}/share/wallpapers/plain.png";
-        picture-options  = "centered";
+        picture-uri = "file://${wp}/share/wallpapers/plain.png";
+        picture-uri-dark = "file://${wp}/share/wallpapers/plain.png";
+        picture-options = osConfig.my.wallpaper.mode;
       };
       "org/gnome/desktop/screensaver" = {
-        picture-uri      = "file://${wp}/share/wallpapers/plain.png";
-        picture-options  = "centered";
+        picture-uri = "file://${wp}/share/wallpapers/plain.png";
+        picture-options =  osConfig.my.wallpaper.mode;
       };
     };
   };
