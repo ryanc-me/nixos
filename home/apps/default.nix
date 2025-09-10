@@ -50,7 +50,7 @@
         ${pkgs.microsoft-edge}/bin/microsoft-edge --enable-features=UseOzonePlatform,WebUIDarkMode --ozone-platform-hint=wayland --force-dark-mode --app="https://track.toggl.com/timer" %U
       '';
       settings = {
-        StartupWMClass = "msedge-track.toggl.com__timer_-Default";
+        StartupWMClass = "msedge-track.toggl.com__timer-Default";
       };
     };
   };
