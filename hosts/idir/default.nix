@@ -14,7 +14,6 @@ in
     ../common/features/1password.nix
     ../common/features/boot.nix
     ../common/features/flatpaks.nix
-    ../common/features/flameshot.nix
     ../common/desktop/gnome.nix
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
