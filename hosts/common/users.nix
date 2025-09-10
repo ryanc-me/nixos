@@ -13,7 +13,7 @@
   };
 
   users = {
-    mutableUsers = false;
+    # mutableUsers = false;
     users = {
       ryan = {
         isNormalUser = true;

@@ -2,5 +2,5 @@
 
 {
   sops.age.keyFile = "/home/ryan/.config/sops/age/keys.txt";
-  fileSystems."/etc/ssh".neededForBoot = true;
+  # fileSystems."/etc/ssh".neededForBoot = true;
 }
