@@ -8,6 +8,7 @@ in
     ./features/bash.nix
     ./features/syncthing.nix
     ./features/flatpaks.nix
+    ./features/screenshot.nix
     ./apps
   ];
 
