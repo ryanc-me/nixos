@@ -16,6 +16,7 @@
     gimp
     libreoffice-qt6
 
+    git-filter-repo
 
     # network tools
     wget
