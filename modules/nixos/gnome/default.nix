@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./gdm-wallpaper.nix
+  ];
+
   # enable gnome (with wayland + xwayland)
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;

@@ -1,27 +1,14 @@
 { config, pkgs, lib, ... }:
 
-let
-  wallpaper = ./wallpaper/wallhaven-wyrqg7.png;
-in
 {
   imports = [
-    ./features/bash.nix
-    ./features/syncthing.nix
-    ./features/flatpaks.nix
-    ./features/screenshot.nix
-    ./apps
+    ../../modules/home
+
+    ./dconf.nix
   ];
 
   home.username = "ryan";
   home.homeDirectory = "/home/${config.home.username}";
-
-  home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
-  xdg.configFile."electron-flags.conf".text = ''
-    --enable-features=UseOzonePlatform
-    --ozone-platform=wayland
-  '';
 
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 

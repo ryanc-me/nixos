@@ -6,18 +6,21 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ./kernel-modules.nix
-
-    ../common/sops.nix
-    ../common/users.nix
-    ../common/features/electron-wayland.nix
-    ../common/features/utils.nix
-    ../common/features/1password.nix
-    ../common/features/boot.nix
-    ../common/features/sshd.nix
-    ../common/desktop/gnome.nix
+    ../../modules/nixos
   ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # device-specific
+  my = {
+    screenW = 2256;
+    screenH = 1504;
+    screenScale = 1.5;
+    wallpaper = {
+      enable = true;
+      path = ../../wallpapers/wallhaven-wyrqg7.png;
+      mode = "centered";
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -31,6 +34,19 @@ in
     };
   };
 
+  # required to get the keyboard working during boot for LUKS decryption
+  # note that the order *is* important!
+  boot.initrd.availableKernelModules = [
+    "pinctrl_icelake"
+    "surface_aggregator"
+    "surface_aggregator_registry"
+    "surface_aggregator_hub"
+    "surface_hid_core"
+    "8250_dw"
+    "surface_hid"
+    "intel_lpss"
+    "intel_lpss_pci"
+  ];
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;

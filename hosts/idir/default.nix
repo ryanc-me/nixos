@@ -6,17 +6,21 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-
-    ../common/sops.nix
-    ../common/users.nix
-    ../common/features/electron-wayland.nix
-    ../common/features/utils.nix
-    ../common/features/1password.nix
-    ../common/features/boot.nix
-    ../common/features/flatpaks.nix
-    ../common/desktop/gnome.nix
+    ../../modules/nixos
   ];
+
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+  # device-specific
+  my = {
+    screenW = 3840;
+    screenH = 2160;
+    screenScale = 1.25;
+    wallpaper = {
+      enable = true;
+      path = ../../wallpapers/wallhaven-wyrqg7.png;
+    };
+  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
