@@ -8,7 +8,6 @@
     };
     packages = [
       "flathub:app/com.spotify.Client//stable"
-      "flathub:app/io.gitlab.adhami3310.Impression//stable"
     ];
   };
 }
