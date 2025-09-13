@@ -3,6 +3,7 @@
 {
   imports = [
     ./gdm-wallpaper.nix
+    ./gnome-extensions.nix
   ];
 
   # enable gnome (with wayland + xwayland)
@@ -20,18 +21,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # extensions
-    gnomeExtensions.blur-my-shell
-    gnomeExtensions.just-perfection
-    gnomeExtensions.caffeine
-    gnomeExtensions.tailscale-qs
-    gnomeExtensions.emoji-copy
-    gnomeExtensions.iso-clock
-    gnomeExtensions.clipboard-indicator
-    gnomeExtensions.color-picker
-    gnomeExtensions.launch-new-instance
-    gnomeExtensions.forge
-
     # cursor
     capitaine-cursors-themed
 
