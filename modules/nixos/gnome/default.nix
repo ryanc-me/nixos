@@ -2,6 +2,7 @@
 
 {
   imports = [
+    ./gdm-dconf.nix
     ./gdm-wallpaper.nix
     ./gnome-extensions.nix
   ];
