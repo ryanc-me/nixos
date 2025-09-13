@@ -4,13 +4,13 @@
   imports = [
     ./1password.nix
     ./boot.nix
-    ./sops.nix
-    ./users.nix
     ./electron-wayland.nix
-    ./utils.nix
-    ./1password.nix
+    ./flatpaks.nix
     ./obs-studio.nix
+    ./sops.nix
     ./sshd.nix
+    ./users.nix
+    ./utils.nix
     ./wallpaper.nix
 
     ./gnome
