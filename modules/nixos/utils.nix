@@ -3,6 +3,7 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  #TODO: move userspace apps into home-manager
   environment.systemPackages = with pkgs; [
     # programs
     kitty
