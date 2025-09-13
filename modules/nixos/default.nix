@@ -9,6 +9,7 @@
     ./electron-wayland.nix
     ./utils.nix
     ./1password.nix
+    ./obs-studio.nix
     ./sshd.nix
     ./wallpaper.nix
 
