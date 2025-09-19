@@ -47,18 +47,6 @@ in
     "openssl-1.1.1w"
   ];
 
-  programs.dconf.profiles.gdm.databases = [
-    {
-      settings."org/gnome/mutter" = {
-        experimental-features = [ "scale-monitor-framebuffer" ];
-      };
-      settings."org/gnome/desktop/interface" = {
-        cursor-theme = "Capitaine Cursors";
-        cursor-size = lib.gvariant.mkInt32 24;
-      };
-    }
-  ];
-
   # for GDM
   systemd.tmpfiles.rules = [
     "L+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitors-xml}"

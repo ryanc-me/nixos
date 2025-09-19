@@ -41,9 +41,6 @@
     style.name = "adwaita-dark";
   };
 
-  # make sure dconf is enabled
-  dconf.enable = true;
-
   # enable git
   services.ssh-agent.enable = true;
 
