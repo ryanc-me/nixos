@@ -12,7 +12,7 @@ with lib.hm.gvariant;
     "org/gnome/desktop/interface" = {
       clock-show-seconds = true;
     };
-  
+
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "flat";
     };
@@ -41,7 +41,11 @@ with lib.hm.gvariant;
     "org/gnome/mutter" = {
       dynamic-workspaces = false;
       edge-tiling = false;
-      experimental-features = [ "scale-monitor-framebuffer" "variable-refresh-rate" "xwayland-native-scaling" ];
+      experimental-features = [
+        "scale-monitor-framebuffer"
+        "variable-refresh-rate"
+        "xwayland-native-scaling"
+      ];
       workspaces-only-on-primary = true;
     };
 
@@ -131,13 +135,13 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/extensions/clipboard-indicator" = {
-      clear-history = [];
+      clear-history = [ ];
       enable-keybindings = true;
       move-item-first = true;
-      next-entry = [];
-      prev-entry = [];
+      next-entry = [ ];
+      prev-entry = [ ];
       preview-size = 50;
-      private-mode-binding = [];
+      private-mode-binding = [ ];
       toggle-menu = [ "<Super>v" ];
     };
 
@@ -219,20 +223,20 @@ with lib.hm.gvariant;
     };
 
     "org/gnome/shell/keybindings" = {
-      screenshot = [];
-      screenshot-window = [];
-      show-screenshot-ui = [];
-      switch-to-application-1 = [];
-      switch-to-application-2 = [];
-      switch-to-application-3 = [];
-      switch-to-application-4 = [];
-      toggle-message-tray = [];
+      screenshot = [ ];
+      screenshot-window = [ ];
+      show-screenshot-ui = [ ];
+      switch-to-application-1 = [ ];
+      switch-to-application-2 = [ ];
+      switch-to-application-3 = [ ];
+      switch-to-application-4 = [ ];
+      toggle-message-tray = [ ];
     };
 
     "org/gnome/tweaks" = {
       show-extensions-notice = false;
     };
-  
+
     "org/gtk/gtk4/settings/file-chooser" = {
       show-hidden = true;
     };
@@ -248,8 +252,14 @@ with lib.hm.gvariant;
       sort-directories-first = false;
       sort-order = "ascending";
       type-format = "category";
-      window-position = mkTuple [ 26 23 ];
-      window-size = mkTuple [ 1231 902 ];
+      window-position = mkTuple [
+        26
+        23
+      ];
+      window-size = mkTuple [
+        1231
+        902
+      ];
     };
 
   };

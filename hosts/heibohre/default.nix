@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   monitors-xml = ./monitors.xml;
@@ -21,7 +26,10 @@ in
     };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   hardware.bluetooth.enable = true;
   time.timeZone = "Pacific/Auckland";
 

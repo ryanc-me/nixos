@@ -34,7 +34,7 @@
   ];
 
   # fonts
-  fonts.packages = with pkgs; [];
+  fonts.packages = with pkgs; [ ];
 
   # default apps
   xdg.mime.defaultApplications = {

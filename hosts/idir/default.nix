@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   monitors-xml = ./monitors.xml;
@@ -9,7 +14,10 @@ in
     ../../modules/nixos
   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # device-specific
   my = {
@@ -39,15 +47,17 @@ in
     "openssl-1.1.1w"
   ];
 
-  programs.dconf.profiles.gdm.databases = [{
-    settings."org/gnome/mutter" = {
-      experimental-features = ["scale-monitor-framebuffer"];
-    };
-    settings."org/gnome/desktop/interface" = {
-      cursor-theme = "Capitaine Cursors";
-      cursor-size = lib.gvariant.mkInt32 24;
-    };
-  }];
+  programs.dconf.profiles.gdm.databases = [
+    {
+      settings."org/gnome/mutter" = {
+        experimental-features = [ "scale-monitor-framebuffer" ];
+      };
+      settings."org/gnome/desktop/interface" = {
+        cursor-theme = "Capitaine Cursors";
+        cursor-size = lib.gvariant.mkInt32 24;
+      };
+    }
+  ];
 
   # for GDM
   systemd.tmpfiles.rules = [

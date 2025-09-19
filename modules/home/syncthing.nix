@@ -1,4 +1,9 @@
-{ config, pkgs, osConfig, ... }:
+{
+  config,
+  pkgs,
+  osConfig,
+  ...
+}:
 
 {
   sops = {
@@ -65,28 +70,53 @@
         work = {
           id = "ckker-ntjru";
           path = "${config.home.homeDirectory}/work";
-          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
+          devices = [
+            "heibohre"
+            "idir"
+            "sorpen"
+            "aquime"
+          ];
         };
         calibre = {
           id = "ou3jn-qhrwn";
           path = "${config.home.homeDirectory}/calibre";
-          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
+          devices = [
+            "heibohre"
+            "idir"
+            "sorpen"
+            "aquime"
+          ];
         };
         temp = {
           id = "gtlm3-cyz4n";
           path = "${config.home.homeDirectory}/temp";
-          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
+          devices = [
+            "heibohre"
+            "idir"
+            "sorpen"
+            "aquime"
+          ];
         };
         projects = {
           id = "ibzk4-hgtmj";
           path = "${config.home.homeDirectory}/projects";
-          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
+          devices = [
+            "heibohre"
+            "idir"
+            "sorpen"
+            "aquime"
+          ];
         };
         dot-ssh = {
           label = ".ssh";
           id = "wpaud-nunjg";
           path = "${config.home.homeDirectory}/.ssh";
-          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
+          devices = [
+            "heibohre"
+            "idir"
+            "sorpen"
+            "aquime"
+          ];
         };
       };
     };

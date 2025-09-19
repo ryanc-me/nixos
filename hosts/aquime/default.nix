@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   monitors-xml = ./monitors.xml;
@@ -21,7 +26,10 @@ in
     };
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   time.timeZone = "Pacific/Auckland";
 
   #TODO: move this somewhere else?
@@ -31,7 +39,7 @@ in
 
   # for GDM
   systemd.tmpfiles.rules = [
-   "L+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitors-xml}"
+    "L+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitors-xml}"
   ];
 
   networking = {

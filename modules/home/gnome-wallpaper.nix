@@ -1,4 +1,9 @@
-{ lib, config, osConfig, ... }:
+{
+  lib,
+  config,
+  osConfig,
+  ...
+}:
 let
   wp = osConfig.my.wallpaper.processed.plain;
   enable = osConfig.my.wallpaper.enable;
@@ -15,7 +20,7 @@ in
       };
       "org/gnome/desktop/screensaver" = {
         picture-uri = "file://${wp}/share/wallpapers/plain.png";
-        picture-options =  osConfig.my.wallpaper.mode;
+        picture-options = osConfig.my.wallpaper.mode;
       };
     };
   };

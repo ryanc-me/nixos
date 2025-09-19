@@ -1,5 +1,10 @@
 # modules/ui/wallpaper.nix
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 let
   mkPct = n: if builtins.isString n then n else builtins.toString n;
   mkInt = n: builtins.toString n;
@@ -12,8 +17,7 @@ let
   cropOffsetY = (my.wallpaper.sizeH - my.screenH) / 2;
 
   processedPlain =
-    pkgs.runCommand "wallpaper-processed-plain"
-      { buildInputs = [ pkgs.imagemagick ]; }
+    pkgs.runCommand "wallpaper-processed-plain" { buildInputs = [ pkgs.imagemagick ]; }
       ''
         set -eu
         mkdir -p $out/share/wallpapers
@@ -21,12 +25,11 @@ let
           -crop ${mkInt my.screenW}x${mkInt my.screenH}+${mkInt cropOffsetX}+${mkInt cropOffsetY} \
           $out/share/wallpapers/plain.png
       '';
-  
+
   scaledScreenW = my.screenW / my.screenScale;
   scaledScreenH = my.screenH / my.screenScale;
   processedBlurred =
-    pkgs.runCommand "wallpaper-processed-blurred"
-      { buildInputs = [ pkgs.imagemagick ]; }
+    pkgs.runCommand "wallpaper-processed-blurred" { buildInputs = [ pkgs.imagemagick ]; }
       ''
         set -eu
         mkdir -p $out/share/wallpapers
@@ -58,7 +61,10 @@ in
     };
     wallpaper = {
       enable = lib.mkEnableOption "shared wallpaper processing";
-      path   = lib.mkOption { type = lib.types.path; description = "source image"; };
+      path = lib.mkOption {
+        type = lib.types.path;
+        description = "source image";
+      };
       sizeW = lib.mkOption {
         type = lib.types.ints.positive;
         default = 3840;
@@ -69,10 +75,21 @@ in
         default = 2160;
         description = "Wallpaper image height, in pixels.";
       };
-      blur = lib.mkOption { type = lib.types.int;  default = 30;  description = "ImageMagick blur radius (sigma)"; };
-      darken = lib.mkOption { type = lib.types.int;  default = 40; description = "black veil percent (0-100)"; };
+      blur = lib.mkOption {
+        type = lib.types.int;
+        default = 30;
+        description = "ImageMagick blur radius (sigma)";
+      };
+      darken = lib.mkOption {
+        type = lib.types.int;
+        default = 40;
+        description = "black veil percent (0-100)";
+      };
       mode = lib.mkOption {
-        type = lib.types.enum [ "centered" "zoom" ];
+        type = lib.types.enum [
+          "centered"
+          "zoom"
+        ];
         default = "zoom";
         description = "How to display the wallpaper (for Gnome)";
       };

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
 
@@ -14,7 +19,11 @@
     desktopEntries.microsoft-teams = lib.mkForce {
       name = "Teams";
       comment = "Launch Microsoft Teams";
-      categories = [ "Network" "InstantMessaging" "Chat" ];
+      categories = [
+        "Network"
+        "InstantMessaging"
+        "Chat"
+      ];
       icon = "microsoft-teams";
       exec = ''
         ${pkgs.microsoft-edge}/bin/microsoft-edge --enable-features=UseOzonePlatform,WebUIDarkMode --ozone-platform-hint=wayland --force-dark-mode --app="https://teams.microsoft.com/v2/?clientType=pwa" %U
@@ -29,7 +38,10 @@
     desktopEntries.microsoft-outlook = lib.mkForce {
       name = "Outlook";
       comment = "Launch Microsoft Outlook";
-      categories = [ "Network" "Email" ];
+      categories = [
+        "Network"
+        "Email"
+      ];
       icon = "microsoft-outlook";
       exec = ''
         ${pkgs.microsoft-edge}/bin/microsoft-edge --enable-features=UseOzonePlatform,WebUIDarkMode --ozone-platform-hint=wayland --force-dark-mode --app="https://outlook.office.com/mail/" %U

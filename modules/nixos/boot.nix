@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   nixpkgs.overlays = [ inputs.mac-style-plymouth.overlays.default ];
