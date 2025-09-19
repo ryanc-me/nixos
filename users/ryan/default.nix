@@ -13,12 +13,16 @@
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   fonts.fontconfig.enable = true;
+
+  #TODO: fonts.nix
+  #TODO: applications.nix
   home.packages = with pkgs; [
     nerd-fonts.droid-sans-mono
     nerd-fonts.fira-code
     satdump
   ];
 
+  #TODO: theme.nix (or theme/default.nix, theme/fonts.nix, etc?)
   gtk = {
     enable = true;
     theme = {
