@@ -5,6 +5,14 @@ with lib.hm.gvariant;
 
 {
   dconf.settings = {
+    "org/gnome/desktop/calendar" = {
+      show-weekdate = true;
+    };
+
+    "org/gnome/desktop/interface" = {
+      clock-show-seconds = true;
+    };
+  
     "org/gnome/desktop/peripherals/mouse" = {
       accel-profile = "flat";
     };
