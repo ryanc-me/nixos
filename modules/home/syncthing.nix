@@ -19,7 +19,6 @@
     enable = true;
     key = config.sops.secrets."${osConfig.networking.hostName}/key".path;
     cert = config.sops.secrets."${osConfig.networking.hostName}/cert".path;
-    extraOptions = [ "--no-default-folder" ];
     overrideFolders = true;
     overrideDevices = true;
     passwordFile = config.sops.secrets."guiPassword".path;
