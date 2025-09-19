@@ -13,7 +13,7 @@
   };
 
   users = {
-    # mutableUsers = false;
+    mutableUsers = false;
     users = {
       ryan = {
         isNormalUser = true;
@@ -23,7 +23,6 @@
       angel = {
         isNormalUser = true;
         hashedPasswordFile = config.sops.secrets."angel/password".path;
-        extraGroups = [ "wheel" ];
       };
     };
   };
