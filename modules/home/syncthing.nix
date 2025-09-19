@@ -54,33 +54,40 @@
             "quic4://ryan-pc.lan:22000"
           ];
         };
+        "aquime" = {
+          id = "YSQAPOZ-DAVEHJD-LICYVXV-6FGPYYT-R7QDGID-QCOVPHI-QM6NBHZ-QI5B2A6";
+          addresses = [
+            "tcp4://aquime.lan:22000"
+            "quic4://aquime.lan:22000"
+          ];
+        };
       };
       folders = {
         work = {
           id = "ckker-ntjru";
           path = "${config.home.homeDirectory}/work";
-          devices = [ "heibohre" "idir" "sorpen" ];
+          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
         };
         calibre = {
           id = "ou3jn-qhrwn";
           path = "${config.home.homeDirectory}/calibre";
-          devices = [ "heibohre" "idir" "sorpen" ];
+          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
         };
         temp = {
           id = "gtlm3-cyz4n";
           path = "${config.home.homeDirectory}/temp";
-          devices = [ "heibohre" "idir" "sorpen" ];
+          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
         };
         projects = {
           id = "ibzk4-hgtmj";
           path = "${config.home.homeDirectory}/projects";
-          devices = [ "heibohre" "idir" "sorpen" ];
+          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
         };
         dot-ssh = {
           label = ".ssh";
           id = "wpaud-nunjg";
           path = "${config.home.homeDirectory}/.ssh";
-          devices = [ "heibohre" "idir" "sorpen" ];
+          devices = [ "heibohre" "idir" "sorpen" "aquime" ];
         };
       };
     };

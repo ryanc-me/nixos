@@ -70,6 +70,26 @@
           inherit inputs outputs;
         };
       };
+      aquime = lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/aquime
+          sops-nix.nixosModules.sops
+          home-manager.nixosModules.home-manager {
+            home-manager.sharedModules = [
+              inputs.sops-nix.homeManagerModules.sops
+              inputs.flatpaks.homeModule
+            ];
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.ryan = import ./users/ryan;
+            home-manager.users.angel = import ./users/angel;
+          }
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
     };
   };
 }

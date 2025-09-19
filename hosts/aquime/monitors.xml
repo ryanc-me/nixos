@@ -1,0 +1,25 @@
+<monitors version="2">
+  <configuration>
+    <layoutmode>logical</layoutmode>
+    <logicalmonitor>
+      <x>0</x>
+      <y>0</y>
+      <scale>1.25</scale>
+      <primary>yes</primary>
+      <monitor>
+        <monitorspec>
+          <connector>eDP-1</connector>
+          <vendor>LEN</vendor>
+          <product>0x403d</product>
+          <serial>0x00000000</serial>
+        </monitorspec>
+        <mode>
+          <width>1920</width>
+          <height>1200</height>
+          <rate>60.001</rate>
+          <ratemode>variable</ratemode>
+        </mode>
+      </monitor>
+    </logicalmonitor>
+  </configuration>
+</monitors>
