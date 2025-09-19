@@ -6,6 +6,9 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    impermanence = {
+      url = "github:nix-community/impermanence";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +27,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, sops-nix, ... } @ inputs:
+  outputs = { self, nixpkgs, home-manager, sops-nix, impermanence, ... } @ inputs:
   let
     inherit (self) outputs;
     lib = nixpkgs.lib // home-manager.lib;
@@ -35,6 +38,7 @@
         modules = [
           ./hosts/heibohre
           sops-nix.nixosModules.sops
+          impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
@@ -55,6 +59,7 @@
         modules = [
           ./hosts/idir
           sops-nix.nixosModules.sops
+          impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops
@@ -75,6 +80,7 @@
         modules = [
           ./hosts/aquime
           sops-nix.nixosModules.sops
+          impermanence.nixosModules.impermanence
           home-manager.nixosModules.home-manager {
             home-manager.sharedModules = [
               inputs.sops-nix.homeManagerModules.sops

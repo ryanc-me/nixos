@@ -8,6 +8,7 @@
     ./docker.nix
     ./electron-wayland.nix
     ./flatpaks.nix
+    ./impermanence.nix
     ./obs-studio.nix
     ./sops.nix
     ./sshd.nix
