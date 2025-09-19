@@ -47,6 +47,7 @@
     socat
     nmap
     stow
+    nixfmt
 
     # misc
     fastfetch
