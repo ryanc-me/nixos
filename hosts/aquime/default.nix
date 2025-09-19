@@ -11,6 +11,8 @@ in
 {
   imports = [
     ./hardware-configuration.nix
+    ./fingerprint-reader.nix
+
     ../../modules/nixos
   ];
 
