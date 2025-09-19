@@ -1,6 +1,5 @@
 { config, pkgs, ... }:
 
 {
-  sops.age.keyFile = "/home/ryan/.config/sops/age/keys.txt";
-  # fileSystems."/etc/ssh".neededForBoot = true;
+  sops.age.sshKeyPaths = [ "/persist/etc/ssh/ssh_host_ed25519_key" ];
 }
