@@ -4,6 +4,7 @@
   imports = [
     ./1password.nix
     ./boot.nix
+    ./firewall.nix
     ./docker.nix
     ./electron-wayland.nix
     ./flatpaks.nix
