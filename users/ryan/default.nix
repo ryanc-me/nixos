@@ -31,38 +31,9 @@
     platformTheme.name = "adwaita";
     style.name = "adwaita-dark";
   };
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/mutter" = {
-        experimental-features = [
-          "scale-monitor-framebuffer"
-          "variable-refresh-rate"
-          "xwayland-native-scaling"
-        ];
-      };
-      "org/gnome/shell" = {
-        enabled-extensions = [
-          pkgs.gnomeExtensions.blur-my-shell.extensionUuid
-          pkgs.gnomeExtensions.just-perfection.extensionUuid
-          pkgs.gnomeExtensions.caffeine.extensionUuid
-          pkgs.gnomeExtensions.tailscale-qs.extensionUuid
-          pkgs.gnomeExtensions.emoji-copy.extensionUuid
-          pkgs.gnomeExtensions.iso-clock.extensionUuid
-          pkgs.gnomeExtensions.clipboard-indicator.extensionUuid
-          pkgs.gnomeExtensions.color-picker.extensionUuid
-          pkgs.gnomeExtensions.launch-new-instance.extensionUuid
-          pkgs.gnomeExtensions.forge.extensionUuid
-        ];
-      };
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-        gtk-enable-primary-paste = false;
-        cursor-theme = "Capitaine Cursors";
-        cursor-size = lib.gvariant.mkInt32 24;
-      };
-    };
-  };
+
+  # make sure dconf is enabled
+  dconf.enable = true;
 
   # enable git
   services.ssh-agent.enable = true;
