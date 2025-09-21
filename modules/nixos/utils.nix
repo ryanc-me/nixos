@@ -16,6 +16,7 @@
     inkscape
     gimp
     libreoffice-qt6
+    vlc
 
     git-filter-repo
 
