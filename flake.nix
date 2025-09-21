@@ -9,6 +9,9 @@
     impermanence = {
       url = "github:nix-community/impermanence";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware/master";
+    };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -34,6 +37,7 @@
       home-manager,
       sops-nix,
       impermanence,
+      nixos-hardware,
       ...
     }@inputs:
     let
@@ -93,6 +97,7 @@
             sops-nix.nixosModules.sops
             impermanence.nixosModules.impermanence
             home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen5
             {
               home-manager.sharedModules = [
                 inputs.sops-nix.homeManagerModules.sops
