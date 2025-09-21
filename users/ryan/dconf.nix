@@ -15,6 +15,7 @@ with lib.hm.gvariant;
         clock-show-seconds = true;
         cursor-theme = "Capitaine Cursors";
         cursor-size = lib.gvariant.mkInt32 24;
+        color-scheme = "prefer-dark";
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
