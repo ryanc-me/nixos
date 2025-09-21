@@ -11,12 +11,9 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos
-  ];
+    ./nvidia-gpu.nix
 
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
+    ../../modules/nixos
   ];
 
   # device-specific
@@ -30,19 +27,13 @@ in
     };
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Use latest kernel.
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "idir";
-  networking.networkmanager.enable = true;
-
-  # Set your time zone.
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   time.timeZone = "Pacific/Auckland";
 
+  #TODO: move this somewhere else?
   nixpkgs.config.permittedInsecurePackages = [
     "openssl-1.1.1w"
   ];
@@ -52,7 +43,21 @@ in
     "L+ /run/gdm/.config/monitors.xml - gdm gdm - ${monitors-xml}"
   ];
 
-  hardware.bluetooth.enable = true;
+  networking = {
+    hostName = "idir";
+    networkmanager.enable = true;
+  };
+
+  boot = {
+    loader = {
+      # Use the systemd-boot EFI boot loader.
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    # Use latest kernel.
+    kernelPackages = pkgs.linuxPackages_latest;
+  };
 
   system.stateVersion = "25.05";
 }
