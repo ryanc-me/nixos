@@ -16,6 +16,7 @@ with lib.hm.gvariant;
         cursor-theme = "Capitaine Cursors";
         cursor-size = lib.gvariant.mkInt32 24;
         color-scheme = "prefer-dark";
+        enable-hot-corners = false;
       };
 
       "org/gnome/desktop/peripherals/mouse" = {
@@ -211,6 +212,7 @@ with lib.hm.gvariant;
       "org/gnome/shell/extensions/just-perfection" = {
         accessibility-menu = false;
         clock-menu = true;
+        dash = false;
         dash-icon-size = 16;
         panel = true;
         panel-in-overview = true;
@@ -222,8 +224,8 @@ with lib.hm.gvariant;
         support-notifier-type = 0;
         theme = true;
         window-demands-attention-focus = true;
-        window-picker-icon = false;
-        workspace = false;
+        window-picker-icon = true;
+        workspace = true;
         workspaces-in-app-grid = false;
       };
 
