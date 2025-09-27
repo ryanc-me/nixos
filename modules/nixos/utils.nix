@@ -19,6 +19,8 @@
     vlc
 
     git-filter-repo
+    ruff
+    python3
 
     # network tools
     wget
