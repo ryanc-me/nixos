@@ -8,6 +8,7 @@
 {
   imports = [
     ./bash.nix
+    ./docker-forwarding.nix
     ./electron-wayland.nix
     ./flatpaks.nix
     ./gnome-extensions.nix
