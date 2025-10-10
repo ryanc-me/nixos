@@ -56,7 +56,7 @@
             {
               home-manager.sharedModules = [
                 inputs.sops-nix.homeManagerModules.sops
-                inputs.flatpaks.homeModule
+                inputs.flatpaks.homeModules.default
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -78,7 +78,7 @@
             {
               home-manager.sharedModules = [
                 inputs.sops-nix.homeManagerModules.sops
-                inputs.flatpaks.homeModule
+                inputs.flatpaks.homeModules.default
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -101,7 +101,7 @@
             {
               home-manager.sharedModules = [
                 inputs.sops-nix.homeManagerModules.sops
-                inputs.flatpaks.homeModule
+                inputs.flatpaks.homeModules.default
               ];
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
