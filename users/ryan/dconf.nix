@@ -65,12 +65,6 @@ with lib.hm.gvariant;
         search-filter-time-type = "last_modified";
       };
 
-      "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-        binding = "Print";
-        command = "/home/ryan/.local/bin/screenshot";
-        name = "Screenshot";
-      };
-
       "org/gnome/shell/extensions/blur-my-shell/appfolder" = {
         brightness = 0.6;
         sigma = 30;
