@@ -17,6 +17,7 @@
     gimp
     libreoffice-qt6
     vlc
+    dbeaver-bin
 
     git-filter-repo
     ruff
