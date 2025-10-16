@@ -40,7 +40,7 @@ with lib.hm.gvariant;
       };
 
       "org/gnome/desktop/wm/preferences" = {
-        num-workspaces = 4;
+        num-workspaces = 8;
         resize-with-right-button = true;
       };
 
