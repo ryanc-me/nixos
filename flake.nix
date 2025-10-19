@@ -75,6 +75,7 @@
             sops-nix.nixosModules.sops
             impermanence.nixosModules.impermanence
             home-manager.nixosModules.home-manager
+            nixos-hardware.nixosModules.gigabyte-b550
             {
               home-manager.sharedModules = [
                 inputs.sops-nix.homeManagerModules.sops
