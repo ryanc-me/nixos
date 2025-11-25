@@ -8,6 +8,6 @@
 {
   virtualisation.docker.rootless = {
     enable = true;
-    setSocketVariable = true;
+    setSocketVariable = false;
   };
 }
