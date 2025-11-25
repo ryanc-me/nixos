@@ -39,6 +39,24 @@
         WantedBy = [ "graphical-session.target" ];
       };
     };
+    "docker-socket-tunnel--wedoo-dev" = {
+      Unit = {
+        Description = "Docker Socket Tunnel for wedoo-dev";
+        After = [ "network.target" ];
+      };
+      Service = {
+        WorkingDirectory = config.home.homeDirectory;
+        ExecStartPre = [
+          "${pkgs.coreutils}/bin/rm -f ${config.home.homeDirectory}/.docker.wedoo-dev.sock"
+        ];
+        ExecStart = "${pkgs.openssh}/bin/ssh -NT -o ServerAliveInterval=60 -o ExitOnForwardFailure=yes -L ${config.home.homeDirectory}/.docker.wedoo-dev.sock:/var/run/docker.sock wedoo-dev";
+        RestartSec = 5;
+        Restart = "always";
+      };
+      Install = {
+        WantedBy = [ "graphical-session.target" ];
+      };
+    };
   };
 
   #TODO: get this working
