@@ -8,6 +8,7 @@
     # programs
     kitty
     firefox
+    google-chrome
     calibre
     step-cli
     vscode
