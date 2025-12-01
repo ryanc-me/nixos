@@ -226,7 +226,7 @@ with lib.hm.gvariant;
       "org/gnome/shell/keybindings" = {
         screenshot = [ ];
         screenshot-window = [ ];
-        show-screenshot-ui = [ ];
+        show-screenshot-ui = [ "<Shift>Print" ];
         switch-to-application-1 = [ ];
         switch-to-application-2 = [ ];
         switch-to-application-3 = [ ];
