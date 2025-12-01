@@ -47,8 +47,12 @@
   # basic configuration of git, please change to your own
   programs.git = {
     enable = true;
-    userName = "Ryan Cole";
-    userEmail = "admin@ryanc.me";
+    settings = {
+      user = {
+        name = "Ryan Cole";
+        email = "admin@ryanc.me";
+      };
+    };
   };
 
   home.stateVersion = "25.05";
