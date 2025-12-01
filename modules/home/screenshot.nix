@@ -3,12 +3,10 @@
 {
   # req's
   home.packages = with pkgs; [
-    gnome-screenshot
-    swappy
-    wl-clipboard
+    cosmic-screenshot
+    inotify-tools
     satty
-    libnotify
-    xdg-utils
+    wl-clipboard
   ];
 
   # screenshot script
@@ -17,22 +15,60 @@
       #!/usr/bin/env bash
       set -e
 
-      # tmpfile and outfile
-      tmpfile=$(mktemp --suffix=.png)
-      outfile=~/Pictures/Screenshots/screenshot_$(date '+%Y-%m-%d_%H-%M-%S').png
-      trap 'echo "Cleaning up..."; rm -f "$tmpfile"' EXIT
+      # note, must be in ~/
+      screenshot_dir="/home/ryan/Pictures/Screenshots"
+
+      # tmpfiles and outfile
+      outfile="$screenshot_dir/screenshot_$(date '+%Y-%m-%d_%H-%M-%S').png"
+      fifo=$(mktemp -u)
+      mkfifo "$fifo"
+
+      # cleanup
+      cleanup() {
+        echo "Cleaning up..."
+        rm -f "$tmpfile"
+        rm -f "$fifo"
+      }
+      trap cleanup EXIT
+
+      # watch for new files
+      (
+        timeout 300 inotifywait \
+          -q \
+          -e close_write,create \
+          --format '%w%f' \
+          "$screenshot_dir" \
+      ) >"$fifo" &
+      watcher_pid=$!
 
       # screenshot
-      gnome-screenshot -a -f "$tmpfile"
+      cosmic-screenshot --notify=false --save-dir "$screenshot_dir"
+
+      if ! read -r new_file <"$fifo"; then
+        echo "No new screenshot detected (did you cancel?)." >&2
+        # In case the watcher is still around
+        kill "$watcher_pid" 2>/dev/null || true
+        exit 1
+      fi
+
+      # make sure watcher is dead
+      kill "$watcher_pid" 2>/dev/null || true
+
+      if [[ ! -f "$new_file" ]]; then
+        echo "Watcher reported '$new_file', but it doesn't exist." >&2
+        exit 1
+      fi
 
       # edit/annotate
       satty \
-          --filename "$tmpfile" \
+          --filename "$new_file" \
           --output-filename "$outfile" \
           --initial-tool rectangle \
           --actions-on-escape save-to-file,exit \
           --actions-on-enter save-to-file,exit \
           --no-window-decoration
+
+      rm -f "$new_file"
 
       # copy to clipboard
       wl-copy < "$outfile"
