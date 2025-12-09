@@ -17,6 +17,7 @@
     ./obs-studio.nix
     ./sops.nix
     ./sshd.nix
+    ./steam.nix
     ./users.nix
     ./utils.nix
     ./wallpaper.nix
