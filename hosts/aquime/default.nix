@@ -23,8 +23,8 @@ in
     screenScale = 1.25;
     wallpaper = {
       enable = true;
-      path = ../../wallpapers/wallhaven-wyrqg7.png;
-      mode = "centered";
+      path = ../../wallpapers/wallhaven-o5g125.jpg;
+      mode = "zoom";
     };
   };
 
