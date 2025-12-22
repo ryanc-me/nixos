@@ -5,7 +5,7 @@
   ...
 }:
 let
-  wp = osConfig.my.wallpaper.processed.plain;
+  wp = osConfig.my.wallpaper.processed.plain."${osConfig.my.wallpaper.mode}";
   enable = osConfig.my.wallpaper.enable;
 in
 {

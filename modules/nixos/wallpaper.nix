@@ -11,32 +11,55 @@ let
 
   my = config.my;
 
-  # blurSigma = my.wallpaper.blur * my.screenScale / 2 - 0.000001;
   blurSigma = my.wallpaper.blur * (my.wallpaper.sizeW / my.screenW) / 2 - 0.000001;
   cropOffsetX = (my.wallpaper.sizeW - my.screenW) / 2;
   cropOffsetY = (my.wallpaper.sizeH - my.screenH) / 2;
 
-  processedPlain =
-    pkgs.runCommand "wallpaper-processed-plain" { buildInputs = [ pkgs.imagemagick ]; }
+  scaledScreenW = my.screenW / my.screenScale;
+  scaledScreenH = my.screenH / my.screenScale;
+
+  processedPlainCentered =
+    pkgs.runCommand "wallpaper-processed-plain-centered" { buildInputs = [ pkgs.imagemagick ]; }
       ''
         set -eu
         mkdir -p $out/share/wallpapers
         magick ${my.wallpaper.path} \
           -crop ${mkInt my.screenW}x${mkInt my.screenH}+${mkInt cropOffsetX}+${mkInt cropOffsetY} \
+          -resize ${mkInt scaledScreenW}x${mkInt scaledScreenH} \
           $out/share/wallpapers/plain.png
       '';
-
-  scaledScreenW = my.screenW / my.screenScale;
-  scaledScreenH = my.screenH / my.screenScale;
-  processedBlurred =
-    pkgs.runCommand "wallpaper-processed-blurred" { buildInputs = [ pkgs.imagemagick ]; }
+  processedPlainZoom =
+    pkgs.runCommand "wallpaper-processed-plain-zoom" { buildInputs = [ pkgs.imagemagick ]; }
       ''
         set -eu
         mkdir -p $out/share/wallpapers
+        magick ${my.wallpaper.path} \
+          -resize ${mkInt scaledScreenW}x${mkInt scaledScreenH} \
+          $out/share/wallpapers/plain.png
+      '';
+
+  processedBlurredCentered =
+    pkgs.runCommand "wallpaper-processed-blurred-centered" { buildInputs = [ pkgs.imagemagick ]; }
+      ''
+        set -eu
+        mkdir -p $out/share/wallpapers
+
         magick ${my.wallpaper.path} \
           -fill black -colorize ${mkPct my.wallpaper.darken}% \
           -blur 0x${mkInt blurSigma} \
           -crop ${mkInt my.screenW}x${mkInt my.screenH}+${mkInt cropOffsetX}+${mkInt cropOffsetY} \
+          -resize ${mkInt scaledScreenW}x${mkInt scaledScreenH} \
+          $out/share/wallpapers/blurred.png
+      '';
+  processedBlurredZoom =
+    pkgs.runCommand "wallpaper-processed-blurred-zoom" { buildInputs = [ pkgs.imagemagick ]; }
+      ''
+        set -eu
+        mkdir -p $out/share/wallpapers
+
+        magick ${my.wallpaper.path} \
+          -fill black -colorize ${mkPct my.wallpaper.darken}% \
+          -blur 0x${mkInt blurSigma} \
           -resize ${mkInt scaledScreenW}x${mkInt scaledScreenH} \
           $out/share/wallpapers/blurred.png
       '';
@@ -95,15 +118,29 @@ in
       };
 
       processed = {
-        plain = lib.mkOption {
-          type = lib.types.path;
-          readOnly = true;
-          description = "Store path for the plain wallpaper (for Gnome)";
+        plain = {
+          centered = lib.mkOption {
+            type = lib.types.path;
+            readOnly = true;
+            description = "Store path for the plain + centered wallpaper (for Gnome)";
+          };
+          zoom = lib.mkOption {
+            type = lib.types.path;
+            readOnly = true;
+            description = "Store path for the plain + zoom wallpaper (for Gnome)";
+          };
         };
-        blurred = lib.mkOption {
-          type = lib.types.path;
-          readOnly = true;
-          description = "Store path for the blurred wallpaper (for GDM)";
+        blurred = {
+          centered = lib.mkOption {
+            type = lib.types.path;
+            readOnly = true;
+            description = "Store path for the blurred + centered wallpaper (for GDM)";
+          };
+          zoom = lib.mkOption {
+            type = lib.types.path;
+            readOnly = true;
+            description = "Store path for the blurred + zoom wallpaper (for GDM)";
+          };
         };
       };
     };
@@ -111,8 +148,14 @@ in
 
   config = lib.mkIf my.wallpaper.enable {
     my.wallpaper.processed = {
-      plain = processedPlain;
-      blurred = processedBlurred;
+      plain = {
+        centered = processedPlainCentered;
+        zoom = processedPlainZoom;
+      };
+      blurred = {
+        centered = processedBlurredCentered;
+        zoom = processedBlurredZoom;
+      };
     };
   };
 }
