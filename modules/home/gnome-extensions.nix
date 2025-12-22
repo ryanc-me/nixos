@@ -12,5 +12,6 @@
     pkgs.gnomeExtensions.color-picker.extensionUuid
     pkgs.gnomeExtensions.launch-new-instance.extensionUuid
     pkgs.gnomeExtensions.forge.extensionUuid
+    pkgs.gnomeExtensions.status-area-horizontal-spacing.extensionUuid
   ];
 }

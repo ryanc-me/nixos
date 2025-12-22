@@ -15,5 +15,6 @@
     gnomeExtensions.color-picker
     gnomeExtensions.launch-new-instance
     gnomeExtensions.forge
+    gnomeExtensions.status-area-horizontal-spacing
   ];
 }
