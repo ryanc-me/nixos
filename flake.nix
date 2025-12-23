@@ -31,89 +31,60 @@
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      sops-nix,
-      impermanence,
-      nixos-hardware,
-      ...
-    }@inputs:
+    inputs@{ self, nixpkgs, ... }:
+
     let
-      inherit (self) outputs;
-      lib = nixpkgs.lib // home-manager.lib;
+      lib = nixpkgs.lib;
+
+      # list of hostnames (directories in ./hosts)
+      hostNames = builtins.attrNames (builtins.readDir ./hosts);
+
+      # create a nixosConfiguration from hostName
+      # note that `system` and `extraModules` can be specified in
+      # hosts/<hostName>/system.nix
+      mkHost =
+        hostName:
+        let
+          hostDir = ./hosts/${hostName};
+          hostSpecPath = hostDir + "/system.nix";
+          hostSpec =
+            if builtins.pathExists hostSpecPath then
+              (import hostSpecPath { inherit inputs; })
+            else
+              {
+                system = "x86_64-linux";
+                extraModules = [ ];
+              };
+
+          system = hostSpec.system;
+
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            config.permittedInsecurePackages = [
+              "openssl-1.1.1w"
+            ];
+          };
+
+        in
+        lib.nameValuePair hostName (
+          lib.nixosSystem {
+            inherit system pkgs;
+
+            specialArgs = {
+              inherit inputs self hostName;
+            };
+
+            modules = [
+              hostDir
+              # ./modules/common.nix
+            ]
+            ++ (hostSpec.extraModules or [ ]);
+          }
+        );
+      nixosConfigurations = lib.listToAttrs (map mkHost hostNames);
     in
     {
-      nixosConfigurations = {
-        heibohre = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/heibohre
-            sops-nix.nixosModules.sops
-            impermanence.nixosModules.impermanence
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.sharedModules = [
-                inputs.sops-nix.homeManagerModules.sops
-                inputs.flatpaks.homeModules.default
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.ryan = import ./users/ryan;
-              home-manager.users.angel = import ./users/angel;
-            }
-          ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
-        idir = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/idir
-            sops-nix.nixosModules.sops
-            impermanence.nixosModules.impermanence
-            home-manager.nixosModules.home-manager
-            nixos-hardware.nixosModules.gigabyte-b550
-            {
-              home-manager.sharedModules = [
-                inputs.sops-nix.homeManagerModules.sops
-                inputs.flatpaks.homeModules.default
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.ryan = import ./users/ryan;
-              home-manager.users.angel = import ./users/angel;
-            }
-          ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
-        aquime = lib.nixosSystem {
-          system = "x86_64-linux";
-          modules = [
-            ./hosts/aquime
-            sops-nix.nixosModules.sops
-            impermanence.nixosModules.impermanence
-            home-manager.nixosModules.home-manager
-            nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen5
-            {
-              home-manager.sharedModules = [
-                inputs.sops-nix.homeManagerModules.sops
-                inputs.flatpaks.homeModules.default
-              ];
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.ryan = import ./users/ryan;
-              home-manager.users.angel = import ./users/angel;
-            }
-          ];
-          specialArgs = {
-            inherit inputs outputs;
-          };
-        };
-      };
+      inherit nixosConfigurations;
     };
 }

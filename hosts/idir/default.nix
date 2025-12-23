@@ -23,7 +23,7 @@ in
     screenScale = 1.25;
     wallpaper = {
       enable = true;
-      path = ../../wallpapers/wallhaven-o5g125.jpg;
+      path = ../../assets/wallpapers/wallhaven-o5g125.jpg;
     };
   };
 
@@ -32,11 +32,6 @@ in
     "flakes"
   ];
   time.timeZone = "Pacific/Auckland";
-
-  #TODO: move this somewhere else?
-  nixpkgs.config.permittedInsecurePackages = [
-    "openssl-1.1.1w"
-  ];
 
   # for GDM
   systemd.tmpfiles.rules = [
