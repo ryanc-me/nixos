@@ -1,7 +1,7 @@
 {
   # a graphical desktop environment with common applications
   mine = {
-    apps = {};
+    apps = { };
     cli = {
       git.enable = true;
       ruff.enable = true;

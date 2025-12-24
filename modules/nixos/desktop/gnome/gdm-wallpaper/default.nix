@@ -17,32 +17,32 @@ let
         ];
       }
       ''
-        set -euo pipefail
-        mkdir -p "$out/share/gnome-shell/theme"
-        src_res="${pkgs.gnome-shell}/share/gnome-shell/gnome-shell-theme.gresource"
+                set -euo pipefail
+                mkdir -p "$out/share/gnome-shell/theme"
+                src_res="${pkgs.gnome-shell}/share/gnome-shell/gnome-shell-theme.gresource"
 
-        theme_files=(
-          /org/gnome/shell/theme/gnome-shell-light.css
-          /org/gnome/shell/theme/gnome-shell-dark.css
-          /org/gnome/shell/theme/gnome-shell-high-contrast.css
-        )
+                theme_files=(
+                  /org/gnome/shell/theme/gnome-shell-light.css
+                  /org/gnome/shell/theme/gnome-shell-dark.css
+                  /org/gnome/shell/theme/gnome-shell-high-contrast.css
+                )
 
-        for f in ''${theme_files[*]}; do
-          if gresource list "$src_res" | grep -q "$f"; then
-            dst="$out/share/gnome-shell/theme/$(basename "$f")"
-            gresource extract "$src_res" "$f" > "$dst"
-            cat >> "$dst" <<EOF
+                for f in ''${theme_files[*]}; do
+                  if gresource list "$src_res" | grep -q "$f"; then
+                    dst="$out/share/gnome-shell/theme/$(basename "$f")"
+                    gresource extract "$src_res" "$f" > "$dst"
+                    cat >> "$dst" <<EOF
 
-/* injected by overlay */
-#lockDialogGroup {
-  background-image: url("file://${wp}/share/wallpapers/blurred.png") !important;
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-}
+        /* injected by overlay */
+        #lockDialogGroup {
+          background-image: url("file://${wp}/share/wallpapers/blurred.png") !important;
+          background-repeat: no-repeat !important;
+          background-position: center center !important;
+        }
 
-EOF
-          fi
-        done
+        EOF
+                  fi
+                done
       '';
 in
 {

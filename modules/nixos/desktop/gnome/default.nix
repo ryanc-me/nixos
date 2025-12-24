@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
@@ -65,6 +70,7 @@ in
       gnomeExtensions.launch-new-instance
       gnomeExtensions.forge
       gnomeExtensions.status-area-horizontal-spacing
+      gnomeExtensions.appindicator
     ];
 
     # fonts
@@ -75,7 +81,7 @@ in
     ];
 
     # use firefox for various mime types
-    xdg.mime.defaultApplications = mkIf config.mine.apps.firefox.enable  {
+    xdg.mime.defaultApplications = mkIf config.mine.apps.firefox.enable {
       "text/html" = "firefox.desktop";
       "application/pdf" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";

@@ -1,7 +1,12 @@
 { lib, config, ... }:
 
 let
-  inherit (lib) mkEnableOption mkOption mkIf types;
+  inherit (lib)
+    mkEnableOption
+    mkOption
+    mkIf
+    types
+    ;
   cfg = config.mine.system.timezone;
 in
 

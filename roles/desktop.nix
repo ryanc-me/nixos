@@ -44,7 +44,7 @@
         plymouth.enable = true;
         systemd.enable = true;
       };
-      firewall = {};
+      firewall = { };
       impermanence.enable = true;
       networking = {
         networkmanager.enable = true;

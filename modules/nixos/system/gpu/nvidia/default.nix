@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
@@ -10,7 +15,7 @@ in
   };
 
   config = mkIf cfg.enable {
-     # https://nixos.wiki/wiki/Nvidia
+    # https://nixos.wiki/wiki/Nvidia
     hardware.graphics = {
       enable = true;
     };

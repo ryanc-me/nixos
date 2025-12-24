@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf optionals;
@@ -32,6 +37,7 @@ let
   ];
   nix-utils = with pkgs; [
     nixfmt
+    nixfmt-tree
     nix-output-monitor
   ];
   network-utils = with pkgs; [
