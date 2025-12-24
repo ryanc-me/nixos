@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-  inherit (lib) mkEnableOption mkIf optional;
+  inherit (lib) mkEnableOption mkIf optionals;
   cfg = config.mine.system.utils;
 
   cli-utils = with pkgs; [
@@ -77,26 +77,42 @@ in
   options.mine.system.utils = {
     enable = mkEnableOption "Enable core system utils";
 
-    cli-utils = mkEnableOption "Enable CLI utilities";
-    text-editors = mkEnableOption "Enable text editors";
-    archiving-compression = mkEnableOption "Enable archiving and compression utilities";
-    nix-utils = mkEnableOption "Enable Nix related utilities";
-    network-utils = mkEnableOption "Enable network utilities";
-    system-monitoring = mkEnableOption "Enable system monitoring utilities";
-    other-utils = mkEnableOption "Enable miscellaneous utilities";
-    system-tools = mkEnableOption "Enable system tools";
+    cli-utils = mkEnableOption "Enable CLI utilities" // {
+      default = true;
+    };
+    text-editors = mkEnableOption "Enable text editors" // {
+      default = true;
+    };
+    archiving-compression = mkEnableOption "Enable archiving and compression utilities" // {
+      default = true;
+    };
+    nix-utils = mkEnableOption "Enable Nix related utilities" // {
+      default = true;
+    };
+    network-utils = mkEnableOption "Enable network utilities" // {
+      default = true;
+    };
+    system-monitoring = mkEnableOption "Enable system monitoring utilities" // {
+      default = true;
+    };
+    other-utils = mkEnableOption "Enable miscellaneous utilities" // {
+      default = true;
+    };
+    system-tools = mkEnableOption "Enable system tools" // {
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages =
       [ ]
-      ++ (optional cfg.cli-utils cli-utils)
-      ++ (optional cfg.text-editors text-editors)
-      ++ (optional cfg.archiving-compression archiving-compression)
-      ++ (optional cfg.nix-utils nix-utils)
-      ++ (optional cfg.network-utils network-utils)
-      ++ (optional cfg.system-monitoring system-monitoring)
-      ++ (optional cfg.other-utils other-utils)
-      ++ (optional cfg.system-tools system-tools);
+      ++ (optionals cfg.cli-utils cli-utils)
+      ++ (optionals cfg.text-editors text-editors)
+      ++ (optionals cfg.archiving-compression archiving-compression)
+      ++ (optionals cfg.nix-utils nix-utils)
+      ++ (optionals cfg.network-utils network-utils)
+      ++ (optionals cfg.system-monitoring system-monitoring)
+      ++ (optionals cfg.other-utils other-utils)
+      ++ (optionals cfg.system-tools system-tools);
   };
 }
