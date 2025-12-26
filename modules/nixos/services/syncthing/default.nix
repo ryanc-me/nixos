@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.nixos.nixosservices.syncthing;
+  cfg = config.mine.nixos.services.syncthing;
 in
 {
   # https://wiki.nixos.org/wiki/Syncthing
-  options.mine.nixos.nixosservices.syncthing = {
+  options.mine.nixos.services.syncthing = {
     enable = mkEnableOption "Enable syncthing";
   };
 

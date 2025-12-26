@@ -5,24 +5,22 @@
   ...
 }:
 let
-  wp =
-    osConfig.mine.nixos.desktop.wallpaper.processed.plain."${osConfig.mine.nixos.desktop.wallpaper.mode
-    }";
-  enable = osConfig.mine.nixos.desktop.wallpaper.enable;
+  cfg = osConfig.mine.nixos.desktop.wallpaper;
+  wp = cfg.processed.plain."${cfg.mode}";
 in
 {
-  config = lib.mkIf enable {
+  config = lib.mkIf (osConfig.mine.nixos.desktop.gnome.enable && cfg.enable) {
     # Home Manager dconf (works whether or not you're on GNOME)
     dconf.enable = true;
     dconf.settings = {
       "org/gnome/desktop/background" = {
         picture-uri = "file://${wp}/share/wallpapers/plain.png";
         picture-uri-dark = "file://${wp}/share/wallpapers/plain.png";
-        picture-options = osConfig.mine.nixos.desktop.wallpaper.mode;
+        picture-options = cfg.mode;
       };
       "org/gnome/desktop/screensaver" = {
         picture-uri = "file://${wp}/share/wallpapers/plain.png";
-        picture-options = osConfig.mine.nixos.desktop.wallpaper.mode;
+        picture-options = cfg.mode;
       };
     };
   };

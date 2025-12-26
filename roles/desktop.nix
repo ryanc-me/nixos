@@ -14,13 +14,10 @@
       inkscape.enable = true;
       libreoffice.enable = true;
       microsoft-edge.enable = true;
-      microsoft-outlook.enable = true;
-      microsoft-teams.enable = true;
       obs-studio.enable = true;
       obsidian.enable = true;
       steam.enable = true;
       sublime-text.enable = true;
-      toggl-track.enable = true;
       vlc.enable = true;
       vscode.enable = true;
     };
@@ -30,7 +27,23 @@
       step-cli.enable = true;
     };
     desktop = {
-      gnome.enable = true;
+      gnome = {
+        enable = true;
+        extensions = [
+          "blur-my-shell"
+          "just-perfection"
+          "caffeine"
+          "tailscale-qs"
+          "emoji-copy"
+          "iso-clock"
+          "clipboard-indicator"
+          "color-picker"
+          "launch-new-instance"
+          "forge"
+          "status-area-horizontal-spacing"
+          "appindicator"
+        ];
+      };
       wallpaper = {
         enable = true;
         path = ../assets/wallpapers/wallhaven-o5g125.jpg;
@@ -40,6 +53,7 @@
       docker.enable = true;
       flatpak.enable = true;
       sshd.enable = true;
+      syncthing.enable = true;
     };
     system = {
       bluetooth.enable = true;

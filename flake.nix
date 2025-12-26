@@ -126,6 +126,7 @@
 
                   home-manager = lib.mkIf cfg.enable {
                     sharedModules = [
+                      ./modules/home/import.nix
                       inputs.sops-nix.homeManagerModules.sops
                       inputs.flatpaks.homeModules.default
                     ];

@@ -21,14 +21,9 @@ in
       description = "Path to custom monitors.xml file for GDM";
       default = null;
     };
-    extensions = mkOption {
-      type = lib.types.listOf lib.types.str;
-      description = "List of GNOME extensions to enable";
-      default = [ ];
-    };
   };
 
-  config = mkIf cfg.enable {
+  config = mkIf (cfg.extensions != [ ]) {
 
     systemd.tmpfiles.rules = mkIf (cfg.monitors-xml != null) [
       "L+ /var/lib/gdm/.config/monitors.xml - gdm gdm - ${cfg.monitors-xml}"
@@ -51,17 +46,36 @@ in
       ];
     };
 
-    environment.systemPackages =
-      with pkgs;
-      [
-        # cursor
-        pkgs.capitaine-cursors-themed
+    environment.systemPackages = with pkgs; [
+      # cursor
+      pkgs.capitaine-cursors-themed
 
-        # other
-        gnome-tweaks
-        refine
-      ]
-      ++ map (pkg: pkgs.gnomeExtensions.${pkg}) cfg.extensions;
+      # other
+      gnome-tweaks
+      refine
+
+      # extensions
+      #TODO: move these to home-manager?
+      gnomeExtensions.blur-my-shell
+      gnomeExtensions.just-perfection
+      gnomeExtensions.caffeine
+      gnomeExtensions.tailscale-qs
+      gnomeExtensions.emoji-copy
+      gnomeExtensions.iso-clock
+      gnomeExtensions.clipboard-indicator
+      gnomeExtensions.color-picker
+      gnomeExtensions.launch-new-instance
+      gnomeExtensions.forge
+      gnomeExtensions.status-area-horizontal-spacing
+      gnomeExtensions.appindicator
+    ];
+
+    # fonts
+    fonts.packages = with pkgs; [
+      # noto-fonts
+      # noto-fonts-color-emoji
+      # ttf-ubuntu-font-family
+    ];
 
     # use firefox for various mime types
     xdg.mime.defaultApplications = mkIf config.mine.nixos.apps.firefox.enable {
