@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -11,16 +12,14 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/import.nix
+    inputs.nixos-hardware.nixosModules.gigabyte-b550
+
+    # roles
     ../../roles/desktop.nix
   ];
 
-  # device-specific
   mine = {
-    desktop.gnome.monitors-xml = {
-      enable = true;
-      file = monitors-xml;
-    };
+    desktop.gnome.monitors-xml = monitors-xml;
     desktop.display = {
       screenW = 3840;
       screenH = 2160;
@@ -28,13 +27,8 @@ in
     };
     system = {
       gpu.nvidia.enable = true;
-      networking.hostname = {
-        enable = true;
-        hostname = "idir";
-      };
     };
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   system.stateVersion = "25.05";
 }

@@ -17,6 +17,10 @@
       boot = {
         systemd.enable = true;
       };
+      home-manager = {
+        enable = true;
+        enabledUsers = [ "ryan" ];
+      };
       utils = {
         enable = true;
       };

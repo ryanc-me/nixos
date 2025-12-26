@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
@@ -11,29 +12,22 @@ in
 {
   imports = [
     ./hardware-configuration.nix
-    ../../modules/nixos/import.nix
+    inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen5
+
+    # roles
     ../../roles/desktop.nix
   ];
 
-  # device-specific
   mine = {
-    desktop.gnome.monitors-xml = {
-      enable = true;
-      file = monitors-xml;
-    };
+    desktop.gnome.monitors-xml = monitors-xml;
     desktop.display = {
       screenW = 1920;
       screenH = 1200;
       screenScale = 1.25;
     };
     desktop.wallpaper.mode = "zoom";
-    services.fprintd = true;
-    system.networking.hostname = {
-      enable = true;
-      hostname = "aquime";
-    };
+    services.fprintd.enable = true;
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
   system.stateVersion = "25.05";
 }

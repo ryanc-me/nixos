@@ -45,6 +45,7 @@
         systemd.enable = true;
       };
       firewall = { };
+      home-manager.enable = true;
       impermanence.enable = true;
       networking = {
         networkmanager.enable = true;

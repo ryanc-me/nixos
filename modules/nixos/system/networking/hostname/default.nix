@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  hostname,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
@@ -6,16 +11,14 @@ let
 in
 {
   options.mine.system.networking.hostname = {
-    enable = mkEnableOption "Enable Network hostname";
-    hostname = mkOption {
-      type = lib.types.str;
-      description = "Set the system hostname";
+    enable = mkEnableOption "Enable hostname configuration" // {
+      default = true;
     };
   };
 
   config = mkIf cfg.enable {
     networking = {
-      hostName = cfg.hostname;
+      hostName = hostname;
     };
   };
 }

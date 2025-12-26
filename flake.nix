@@ -36,55 +36,103 @@
     let
       lib = nixpkgs.lib;
 
-      # list of hostnames (directories in ./hosts)
-      hostNames = builtins.attrNames (builtins.readDir ./hosts);
-
-      # create a nixosConfiguration from hostName
-      # note that `system` and `extraModules` can be specified in
-      # hosts/<hostName>/system.nix
-      mkHost =
-        hostName:
+      # get a list of names of subdirs that contain a default.nix
+      listSubdirsWithDefault =
+        targetDir:
         let
-          hostDir = ./hosts/${hostName};
-          hostSpecPath = hostDir + "/system.nix";
-          hostSpec =
-            if builtins.pathExists hostSpecPath then
-              (import hostSpecPath { inherit inputs; })
-            else
-              {
-                system = "x86_64-linux";
-                extraModules = [ ];
-              };
-
-          system = hostSpec.system;
-
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            config.permittedInsecurePackages = [
-              "openssl-1.1.1w"
-            ];
-          };
-
+          entries = builtins.readDir targetDir;
+          subdirs = builtins.attrNames entries;
+          hasDefault = name: builtins.pathExists (targetDir + "/${name}/default.nix");
         in
-        lib.nameValuePair hostName (
-          lib.nixosSystem {
-            inherit system pkgs;
+        builtins.filter hasDefault subdirs;
 
-            specialArgs = {
-              inherit inputs self hostName;
-            };
+      # filter enabled users
 
-            modules = [
-              hostDir
-              # ./modules/common.nix
-            ]
-            ++ (hostSpec.extraModules or [ ]);
-          }
-        );
-      nixosConfigurations = lib.listToAttrs (map mkHost hostNames);
+      # list users and hosts
+      users = listSubdirsWithDefault ./users;
+      hosts = listSubdirsWithDefault ./hosts;
     in
     {
-      inherit nixosConfigurations;
+      # dynamically import hosts from ./hosts/<hostname>/default.nix
+      #
+      # every hosts get
+      # - some basic modules (/home/nixos/**/default.nix)
+      # - sops, impermanence, home-manager
+      # - hm config for users in ./users (also dynamically imported)
+      #
+      # we pass `inputs` to so that from the hosts' default.nix, we
+      # can `import [ inputs.blah ]` (e.g., for nixos-hardware)
+      #
+      # finally note that while all flake inputs are added to `modules`
+      # here, they generally will not be enabled unless explicitly
+      # configured via `mine.xx`.
+
+      nixosConfigurations = builtins.listToAttrs (
+        map (hostname: {
+          name = hostname;
+          value = lib.nixosSystem {
+            specialArgs = {
+              inherit inputs self hostname;
+            };
+            # system = "x86_64-linux";
+            modules = [
+              # the host config itself
+              ./hosts/${hostname}
+
+              # other nixos modules
+              ./modules/nixos/import.nix
+
+              # general flake imports
+              inputs.sops-nix.nixosModules.sops
+              inputs.impermanence.nixosModules.impermanence
+              inputs.home-manager.nixosModules.home-manager
+
+              # home-manager configuration
+              (
+                { config, lib, ... }:
+                let
+                  # allow hosts to specify whether hm is enabled, and if some
+                  # users should be (in)active
+                  cfg = config.mine.system.home-manager;
+
+                  # error if both activeUsers *and* disabledUsers are set
+                  _ =
+                    if cfg.enabledUsers != [ ] && cfg.disabledUsers != [ ] then
+                      lib.throwError "mine.system.home-manager: cannot set both enabledUsers and disabledUsers"
+                    else
+                      null;
+
+                  activeUsers =
+                    if cfg.enabledUsers == [ ] then
+                      # enable all users
+                      users
+                    else if cfg.disabledUsers != [ ] then
+                      # enable all except disabled
+                      lib.filter (u: !(lib.elem u cfg.disabledUsers)) users
+                    else
+                      # intersect with configured list
+                      lib.intersectLists users cfg.enabledUsers;
+                in
+                {
+                  home-manager = lib.mkIf cfg.enable {
+                    sharedModules = [
+                      inputs.sops-nix.homeManagerModules.sops
+                      inputs.flatpaks.homeModules.default
+                    ];
+                    useGlobalPkgs = true;
+                    useUserPackages = true;
+                    users = builtins.listToAttrs (
+                      map (user: {
+                        name = user;
+                        value = ./users/${user};
+                      }) activeUsers
+                    );
+                  };
+                }
+              )
+            ];
+          };
+        }) hosts
+      );
     };
 }
