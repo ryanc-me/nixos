@@ -31,4 +31,4 @@ These repos provided some excellent inspiration for me:
 
  * [**Misterio77**'s nix-config repo](https://github.com/Misterio77/nix-config/tree/main)
  * [**mitchellh**'s nixos-config repo](https://github.com/mitchellh/nixos-config)
- * TODO
+ * [**thursdaddy**'s nixos-config repo](https://github.com/thursdaddy/nixos-config)
