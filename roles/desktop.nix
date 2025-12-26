@@ -42,6 +42,7 @@
       sshd.enable = true;
     };
     system = {
+      bluetooth.enable = true;
       boot = {
         plymouth.enable = true;
         systemd.enable = true;
@@ -52,6 +53,7 @@
       networking = {
         networkmanager.enable = true;
       };
+      pipewire.enable = true;
       utils = {
         enable = true;
       };

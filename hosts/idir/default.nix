@@ -30,5 +30,11 @@ in
     };
   };
 
+  # blacklist motherboard bluetooth (13d3:3533) because it was crap, and was
+  # preventing my bluetooth USB dongle from working
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="13d3", ATTR{idProduct}=="3533", ATTR{authorized}="0"
+  '';
+
   system.stateVersion = "25.05";
 }
