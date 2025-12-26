@@ -131,6 +131,9 @@
                     ];
                     useGlobalPkgs = true;
                     useUserPackages = true;
+                    extraSpecialArgs = {
+                      inherit inputs self hostname;
+                    };
                     users = builtins.listToAttrs (
                       map (user: {
                         name = user;
