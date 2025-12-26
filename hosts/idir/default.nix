@@ -27,6 +27,8 @@ in
     };
     system = {
       gpu.nvidia.enable = true;
+      sysctl.gaming.enable = true;
+      kernel.package = pkgs.linuxPackages_xanmod_latest;
     };
   };
 

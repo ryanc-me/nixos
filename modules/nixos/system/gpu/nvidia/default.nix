@@ -11,13 +11,14 @@ let
 in
 {
   options.mine.nixos.system.gpu.nvidia = {
-    enable = mkEnableOption "Enable NVIDIA GPU support";
+    enable = mkEnableOption "NVIDIA GPU support";
   };
 
   config = mkIf cfg.enable {
     # https://nixos.wiki/wiki/Nvidia
     hardware.graphics = {
       enable = true;
+      extraPackages = [ pkgs.gamescope-wsi ];
     };
 
     services.xserver.videoDrivers = [ "nvidia" ];
