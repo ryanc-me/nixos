@@ -42,5 +42,8 @@ in
       #   persistencedSha256 = "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=";
       # };
     };
+    environment.systemPackages = with pkgs; [
+      nvtopPackages.nvidia
+    ];
   };
 }
