@@ -44,7 +44,16 @@ in
     programs = {
       gamescope = {
         enable = cfg.gamescope.enable;
-        capSysNice = false;
+        capSysNice = true;
+        env = {
+          DXVK_ENABLE_NVAPI = "1";
+          PROTON_ENABLE_NVAPI = "1";
+          PROTON_HIDE_NVIDIA_GPU = "0";
+          __GL_GSYNC_ALLOWED = "1";
+          __GL_VRR_ALLOWED = "1";
+          __GL_THREADED_OPTIMIZATIONS = "0";
+          DXVK_ASYNC = "1";
+        };
       };
       gamemode.enable = cfg.gamemode.enable;
       steam = {
