@@ -112,8 +112,12 @@
                     else
                       # intersect with configured list
                       lib.intersectLists users cfg.enabledUsers;
+
                 in
                 {
+                  # nixos.nix does anything that we can't do via hm (e.g., set passwords)
+                  imports = map (user: ./users/${user}/nixos.nix) activeUsers;
+
                   home-manager = lib.mkIf cfg.enable {
                     sharedModules = [
                       inputs.sops-nix.homeManagerModules.sops

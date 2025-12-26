@@ -17,7 +17,7 @@ in
   config = mkIf cfg.enable {
     sops.secrets = {
       "angel/password" = {
-        sopsFile = ../../../../secrets/users.yaml;
+        sopsFile = ../../secrets/users.yaml;
         neededForUsers = true;
       };
     };
