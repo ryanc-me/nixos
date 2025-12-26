@@ -116,7 +116,13 @@
                 in
                 {
                   # nixos.nix does anything that we can't do via hm (e.g., set passwords)
-                  imports = map (user: ./users/${user}/nixos.nix) activeUsers;
+                  imports = [
+                    ./users/ryan/nixos.nix
+                    ./users/angel/nixos.nix
+                  ];
+
+                  # unfortunately this doesn't work due to infinite recursion:
+                  # imports = map (user: ./users/${user}/nixos.nix) activeUsers;
 
                   home-manager = lib.mkIf cfg.enable {
                     sharedModules = [
