@@ -37,6 +37,8 @@
       };
     };
     services = {
+      docker.enable = true;
+      flatpak.enable = true;
       sshd.enable = true;
     };
     system = {
