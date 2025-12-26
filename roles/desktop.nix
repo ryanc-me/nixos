@@ -6,6 +6,7 @@
       blender.enable = true;
       calibre.enable = true;
       dbeaver.enable = true;
+      discord.enable = true;
       element.enable = true;
       firefox.enable = true;
       freecad.enable = true;
@@ -13,9 +14,11 @@
       google-chrome.enable = true;
       inkscape.enable = true;
       libreoffice.enable = true;
+      lutris.enable = true;
       microsoft-edge.enable = true;
       obs-studio.enable = true;
       obsidian.enable = true;
+      prusa-slicer.enable = true;
       steam.enable = true;
       sublime-text.enable = true;
       vlc.enable = true;
