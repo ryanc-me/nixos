@@ -16,20 +16,17 @@ in
 
   options.mine.desktop.gnome = {
     enable = mkEnableOption "Enable GNOME desktop environment";
-    monitors-xml = {
-      enable = mkEnableOption "Enable custom monitors.xml for GDM";
-      file = mkOption {
-        type = lib.types.path;
-        description = "Path to custom monitors.xml file for GDM";
-        default = null;
-      };
+    monitors-xml = mkOption {
+      type = lib.types.path;
+      description = "Path to custom monitors.xml file for GDM";
+      default = null;
     };
   };
 
   config = mkIf cfg.enable {
 
-    systemd.tmpfiles.rules = mkIf (cfg.monitors-xml.enable && cfg.monitors-xml.file != null) [
-      "L+ /var/lib/gdm/.config/monitors.xml - gdm gdm - ${cfg.monitors-xml.file}"
+    systemd.tmpfiles.rules = mkIf (cfg.monitors-xml != null) [
+      "L+ /var/lib/gdm/.config/monitors.xml - gdm gdm - ${cfg.monitors-xml}"
     ];
 
     # force Electron apps to use wayland instead of xwayland
