@@ -67,6 +67,7 @@ let
     gnupg
     age
     imagemagick
+    eza
   ];
   system-tools = with pkgs; [
     strace
