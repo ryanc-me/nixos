@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.system.kernel;
+  cfg = config.mine.nixos.system.kernel;
 in
 {
-  options.mine.system.kernel = {
+  options.mine.nixos.system.kernel = {
     package = mkOption {
       type = lib.types.attrs;
       default = pkgs.linuxPackages_latest;

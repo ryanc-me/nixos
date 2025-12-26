@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.system.networking.hostname;
+  cfg = config.mine.nixos.system.networking.hostname;
 in
 {
-  options.mine.system.networking.hostname = {
+  options.mine.nixos.system.networking.hostname = {
     enable = mkEnableOption "Enable hostname configuration" // {
       default = true;
     };

@@ -7,17 +7,17 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.microsoft-outlook;
+  cfg = config.mine.nixos.apps.microsoft-outlook;
 in
 {
-  options.mine.apps.microsoft-outlook = {
+  options.mine.nixos.apps.microsoft-outlook = {
     enable = mkEnableOption "Enable Microsoft Outlook (email client)";
   };
 
   config = mkIf cfg.enable {
     #TODO: move to modules/home/
     # # just below direct-setting, but above mkForce to allow user override
-    # mine.apps.microsoft-outlook.enable = lib.mkOverride 90 true;
+    # mine.nixos.apps.microsoft-outlook.enable = lib.mkOverride 90 true;
 
     # xdg = {
     #   enable = true;

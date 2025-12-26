@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.obsidian;
+  cfg = config.mine.nixos.apps.obsidian;
 in
 {
-  options.mine.apps.obsidian = {
+  options.mine.nixos.apps.obsidian = {
     enable = mkEnableOption "Enable Obsidian (note-taking and knowledge management app)";
   };
 

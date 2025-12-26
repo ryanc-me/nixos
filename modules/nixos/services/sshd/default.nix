@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.services.sshd;
+  cfg = config.mine.nixos.services.sshd;
 in
 {
-  options.mine.services.sshd = {
+  options.mine.nixos.services.sshd = {
     enable = mkEnableOption "Enable SSHD (OpenSSH server)";
     port = mkOption {
       type = lib.types.port;

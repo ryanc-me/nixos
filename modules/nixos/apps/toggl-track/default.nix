@@ -7,17 +7,17 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.toggl-track;
+  cfg = config.mine.nixos.apps.toggl-track;
 in
 {
-  options.mine.apps.toggl-track = {
+  options.mine.nixos.apps.toggl-track = {
     enable = mkEnableOption "Enable Toggl Track (time tracking client)";
   };
 
   config = mkIf cfg.enable {
     #TODO: move to modules/home/
     # # just below direct-setting, but above mkForce to allow user override
-    # mine.apps.toggl-track.enable = lib.mkOverride 90 true;
+    # mine.nixos.apps.toggl-track.enable = lib.mkOverride 90 true;
 
     # xdg = {
     #   enable = true;

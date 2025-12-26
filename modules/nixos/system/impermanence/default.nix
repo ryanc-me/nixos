@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.system.impermanence;
+  cfg = config.mine.nixos.system.impermanence;
 in
 {
-  options.mine.system.impermanence = {
+  options.mine.nixos.system.impermanence = {
     enable = mkEnableOption "Enable impermanence system";
   };
 

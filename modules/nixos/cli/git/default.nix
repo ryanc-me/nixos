@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.cli.git;
+  cfg = config.mine.nixos.cli.git;
 in
 {
-  options.mine.cli.git = {
+  options.mine.nixos.cli.git = {
     enable = mkEnableOption "Enable Git";
   };
 

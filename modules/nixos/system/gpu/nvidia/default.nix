@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.system.gpu.nvidia;
+  cfg = config.mine.nixos.system.gpu.nvidia;
 in
 {
-  options.mine.system.gpu.nvidia = {
+  options.mine.nixos.system.gpu.nvidia = {
     enable = mkEnableOption "Enable NVIDIA GPU support";
   };
 

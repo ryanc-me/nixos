@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.inkscape;
+  cfg = config.mine.nixos.apps.inkscape;
 in
 {
-  options.mine.apps.inkscape = {
+  options.mine.nixos.apps.inkscape = {
     enable = mkEnableOption "Enable Inkscape (vector graphics editor)";
   };
 

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.system.boot.systemd;
+  cfg = config.mine.nixos.system.boot.systemd;
 in
 {
-  options.mine.system.boot.systemd = {
+  options.mine.nixos.system.boot.systemd = {
     enable = mkEnableOption "Enable systemd bootloader";
   };
 

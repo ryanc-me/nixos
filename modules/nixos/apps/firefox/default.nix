@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.firefox;
+  cfg = config.mine.nixos.apps.firefox;
 in
 {
-  options.mine.apps.firefox = {
+  options.mine.nixos.apps.firefox = {
     enable = mkEnableOption "Enable Firefox (web browser)";
   };
 

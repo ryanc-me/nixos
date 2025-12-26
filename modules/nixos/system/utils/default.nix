@@ -7,7 +7,7 @@
 
 let
   inherit (lib) mkEnableOption mkIf optionals;
-  cfg = config.mine.system.utils;
+  cfg = config.mine.nixos.system.utils;
 
   cli-utils = with pkgs; [
     strace
@@ -81,7 +81,7 @@ let
   ];
 in
 {
-  options.mine.system.utils = {
+  options.mine.nixos.system.utils = {
     enable = mkEnableOption "Enable core system utils";
 
     cli-utils = mkEnableOption "Enable CLI utilities" // {

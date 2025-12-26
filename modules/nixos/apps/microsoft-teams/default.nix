@@ -7,17 +7,17 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.microsoft-teams;
+  cfg = config.mine.nixos.apps.microsoft-teams;
 in
 {
-  options.mine.apps.microsoft-teams = {
+  options.mine.nixos.apps.microsoft-teams = {
     enable = mkEnableOption "Enable Microsoft Teams (chat client)";
   };
 
   config = mkIf cfg.enable {
     #TODO: move to modules/home/
     # # just below direct-setting, but above mkForce to allow user override
-    # mine.apps.microsoft-teams.enable = lib.mkOverride 90 true;
+    # mine.nixos.apps.microsoft-teams.enable = lib.mkOverride 90 true;
 
     # xdg = {
     #   enable = true;

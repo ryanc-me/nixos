@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.cli.ruff;
+  cfg = config.mine.nixos.cli.ruff;
 in
 {
-  options.mine.cli.ruff = {
+  options.mine.nixos.cli.ruff = {
     enable = mkEnableOption "Enable Ruff (Python linter/formatter)";
   };
 

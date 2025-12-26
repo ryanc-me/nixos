@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.steam;
+  cfg = config.mine.nixos.apps.steam;
 in
 {
-  options.mine.apps.steam = {
+  options.mine.nixos.apps.steam = {
     enable = mkEnableOption "Enable Steam (gaming platform)";
     protonGE = {
       enable =

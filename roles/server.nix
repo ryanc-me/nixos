@@ -1,6 +1,6 @@
 {
   # a graphical desktop environment with common applications
-  mine = {
+  mine.nixos = {
     apps = { };
     cli = {
       git.enable = true;

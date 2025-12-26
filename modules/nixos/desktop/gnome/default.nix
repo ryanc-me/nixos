@@ -7,14 +7,14 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.desktop.gnome;
+  cfg = config.mine.nixos.desktop.gnome;
 in
 {
   imports = [
     ./gdm-wallpaper
   ];
 
-  options.mine.desktop.gnome = {
+  options.mine.nixos.desktop.gnome = {
     enable = mkEnableOption "Enable GNOME desktop environment";
     monitors-xml = mkOption {
       type = lib.types.path;
@@ -78,7 +78,7 @@ in
     ];
 
     # use firefox for various mime types
-    xdg.mime.defaultApplications = mkIf config.mine.apps.firefox.enable {
+    xdg.mime.defaultApplications = mkIf config.mine.nixos.apps.firefox.enable {
       "text/html" = "firefox.desktop";
       "application/pdf" = "firefox.desktop";
       "x-scheme-handler/http" = "firefox.desktop";

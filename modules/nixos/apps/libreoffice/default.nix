@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.libreoffice;
+  cfg = config.mine.nixos.apps.libreoffice;
 in
 {
-  options.mine.apps.libreoffice = {
+  options.mine.nixos.apps.libreoffice = {
     enable = mkEnableOption "Enable LibreOffice (office suite)";
   };
 

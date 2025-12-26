@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.vscode;
+  cfg = config.mine.nixos.apps.vscode;
 in
 {
-  options.mine.apps.vscode = {
+  options.mine.nixos.apps.vscode = {
     enable = mkEnableOption "Enable Visual Studio Code (source code editor)";
   };
 

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.dbeaver;
+  cfg = config.mine.nixos.apps.dbeaver;
 in
 {
-  options.mine.apps.dbeaver = {
+  options.mine.nixos.apps.dbeaver = {
     enable = mkEnableOption "Enable DBeaver (database management tool)";
   };
 

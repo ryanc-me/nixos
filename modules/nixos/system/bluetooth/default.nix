@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.system.bluetooth;
+  cfg = config.mine.nixos.system.bluetooth;
 in
 {
-  options.mine.system.bluetooth = {
+  options.mine.nixos.system.bluetooth = {
     enable = mkEnableOption "Enable Bluetooth support";
   };
 

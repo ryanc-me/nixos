@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.system.users.angel;
+  cfg = config.mine.nixos.system.users.angel;
 in
 {
-  options.mine.system.users.angel = {
+  options.mine.nixos.system.users.angel = {
     enable = mkEnableOption "Enable user angel";
   };
 

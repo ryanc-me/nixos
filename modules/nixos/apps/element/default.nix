@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.element;
+  cfg = config.mine.nixos.apps.element;
 in
 {
-  options.mine.apps.element = {
+  options.mine.nixos.apps.element = {
     enable = mkEnableOption "Enable Element (chat application for Matrix protocol)";
   };
 

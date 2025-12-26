@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.gimp;
+  cfg = config.mine.nixos.apps.gimp;
 in
 {
-  options.mine.apps.gimp = {
+  options.mine.nixos.apps.gimp = {
     enable = mkEnableOption "Enable GIMP (image editor)";
   };
 

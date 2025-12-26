@@ -1,6 +1,6 @@
 {
   # a graphical desktop environment with common applications
-  mine = {
+  mine.nixos = {
     apps = {
       onepassword.enable = true;
       blender.enable = true;

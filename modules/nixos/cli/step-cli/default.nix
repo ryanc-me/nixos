@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.cli.step-cli;
+  cfg = config.mine.nixos.cli.step-cli;
 in
 {
-  options.mine.cli.step-cli = {
+  options.mine.nixos.cli.step-cli = {
     enable = mkEnableOption "Enable Step CLI";
   };
 

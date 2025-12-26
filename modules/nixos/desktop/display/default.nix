@@ -9,7 +9,7 @@ let
   inherit (lib) mkOption;
 in
 {
-  options.mine.desktop.display = {
+  options.mine.nixos.desktop.display = {
     screenW = lib.mkOption {
       type = lib.types.ints.positive;
       default = 3840;

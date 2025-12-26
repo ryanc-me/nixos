@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.sublime-text;
+  cfg = config.mine.nixos.apps.sublime-text;
 in
 {
-  options.mine.apps.sublime-text = {
+  options.mine.nixos.apps.sublime-text = {
     enable = mkEnableOption "Enable Sublime Text 4 (text editor)";
   };
 

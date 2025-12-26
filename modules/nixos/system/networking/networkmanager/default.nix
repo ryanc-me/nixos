@@ -2,10 +2,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.system.networking.networkmanager;
+  cfg = config.mine.nixos.system.networking.networkmanager;
 in
 {
-  options.mine.system.networking.networkmanager = {
+  options.mine.nixos.system.networking.networkmanager = {
     enable = mkEnableOption "Enable NetworkManager service";
   };
 

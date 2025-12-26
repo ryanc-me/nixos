@@ -8,10 +8,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.system.boot.plymouth;
+  cfg = config.mine.nixos.system.boot.plymouth;
 in
 {
-  options.mine.system.boot.plymouth = {
+  options.mine.nixos.system.boot.plymouth = {
     enable = mkEnableOption "Enable Plymouth boot splash screen with mac-style theme";
   };
 

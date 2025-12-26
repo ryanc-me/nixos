@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.blender;
+  cfg = config.mine.nixos.apps.blender;
 in
 {
-  options.mine.apps.blender = {
+  options.mine.nixos.apps.blender = {
     enable = mkEnableOption "Enable Blender (3D modeling software)";
   };
 

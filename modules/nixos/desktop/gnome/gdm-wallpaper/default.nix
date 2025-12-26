@@ -6,8 +6,9 @@
   ...
 }:
 let
-  wp = config.mine.desktop.wallpaper.processed.blurred."${config.mine.desktop.wallpaper.mode}";
-  enable = config.mine.desktop.wallpaper.enable;
+  wp =
+    config.mine.nixos.desktop.wallpaper.processed.blurred."${config.mine.nixos.desktop.wallpaper.mode}";
+  enable = config.mine.nixos.desktop.wallpaper.enable;
   gdmCssOverlay =
     pkgs.runCommand "gdm-css-overlay"
       {

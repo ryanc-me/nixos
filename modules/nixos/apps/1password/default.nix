@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.onepassword;
+  cfg = config.mine.nixos.apps.onepassword;
 in
 {
-  options.mine.apps.onepassword = {
+  options.mine.nixos.apps.onepassword = {
     enable = mkEnableOption "Enable 1Password (password manager)";
   };
 

@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.services.fprintd;
+  cfg = config.mine.nixos.services.fprintd;
 in
 {
   # https://wiki.nixos.org/wiki/Fingerprint_scanner
-  options.mine.services.fprintd = {
+  options.mine.nixos.services.fprintd = {
     enable = mkEnableOption "Enable fprintd (Fingerprint authentication service)";
   };
 

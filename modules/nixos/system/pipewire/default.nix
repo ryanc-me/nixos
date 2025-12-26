@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.system.pipewire;
+  cfg = config.mine.nixos.system.pipewire;
 in
 {
-  options.mine.system.pipewire = {
+  options.mine.nixos.system.pipewire = {
     enable = mkEnableOption "Enable PipeWire support";
   };
 

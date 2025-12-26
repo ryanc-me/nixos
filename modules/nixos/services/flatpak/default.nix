@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.services.flatpak;
+  cfg = config.mine.nixos.services.flatpak;
 in
 {
-  options.mine.services.flatpak = {
+  options.mine.nixos.services.flatpak = {
     enable = mkEnableOption "Enable flatpak support";
   };
 

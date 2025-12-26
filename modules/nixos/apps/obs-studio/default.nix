@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.obs-studio;
+  cfg = config.mine.nixos.apps.obs-studio;
 in
 {
-  options.mine.apps.obs-studio = {
+  options.mine.nixos.apps.obs-studio = {
     enable = mkEnableOption "Enable OBS Studio (screen recording and streaming)";
   };
 

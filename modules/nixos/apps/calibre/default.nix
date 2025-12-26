@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.calibre;
+  cfg = config.mine.nixos.apps.calibre;
 in
 {
-  options.mine.apps.calibre = {
+  options.mine.nixos.apps.calibre = {
     enable = mkEnableOption "Enable Calibre (e-book manager)";
   };
 

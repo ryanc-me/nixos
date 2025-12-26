@@ -7,12 +7,12 @@ let
     mkIf
     types
     ;
-  cfg = config.mine.system.home-manager;
+  cfg = config.mine.nixos.system.home-manager;
 in
 
 {
   # OS-level options for home-manager (generally metadata - which users are active, etc)
-  options.mine.system.home-manager = {
+  options.mine.nixos.system.home-manager = {
     enable = mkEnableOption "home-manager";
     enabledUsers = mkOption {
       type = types.listOf types.str;

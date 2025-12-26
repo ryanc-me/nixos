@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.services.docker;
+  cfg = config.mine.nixos.services.docker;
 in
 {
-  options.mine.services.docker = {
+  options.mine.nixos.services.docker = {
     enable = mkEnableOption "Enable docker service";
     rootless = mkOption {
       type = lib.types.bool;

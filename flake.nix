@@ -65,7 +65,7 @@
       #
       # finally note that while all flake inputs are added to `modules`
       # here, they generally will not be enabled unless explicitly
-      # configured via `mine.xx`.
+      # configured via `mine.nixos.xx`.
 
       nixosConfigurations = builtins.listToAttrs (
         map (hostname: {
@@ -93,12 +93,12 @@
                 let
                   # allow hosts to specify whether hm is enabled, and if some
                   # users should be (in)active
-                  cfg = config.mine.system.home-manager;
+                  cfg = config.mine.nixos.system.home-manager;
 
                   # error if both activeUsers *and* disabledUsers are set
                   _ =
                     if cfg.enabledUsers != [ ] && cfg.disabledUsers != [ ] then
-                      lib.throwError "mine.system.home-manager: cannot set both enabledUsers and disabledUsers"
+                      lib.throwError "mine.nixos.system.home-manager: cannot set both enabledUsers and disabledUsers"
                     else
                       null;
 

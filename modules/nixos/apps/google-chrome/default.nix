@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.google-chrome;
+  cfg = config.mine.nixos.apps.google-chrome;
 in
 {
-  options.mine.apps.google-chrome = {
+  options.mine.nixos.apps.google-chrome = {
     enable = mkEnableOption "Enable Google Chrome (web browser)";
   };
 

@@ -18,7 +18,7 @@ in
     ../../roles/desktop.nix
   ];
 
-  mine = {
+  mine.nixos = {
     desktop.gnome.monitors-xml = monitors-xml;
     desktop.display = {
       screenW = 1920;

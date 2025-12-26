@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.freecad;
+  cfg = config.mine.nixos.apps.freecad;
 in
 {
-  options.mine.apps.freecad = {
+  options.mine.nixos.apps.freecad = {
     enable = mkEnableOption "Enable FreeCAD (3D CAD modeling software)";
   };
 

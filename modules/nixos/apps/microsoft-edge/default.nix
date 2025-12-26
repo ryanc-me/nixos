@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.apps.microsoft-edge;
+  cfg = config.mine.nixos.apps.microsoft-edge;
 in
 {
-  options.mine.apps.microsoft-edge = {
+  options.mine.nixos.apps.microsoft-edge = {
     enable = mkEnableOption "Enable Microsoft Edge (web browser)";
   };
 

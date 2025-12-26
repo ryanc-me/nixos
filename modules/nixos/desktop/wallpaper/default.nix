@@ -11,8 +11,8 @@ let
   mkPct = n: if builtins.isString n then n else builtins.toString n;
   mkInt = n: builtins.toString n;
 
-  dp = config.mine.desktop.display;
-  wp = config.mine.desktop.wallpaper;
+  dp = config.mine.nixos.desktop.display;
+  wp = config.mine.nixos.desktop.wallpaper;
 
   blurSigma = wp.blur * (wp.sizeW / dp.screenW) / 2 - 0.000001;
   cropOffsetX = (dp.sizeW - dp.screenW) / 2;
@@ -68,7 +68,7 @@ let
       '';
 in
 {
-  options.mine.desktop.wallpaper = {
+  options.mine.nixos.desktop.wallpaper = {
     enable = lib.mkEnableOption "shared wallpaper processing";
 
     path = lib.mkOption {
@@ -133,7 +133,7 @@ in
   };
 
   config = lib.mkIf wp.enable {
-    mine.desktop.wallpaper.processed = {
+    mine.nixos.desktop.wallpaper.processed = {
       plain = {
         centered = processedPlainCentered;
         zoom = processedPlainZoom;
