@@ -39,6 +39,7 @@
   sops.age.keyFile = "${config.home.homeDirectory}/.config/sops/age/keys.txt";
 
   programs.git = {
+    enable = true;
     settings = {
       user = {
         name = "Ryan Cole";
