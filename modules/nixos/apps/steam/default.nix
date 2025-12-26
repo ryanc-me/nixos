@@ -13,16 +13,30 @@ in
   options.mine.apps.steam = {
     enable = mkEnableOption "Enable Steam (gaming platform)";
     protonGE = {
-      enable = mkEnableOption "Enable Proton-GE (custom version of Proton with additional patches and features)";
+      enable =
+        mkEnableOption "Enable Proton-GE (custom version of Proton with additional patches and features)"
+        // {
+          default = true;
+        };
     };
     mangohud = {
-      enable = mkEnableOption "Enable MangoHud (performance overlay for games)";
+      enable = mkEnableOption "Enable MangoHud (performance overlay for games)" // {
+        default = true;
+      };
     };
     gamemode = {
-      enable = mkEnableOption "Enable GameMode (Linux system daemon for optimizing performance of games)";
+      enable =
+        mkEnableOption "Enable GameMode (Linux system daemon for optimizing performance of games)"
+        // {
+          default = true;
+        };
     };
     gamescope = {
-      enable = mkEnableOption "Enable Gamescope (micro-compositor for running games in a nested Wayland session)";
+      enable =
+        mkEnableOption "Enable Gamescope (micro-compositor for running games in a nested Wayland session)"
+        // {
+          default = true;
+        };
     };
   };
 
@@ -40,5 +54,9 @@ in
         package = mkIf cfg.gamemode.enable (pkgs.steam.override { extraPkgs = pkgs: [ pkgs.gamemode ]; });
       };
     };
+
+    environment.systemPackages = mkIf cfg.mangohud.enable [
+      pkgs.mangohud
+    ];
   };
 }
