@@ -68,6 +68,7 @@ let
     age
     imagemagick
     eza
+    dos2unix
   ];
   system-tools = with pkgs; [
     strace

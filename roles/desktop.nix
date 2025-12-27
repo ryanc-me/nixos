@@ -19,6 +19,7 @@
       obs-studio.enable = true;
       obsidian.enable = true;
       prusa-slicer.enable = true;
+      qmk.enable = true;
       steam.enable = true;
       sublime-text.enable = true;
       vlc.enable = true;
