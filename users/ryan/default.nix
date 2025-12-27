@@ -20,6 +20,7 @@
       screenshot.enable = true;
       spotify.enable = true;
       toggl-track.enable = true;
+      via.enable = true;
     };
     env = {
       bash.enable = true;
