@@ -28,7 +28,10 @@ in
         ryan = {
           isNormalUser = true;
           hashedPasswordFile = config.sops.secrets."ryan/password".path;
-          extraGroups = [ "wheel" ];
+          extraGroups = [
+            "wheel"
+          ]
+          ++ lib.optionals config.mine.nixos.system.libvirt.enable [ "libvirtd" ];
         };
       };
     };

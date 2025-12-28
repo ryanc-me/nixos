@@ -24,6 +24,7 @@
       qmk.enable = true;
       steam.enable = true;
       sublime-text.enable = true;
+      virt-manager.enable = true;
       vlc.enable = true;
       vscode.enable = true;
     };
@@ -70,6 +71,7 @@
       firewall = { };
       home-manager.enable = true;
       impermanence.enable = true;
+      libvirt.enable = true;
       networking = {
         networkmanager.enable = true;
       };
