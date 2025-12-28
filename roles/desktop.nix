@@ -4,6 +4,7 @@
     apps = {
       onepassword.enable = true;
       blender.enable = true;
+      bottles.enable = true;
       calibre.enable = true;
       dbeaver.enable = true;
       discord.enable = true;
@@ -16,6 +17,7 @@
       libreoffice.enable = true;
       lutris.enable = true;
       microsoft-edge.enable = true;
+      nrf-connect.enable = true;
       obs-studio.enable = true;
       obsidian.enable = true;
       prusa-slicer.enable = true;
