@@ -14,11 +14,26 @@ in
     enable = mkEnableOption "spotify";
   };
 
-  config = mkIf (config.mine.home.services.flatpak.enable && cfg.enable) {
-    services.flatpak = {
-      packages = [
-        "flathub:app/com.spotify.Client//stable"
-      ];
+  config = mkIf cfg.enable {
+    xdg = {
+      enable = true;
+
+      dataFile."icons/hicolor/scalable/apps/spotify.svg".source = ./spotify.svg;
+      desktopEntries.spotify = lib.mkForce {
+        name = "Spotify";
+        comment = "Launch Spotify";
+        categories = [
+          "Audio"
+        ];
+        icon = "spotify";
+        exec = ''
+          ${pkgs.microsoft-edge}/bin/microsoft-edge --enable-features=UseOzonePlatform,WebUIDarkMode --ozone-platform-hint=wayland --force-dark-mode --app="https://open.spotify.com" %U
+        '';
+        settings = {
+          StartupWMClass = "open.spotify.com";
+        };
+      };
     };
+
   };
 }
