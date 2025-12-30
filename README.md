@@ -18,62 +18,74 @@ The goal is to have an ultra-comfortable environment across all of my devices.
 
 ## How does it work?
 
+**Note**: This repo is still very much a work-in-progress, so the below description might not align with the setup 100%.
+
 ### Everything is a module
 
-This config borrows heavily from [thursdaddy/nixos-config](https://github.com/thursdaddy/nixos-config). In his config, (almost) every `.nix` file is a module, with an explicit `enable` attribute. For example, to enable FreeCAD , I would set `mine.nixos.apps.freecad.enable = true;`. That option namespace follows the folder structure. Something similar is done on the Home Manager side: Enabling Spotify requires a `mine.home.apps.spotify.enable = true;`.
+This config borrows heavily from [thursdaddy/nixos-config](https://github.com/thursdaddy/nixos-config). In his config, (almost) every `.nix` file is a module, with an explicit `enable` attribute. For example, to enable FreeCAD , I would set `mine.nixos.apps.freecad.enable = true;`. That option namespace follows the folder structure. Something similar is done on the Home Manager side.
 
 This is effectively an abstraction over the default NixOS/nixpkgs options, specific for my use cases.
 
 It may seem overly-verbose, but it gives me the flexibiltiy to turn off whole "features" with one option. For example, my Steam module bundles some other apps (gamescope, proton GE, etc) which are not enabled by the standard `programs.steam.enable` option.
 
-### NixOS config via `roles/`
+### Role-based structure
 
-Under the `roles/` directory, is a set of files containing plain Nix expressions. Each file is a "role", whose expression tells us which modules should be enabled. For example, the `desktop.nix` role contains all of the  options I'd like to enable for my desktop-type devices (work PC, gaming PC, laptop).
+This NixOS config is a bit unique, because it's used across many different types of device:
+ * Desktops & Laptops, where we need a DE, lots of applications, GPU drivers, etc
+ * Servers, where we want a headless environment, and more open firewall rules
+ * Router, where we want a very specific set of packages and configs, to reduce attack surface
 
-Then, my two desktop-type devices (`idir` and `aquime`) can simply include that role to get all of the relevant apps, services, Gnome configs, etc.
+To accomodate this, the whole config tree has been broken into "roles" (see `roles/`).
 
-As a result, the device-specific config (under `hosts/<device>/default.nix`) simply needs to specify options that are specific to that device: Screen size, nixos-hardware modules, GPU support, etc.
+The idea is, each role covers one set of features that we may want to enable/disable together. For example, GNOME is bundled into the `desktop-gnome` role, which includes the DE itself, `GDM`, wallpaper management, extensions, and some logic for the `monitors.xml` file. Hopefully you can imagine that to enable another DE (e.g., hyprland), we might create another role call `desktop-hyprland` which would handle all of the specifics.
 
-### Home Manager config via `users/`
+There is a special `core` role which should be included for all hosts. It handles things like basic CLI tools (`curl`, `tar`, `nano`, etc).
 
-Finally, the HM config follows a very similar setup: Modules under `modules/home/` expose options that are then set via `users/<user>/default.nix`. So, each user gets exactly the setup they need, and that setup can be shared across users if necessary.
+Finally, each role has a root `default.nix` (e.g., `core/default.nix`) which serves two purposes:
+ 1. It recursively loads all `default.nix` files within the roles' folder (auto-import)
+ 2. It sets default option values for all of the modules in that role
 
-Note that the `users/<user>/` folder also contains a `nixos.nix`. This file is responsible for configuring the user groups, password, etc - anything that would require root privileges. It's able to do this, because this module is actually incldued from the NixOS side, *not* from HM. The `nixos.nix` file lives under `users/<user>/` purely for convenience.
+For example, the `core` role has a `kernel` module which exposes an option `mine.core.system.kernel.package` to help configure a kernel to be installed. The `core/default.nix` then sets a *default* value for that option. So, when a host opts-in to the `core` role, that host will get a default kernel (but will have the option to override it if desired).
 
-### Auto-load hosts and users
+### Host-specific config
 
-Hosts and users are loaded automatically - See the `flake.nix` for more info.
+Each host has an entry in the `hosts/` folder.
 
-*Note*: Users technically need to be specified in the `flake.nix`, but I'm hoping that will be solveable in the future (see `flake.nix`, line ~119).
+Generally, the configuration is very light. It might contain:
+ 1. The `system.stateVersion`
+ 2. Any hardware-related imports
+ 3. A list of `roles/xxx` imports
+ 4. A small `mine = {}` config snippet for host-specific options
 
-### Result
+So, when it comes to deciding which functionality is available on a host, we primarily use the *roles import*. For example, my desktop imports (among others) `roles/desktop`, `roles/desktop-gnome`, `roles/desktop-gaming` - this means that I get a GNOME-based setup, with some gaming features enabled.
 
-This setup has a few nice benefits
+Finally, a small set of host-specific options are added under the `mine.xxx` namespace. This is generally a very short list, perhaps only configuration for the monitor size (which is really just used for wallpaper processing).
 
- 1. When adding a new module, I only need to "enable" it in a few places under `roles/`, rather than duplicating `mine.nixos.apps.someapp = true;` across several host configs
- 2. New hosts immediately get a good "sensible" default. From there, extra things can be enabled/disabled as necessary. See `hosts/aquime/default.nix` and `hosts/idir/default.nix` for an example - those files are only ~30 lines long!
- 3. It's easy to see exactly what's been "customised" for a particular host
- 4. It's easy to enable/disable features for a specific host (e.g., if there's some incompatibility)
+The end result is: A very small host config (~40-50 lines), maximum shared config, and good control over which features are enabled/disabled.
+
+Finally, hosts are dynamically loaded; Any folder in `hosts/`, which has a `default.nix` under it, will be imported automatically.
+
+### Home Manager
+
+The HM config is split into two parts:
+
+ * `home/`: Contains a list of modules which can then be enabled by users. This is for config that might be shared between users (e.g., my personal envvars would *not* live here)
+ * `users/<user>/`: Contains all of the user-specific config, and options to enable modules from `home/`
+
+With this setup, I can share some config with other users on my desktop/laptop (e.g., Wayland/Ozone envvars), while keeping my personal config separate.
 
 ## Layout
 
  - `asssets/`: For any static non-Nix files (e.g., wallpapers). Generally config files are store in the module which uses them (i.e., not here).
- - `modules/`
-    - `modules/nixos/`:
-        - `modules/nixos/apps`: Desktop applications
-        - `modules/nixos/cli`: CLI tools
-        - `modules/nixos/desktop`: Anything relating to a DE
-        - `modules/nixos/services`: Background services
-        - `modules/nixos/system`: System-wide options (also a bit of an "etc")
-    - `modules/home/`: Home Manager modules
-        - `modules/home/apps`: Desktop applications
-        - `modules/home/desktop`: Anything relating to a DE
-        - `modules/home/env`: Environment and confiuguration
-        - `modules/home/services`: Background services
-        - `modules/home/system`: System-wide options (also a bit of an "etc")
- - `hosts/`: A folder specific to each host - see above
- - `users/`: A folder specific to each user - see above
- - `roles/`: Common "roles" used across hosts - see above
+ - `roles/`: A list of roles, optionally following the structure below
+    - `modules/example/apps`: Desktop applications
+    - `modules/example/cli`: CLI tools
+    - `modules/example/desktop`: Anything relating to a DE
+    - `modules/example/services`: Background services
+    - `modules/example/system`: System-wide options (also a bit of an "etc")
+ - `home/`: shared HM config
+ - `hosts/`: List of hosts
+ - `users/`: List of users
 
 ## Inspiration
 

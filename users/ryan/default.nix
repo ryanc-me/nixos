@@ -8,6 +8,7 @@
 {
   imports = [
     ./dconf.nix
+    ./bash.nix
   ];
 
   home.username = "ryan";
@@ -15,15 +16,7 @@
 
   mine.home = {
     apps = {
-      microsoft-outlook.enable = true;
-      microsoft-teams.enable = true;
       screenshot.enable = true;
-      spotify.enable = true;
-      toggl-track.enable = true;
-      via.enable = true;
-    };
-    env = {
-      bash.enable = true;
     };
     services = {
       docker-socket-tunnel.enable = true;

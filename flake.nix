@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,129 +23,116 @@
       url = "github:in-a-dil-emma/declarative-flatpak/latest";
     };
 
-    # make Nix copy the `secrets` submodule into the store
     self = {
+      # make Nix copy the `secrets` submodule into the store
       submodules = true;
     };
   };
 
   outputs =
     inputs@{ self, nixpkgs, ... }:
-
     let
       lib = nixpkgs.lib;
 
-      # get a list of names of subdirs that contain a default.nix
+      # find entries in hosts/ which have a default.nix (e.g., hosts/blah/default.nix)
       listSubdirsWithDefault =
-        targetDir:
-        let
-          entries = builtins.readDir targetDir;
-          subdirs = builtins.attrNames entries;
-          hasDefault = name: builtins.pathExists (targetDir + "/${name}/default.nix");
-        in
-        builtins.filter hasDefault subdirs;
-
-      # filter enabled users
-
-      # list users and hosts
-      users = listSubdirsWithDefault ./users;
+        (import ./lib/listSubdirsWithDefault.nix { inherit lib; }).listSubdirsWithDefault;
       hosts = listSubdirsWithDefault ./hosts;
+
+      forEachSystem = nixpkgs.lib.genAttrs [
+        "x86_64-linux"
+      ];
     in
     {
-      # dynamically import hosts from ./hosts/<hostname>/default.nix
-      #
-      # every hosts get
-      # - some basic modules (/home/nixos/**/default.nix)
-      # - sops, impermanence, home-manager
-      # - hm config for users in ./users (also dynamically imported)
-      #
-      # we pass `inputs` to so that from the hosts' default.nix, we
-      # can `import [ inputs.blah ]` (e.g., for nixos-hardware)
-      #
-      # finally note that while all flake inputs are added to `modules`
-      # here, they generally will not be enabled unless explicitly
-      # configured via `mine.nixos.xx`.
+      packages = forEachSystem (
+        system:
+        let
+          pkgs = import nixpkgs {
+            localSystem = { inherit system; };
+
+            # for microsoft-edge
+            config.allowUnfree = true;
+          };
+        in
+        {
+          microsoft-outlook = pkgs.callPackage ./packages/microsoft-outlook/default.nix { };
+          microsoft-teams = pkgs.callPackage ./packages/microsoft-teams/default.nix { };
+          spotify = pkgs.callPackage ./packages/spotify/default.nix { };
+          toggl-track = pkgs.callPackage ./packages/toggl-track/default.nix { };
+          via = pkgs.callPackage ./packages/via/default.nix { };
+
+        }
+      );
 
       nixosConfigurations = builtins.listToAttrs (
-        map (hostname: {
-          name = hostname;
-          value = lib.nixosSystem {
-            specialArgs = {
-              inherit inputs self hostname;
-            };
-            # system = "x86_64-linux";
-            modules = [
-              # the host config itself
-              ./hosts/${hostname}
+        map (
+          hostname:
+          let
+            system = import ./hosts/${hostname}/system.nix;
+          in
+          {
+            # build a nixosSystem for each host
+            name = hostname;
+            value = lib.nixosSystem {
+              # the rest of this is just like any other flake
+              specialArgs = {
+                inherit inputs self hostname;
+              };
+              system = system;
+              modules = [
+                # the host will import any roles it needs
+                ./hosts/${hostname}
 
-              # other nixos modules
-              ./modules/nixos/import.nix
+                # shared modules
+                inputs.sops-nix.nixosModules.sops
+                inputs.impermanence.nixosModules.impermanence
+                inputs.home-manager.nixosModules.home-manager
 
-              # general flake imports
-              inputs.sops-nix.nixosModules.sops
-              inputs.impermanence.nixosModules.impermanence
-              inputs.home-manager.nixosModules.home-manager
-
-              # home-manager configuration
-              (
-                { config, lib, ... }:
-                let
-                  # allow hosts to specify whether hm is enabled, and if some
-                  # users should be (in)active
-                  cfg = config.mine.nixos.system.home-manager;
-
-                  # error if both activeUsers *and* disabledUsers are set
-                  _ =
-                    if cfg.enabledUsers != [ ] && cfg.disabledUsers != [ ] then
-                      lib.throwError "mine.nixos.system.home-manager: cannot set both enabledUsers and disabledUsers"
-                    else
-                      null;
-
-                  activeUsers =
-                    if cfg.enabledUsers == [ ] then
-                      # enable all users
-                      users
-                    else if cfg.disabledUsers != [ ] then
-                      # enable all except disabled
-                      lib.filter (u: !(lib.elem u cfg.disabledUsers)) users
-                    else
-                      # intersect with configured list
-                      lib.intersectLists users cfg.enabledUsers;
-
-                in
-                {
-                  # nixos.nix does anything that we can't do via hm (e.g., set passwords)
-                  imports = [
-                    ./users/ryan/nixos.nix
-                    ./users/angel/nixos.nix
-                  ];
-
-                  # unfortunately this doesn't work due to infinite recursion:
-                  # imports = map (user: ./users/${user}/nixos.nix) activeUsers;
-
-                  home-manager = lib.mkIf cfg.enable {
-                    sharedModules = [
-                      ./modules/home/import.nix
-                      inputs.sops-nix.homeManagerModules.sops
-                      inputs.flatpaks.homeModules.default
+                # home-manager configuration
+                (
+                  { config, lib, ... }:
+                  let
+                    availableUsers = [
+                      "ryan"
+                      "angel"
                     ];
-                    useGlobalPkgs = true;
-                    useUserPackages = true;
-                    extraSpecialArgs = {
-                      inherit inputs self hostname;
-                    };
-                    users = builtins.listToAttrs (
-                      map (user: {
-                        name = user;
-                        value = ./users/${user};
-                      }) activeUsers
+                    enabledUsers = map (user: user) (
+                      lib.filter (u: config.mine.users.${u}.enable == true) availableUsers
                     );
-                  };
-                }
-              )
-            ];
-          };
-        }) hosts
+                  in
+                  {
+                    home-manager = lib.mkIf config.mine.core.system.home-manager.enable {
+                      sharedModules = [
+                        # load all modules in ./roles/home, then the users/<user>/default.nix
+                        # will selectively enable what it needs
+                        ./home
+
+                        # and again, shared modules
+                        inputs.sops-nix.homeManagerModules.sops
+                        inputs.flatpaks.homeModules.default
+                      ];
+
+                      useGlobalPkgs = true;
+                      useUserPackages = true;
+                      extraSpecialArgs = {
+                        inherit inputs self hostname;
+                      };
+
+                      # we semi-dynamiclly generate the `users attrset, depending on
+                      # what the host asks for
+                      users = builtins.listToAttrs (
+                        map (user: {
+                          name = user;
+                          value = ./users/${user};
+                        }) enabledUsers
+                      );
+                    };
+                  }
+                )
+              ];
+            };
+          }
+        ) hosts
       );
     };
 }

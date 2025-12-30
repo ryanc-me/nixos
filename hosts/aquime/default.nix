@@ -15,18 +15,26 @@ in
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen5
 
     # roles
-    ../../roles/desktop.nix
+    ../../roles/core
+    ../../roles/desktop
+    ../../roles/desktop-gaming
+    ../../roles/desktop-gnome
+    ../../roles/desktop-vms
+    ../../roles/monitoring
+    ../../roles/monitoring-server
+    ../../roles/users
   ];
 
-  mine.nixos = {
-    desktop.gnome.monitors-xml = monitors-xml;
-    desktop.display = {
+  mine = {
+    desktop-gnome.monitors-xml.source = monitors-xml;
+    desktop.services.display = {
       screenW = 1920;
       screenH = 1200;
       screenScale = 1.25;
     };
-    desktop.wallpaper.mode = "zoom";
-    services.fprintd.enable = true;
+    desktop.system.wallpaper.mode = "zoom";
+    desktop.services.fprintd.enable = true;
+    users.angel.enable = true;
   };
 
   system.stateVersion = "25.05";

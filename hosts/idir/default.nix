@@ -15,21 +15,31 @@ in
     inputs.nixos-hardware.nixosModules.gigabyte-b550
 
     # roles
-    ../../roles/desktop.nix
+    ../../roles/core
+    ../../roles/desktop
+    ../../roles/desktop-gaming
+    ../../roles/desktop-gnome
+    ../../roles/desktop-vms
+    ../../roles/monitoring
+    ../../roles/monitoring-server
+    ../../roles/users
   ];
 
-  mine.nixos = {
-    desktop.gnome.monitors-xml = monitors-xml;
-    desktop.display = {
+  mine = {
+    desktop-gnome.gnome-monitors-xml.source = monitors-xml;
+    desktop.services.display = {
       screenW = 3840;
       screenH = 2160;
       screenScale = 1.25;
     };
-    system = {
-      gpu.nvidia.enable = true;
-      sysctl.gaming.enable = true;
-      kernel.package = pkgs.linuxPackages_xanmod_latest;
+    desktop.system = {
+      gpu-nvidia.enable = true;
     };
+    users.angel.enable = true;
+
+    # enable some gaming sysctls + Xanmod kernel
+    desktop-gaming.system.sysctl.enable = true;
+    core.system.kernel.package = pkgs.linuxPackages_xanmod_latest;
   };
 
   # blacklist motherboard bluetooth (13d3:3533) because it was crap, and was
