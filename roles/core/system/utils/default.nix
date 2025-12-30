@@ -69,6 +69,7 @@ let
     imagemagick
     eza
     dos2unix
+    ripgrep
   ];
   system-tools = with pkgs; [
     strace
