@@ -70,6 +70,7 @@ let
     eza
     dos2unix
     ripgrep
+    sops
   ];
   system-tools = with pkgs; [
     strace
