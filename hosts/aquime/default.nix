@@ -13,16 +13,7 @@ in
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.lenovo-thinkpad-t14-amd-gen5
-
-    # roles
-    ../../roles/core
-    ../../roles/desktop
-    ../../roles/desktop-gaming
-    ../../roles/desktop-gnome
-    ../../roles/desktop-vms
-    ../../roles/monitoring
-    ../../roles/monitoring-server
-    ../../roles/users
+    ../../roles
   ];
 
   mine = {
@@ -35,6 +26,16 @@ in
     desktop.system.wallpaper.mode = "zoom";
     desktop.services.fprintd.enable = true;
     users.angel.enable = true;
+
+    # enable roles
+    core.enable = true;
+    desktop.enable = true;
+    desktop-gnome.enable = true;
+    desktop-gaming.enable = true;
+    desktop-vms.enable = true;
+    monitoring.enable = true;
+    monitoring-server.enable = true;
+    users.enable = true;
   };
 
   system.stateVersion = "25.05";

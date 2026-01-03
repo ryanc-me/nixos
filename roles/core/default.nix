@@ -1,12 +1,13 @@
-{ lib, pkgs, ... }:
-let
-  recursiveImportDefault =
-    (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
+  lib,
+  pkgs,
+  config,
+  ...
+}:
+{
+  options.mine.core.enable = lib.mkEnableOption "'core' role";
 
-  config.mine.core = {
+  config.mine.core = lib.mkIf config.mine.core.enable {
     cli = {
       git.enable = true;
     };

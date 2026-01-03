@@ -1,11 +1,12 @@
-{ lib, ... }:
-let
-  recursiveImportDefault = (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
+  lib,
+  config,
+  ...
+}:
+{
+  options.mine.desktop-gaming.enable = lib.mkEnableOption "'desktop-gaming' role";
 
-  config.mine.desktop-gaming = {
+  config.mine.desktop-gaming = lib.mkIf config.mine.desktop-gaming.enable {
     apps = {
       lutris.enable = true;
       steam.enable = true;

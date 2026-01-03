@@ -1,12 +1,12 @@
-{ lib, ... }:
-let
-  recursiveImportDefault =
-    (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
+  lib,
+  config,
+  ...
+}:
+{
+  options.mine.desktop.enable = lib.mkEnableOption "'desktop' role";
 
-  config.mine.desktop = {
+  config.mine.desktop = lib.mkIf config.mine.desktop.enable {
     apps = {
       onepassword.enable = true;
       blender.enable = true;

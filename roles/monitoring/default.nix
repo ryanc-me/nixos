@@ -1,11 +1,12 @@
-{ lib, ... }:
-let
-  recursiveImportDefault = (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
+  lib,
+  config,
+  ...
+}:
+{
+  options.mine.monitoring.enable = lib.mkEnableOption "'monitoring' role";
 
-  # config.mine.monitoring = {
+  config.mine.monitoring = lib.mkIf config.mine.monitoring.enable {
 
-  # };
+  };
 }

@@ -13,16 +13,7 @@ in
   imports = [
     ./hardware-configuration.nix
     inputs.nixos-hardware.nixosModules.gigabyte-b550
-
-    # roles
-    ../../roles/core
-    ../../roles/desktop
-    ../../roles/desktop-gaming
-    ../../roles/desktop-gnome
-    ../../roles/desktop-vms
-    ../../roles/monitoring
-    ../../roles/monitoring-server
-    ../../roles/users
+    ../../roles
   ];
 
   mine = {
@@ -40,6 +31,16 @@ in
     # enable some gaming sysctls + Xanmod kernel
     desktop-gaming.system.sysctl.enable = true;
     core.system.kernel.package = pkgs.linuxPackages_xanmod_latest;
+
+    # enable roles
+    core.enable = true;
+    desktop.enable = true;
+    desktop-gaming.enable = true;
+    desktop-gnome.enable = true;
+    desktop-vms.enable = true;
+    monitoring.enable = true;
+    monitoring-server.enable = true;
+    users.enable = true;
   };
 
   # blacklist motherboard bluetooth (13d3:3533) because it was crap, and was

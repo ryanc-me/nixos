@@ -1,19 +1,19 @@
-{ lib, ... }:
-let
-  recursiveImportDefault =
-    (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
-
+  lib,
+  config,
+  ...
+}:
+{
   options.mine.server-media = {
+    enable = lib.mkEnableOption "'server-media' role";
+
     domainBase = lib.mkOption {
       type = lib.types.str;
       description = "Base domain for media server services.";
     };
   };
 
-  config.mine.server-media = {
+  config.mine.server-media = lib.mkIf config.mine.server-media.enable {
     domainBase = "mixeto.io";
 
     services = {

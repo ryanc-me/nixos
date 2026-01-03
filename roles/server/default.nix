@@ -1,11 +1,12 @@
-{ lib, ... }:
-let
-  recursiveImportDefault = (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
+  lib,
+  config,
+  ...
+}:
+{
+  options.mine.server.enable = lib.mkEnableOption "'server' role";
 
-  # config.mine.server = {
+  config.mine.server = lib.mkIf config.mine.server.enable {
 
-  # };
+  };
 }

@@ -1,12 +1,12 @@
-{ lib, ... }:
-let
-  recursiveImportDefault =
-    (import ../../lib/recursiveImportDefault.nix { inherit lib; }).recursiveImportDefault;
-in
 {
-  imports = recursiveImportDefault ./.;
+  lib,
+  config,
+  ...
+}:
+{
+  options.mine.desktop-gnome.enable = lib.mkEnableOption "'desktop-gnome' role";
 
-  config.mine.desktop-gnome = {
+  config.mine.desktop-gnome = lib.mkIf config.mine.desktop-gnome.enable {
     gdm.enable = true;
     gdm-wallpaper.enable = true;
     gnome.enable = true;
