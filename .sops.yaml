@@ -3,6 +3,7 @@ keys:
   - &idir age1tz0vdvscgsfemxmh29hytr3e6fp0qwwgn7wjs64kfcwmen88nyhs9qzjkd
   - &heibohre age1ea0ty53kq56x6ssyhgx4sp68c36ahrw455lq42v4x8wdenhg6usqfvkvrp
   - &aquime age1ekkskexkzylhtwujzj74h9uam0q8ndgyqdnkzzets69s6mr5ddgq89tlzy
+  - &masaq: age1tmnjv26yz30zxt0ttuh6eveky54rds66mwga6w5y9j0dkdr3hq0q352jsp
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
@@ -11,3 +12,4 @@ creation_rules:
       - *idir
       - *heibohre
       - *aquime
+      - *masaq
