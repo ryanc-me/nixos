@@ -101,7 +101,7 @@ in
       '';
     };
 
-    dconf.settings = mkIf osConfig.mine.desktop-gnome.gnome.enable {
+    dconf.settings = mkIf (osConfig.mine ? desktop-gnome && osConfig.mine.desktop-gnome.gnome.enable) {
       "org/gnome/settings-daemon/plugins/media-keys" = {
         custom-keybindings = [
           "/org/gnome/settings-daemon/plugins/media-keys/custom0/"

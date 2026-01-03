@@ -14,7 +14,7 @@ in
     ./wallpaper.nix
   ];
 
-  config = mkIf osConfig.mine.desktop-gnome.gnome.enable {
+  config = mkIf (osConfig.mine ? desktop-gnome && osConfig.mine.desktop-gnome.gnome.enable) {
     gtk = {
       enable = true;
       theme = {

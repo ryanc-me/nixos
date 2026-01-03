@@ -5,13 +5,13 @@
   osConfig,
   ...
 }:
-let
-  gnome-ext = osConfig.mine.desktop-gnome.gnome-extensions;
-in
+
 {
-  config = lib.mkIf (gnome-ext.enable) {
-    dconf.settings."org/gnome/shell".enabled-extensions = map (
-      pkg: pkgs.gnomeExtensions.${pkg}.extensionUuid
-    ) gnome-ext.extensions;
-  };
+  config =
+    lib.mkIf (osConfig.mine ? desktop-gnome && osConfig.mine.desktop-gnome.gnome-extensions.enable)
+      {
+        dconf.settings."org/gnome/shell".enabled-extensions = map (
+          pkg: pkgs.gnomeExtensions.${pkg}.extensionUuid
+        ) osConfig.mine.desktop-gnome.gnome-extensions.extensions;
+      };
 }
