@@ -1,0 +1,40 @@
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
+
+let
+  inherit (lib) mkEnableOption mkIf;
+  cfg = config.mine.server-media.services.overseerr;
+  nginx = config.mine.server-media.services.nginx;
+in
+{
+  options.mine.server-media.services.overseerr = {
+    enable = mkEnableOption "overseerr (subtitle manager)";
+  };
+
+  config = mkIf cfg.enable {
+    services.overseerr = {
+      enable = true;
+    };
+
+    services.nginx.virtualHosts."overseerr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
+      forceSSL = true;
+      useACMEHost = "mixeto.io";
+      acmeRoot = null; # because we're using DNS-01
+      http2 = true;
+      default = true;
+
+      extraConfig = ''
+        include ${../nginx/snippets/ocsp-stapling.conf};
+        include ${../nginx/snippets/ssl-secure.conf};
+      '';
+
+      locations."/" = {
+        proxyPass = "http://localhost:5055";
+      };
+    };
+  };
+}
