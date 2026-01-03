@@ -1,15 +1,13 @@
 keys:
-  - &admin1 age15lcvjk4vayexm8gwtqa5avpzpk7sxq89ej9z6pdzyajfmhv04spsekh8ps
-  - &idir age1tz0vdvscgsfemxmh29hytr3e6fp0qwwgn7wjs64kfcwmen88nyhs9qzjkd
-  - &heibohre age1ea0ty53kq56x6ssyhgx4sp68c36ahrw455lq42v4x8wdenhg6usqfvkvrp
-  - &aquime age1ekkskexkzylhtwujzj74h9uam0q8ndgyqdnkzzets69s6mr5ddgq89tlzy
-  - &masaq: age1tmnjv26yz30zxt0ttuh6eveky54rds66mwga6w5y9j0dkdr3hq0q352jsp
+  - &user_ryan age15lcvjk4vayexm8gwtqa5avpzpk7sxq89ej9z6pdzyajfmhv04spsekh8ps
+  - &host_idir age1tz0vdvscgsfemxmh29hytr3e6fp0qwwgn7wjs64kfcwmen88nyhs9qzjkd
+  - &host_aquime age1ekkskexkzylhtwujzj74h9uam0q8ndgyqdnkzzets69s6mr5ddgq89tlzy
+  - &host_masaq age1tmnjv26yz30zxt0ttuh6eveky54rds66mwga6w5y9j0dkdr3hq0q352jsp
 creation_rules:
   - path_regex: secrets/[^/]+\.(yaml|json|env|ini)$
     key_groups:
     - age:
-      - *admin1
-      - *idir
-      - *heibohre
-      - *aquime
-      - *masaq
+      - *user_ryan
+      - *host_idir
+      - *host_aquime
+      - *host_masaq
