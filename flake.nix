@@ -22,6 +22,9 @@
     flatpaks = {
       url = "github:in-a-dil-emma/declarative-flatpak/latest";
     };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+    };
 
     self = {
       # make Nix copy the `secrets` submodule into the store
@@ -87,6 +90,7 @@
                 inputs.sops-nix.nixosModules.sops
                 inputs.impermanence.nixosModules.impermanence
                 inputs.home-manager.nixosModules.home-manager
+                inputs.vscode-server.nixosModules.default
 
                 # home-manager configuration
                 (

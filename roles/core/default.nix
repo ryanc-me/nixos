@@ -36,6 +36,7 @@
         other-utils = true;
         system-tools = true;
       };
+      vscode-server.enable = true;
     };
   };
 }
