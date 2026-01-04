@@ -13,6 +13,8 @@
   ];
   
   mine = {
+    core.services.sshd.port = 25091;
+
     # enable roles
     core.enable = true;
     users.enable = true;

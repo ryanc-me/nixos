@@ -27,6 +27,10 @@ in
       settings = {
         PasswordAuthentication = true;
         PermitRootLogin = "no";
+        AllowUsers =
+          [ ]
+          ++ lib.optionals (config.mine.users.ryan.enable) [ "ryan" ]
+          ++ lib.optionals (config.mine.users.angel.enable) [ "angel" ];
       };
     };
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openPorts [ cfg.port ];
