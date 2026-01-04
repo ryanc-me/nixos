@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.desktop.system.boot-systemd;
+  cfg = config.mine.core.system.boot-systemd;
 in
 {
-  options.mine.desktop.system.boot-systemd = {
+  options.mine.core.system.boot-systemd = {
     enable = mkEnableOption "Systemd bootloader";
   };
 

@@ -8,10 +8,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.desktop.system.boot-plymouth;
+  cfg = config.mine.core.system.boot-plymouth;
 in
 {
-  options.mine.desktop.system.boot-plymouth = {
+  options.mine.core.system.boot-plymouth = {
     enable = mkEnableOption "Plymouth theme";
   };
 
