@@ -52,8 +52,6 @@
     };
     system = {
       bluetooth.enable = true;
-      boot-plymouth.enable = true;
-      boot-systemd.enable = true;
       firewall.enable = true;
       gpu-nvidia.enable = true;
       pipewire.enable = true;

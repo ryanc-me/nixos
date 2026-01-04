@@ -15,6 +15,8 @@
       sshd.enable = true;
     };
     system = {
+      boot-plymouth.enable = true;
+      boot-systemd.enable = true;
       home-manager.enable = true;
       hostname.enable = true;
       impermanence.enable = true;
