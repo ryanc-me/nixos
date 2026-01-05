@@ -21,7 +21,26 @@ in
       dataDir = "/var/lib/rutorrent";
       nginx.enable = true;
       hostName = "rutorrent.${config.mine.server-media.domainBase}";
-      plugins = [ "unpack" "httprpc" ];
+      plugins = [
+        "_getdir"
+        "_noty"
+        "_noty2"
+        "_task"
+        "check_port"
+        "chunks"
+        "data"
+        "datadir"
+        "diskspace"
+        "erasedata"
+        "geoip"
+        "history"
+        "httprpc"
+        "ratio"
+        "scheduler"
+        "seedingtime"
+        "source"
+        "unpack"
+      ];
     };
 
     systemd.services.rtorrent.serviceConfig.SupplementaryGroups = [ config.services.rtorrent.group ];
