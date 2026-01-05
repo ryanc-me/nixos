@@ -18,6 +18,7 @@ in
   config = mkIf cfg.enable {
     services.bazarr = {
       enable = true;
+      dataDir = "/var/lib/bazarr";
     };
 
     services.nginx.virtualHosts."bazarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {

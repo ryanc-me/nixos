@@ -18,7 +18,9 @@ in
   config = mkIf cfg.enable {
     services.radarr = {
       enable = true;
+      dataDir = "/var/lib/radarr";
     };
+    users.users."radarr".extraGroups = [ "media-movies" ];
 
     services.nginx.virtualHosts."radarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;

@@ -18,7 +18,10 @@ in
   config = mkIf cfg.enable {
     services.sonarr = {
       enable = true;
+      dataDir = "/var/lib/sonarr";
     };
+
+    users.users."sonarr".extraGroups = [ "media-tv" ];
 
     services.nginx.virtualHosts."sonarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;

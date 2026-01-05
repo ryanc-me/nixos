@@ -18,7 +18,9 @@ in
   config = mkIf cfg.enable {
     services.lidarr = {
       enable = true;
+      dataDir = "/var/lib/lidarr";
     };
+    users.users."lidarr".extraGroups = [ "media-music" ];
 
     services.nginx.virtualHosts."lidarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;

@@ -18,6 +18,7 @@ in
   config = mkIf cfg.enable {
     services.prowlarr = {
       enable = true;
+      dataDir = "/var/lib/prowlarr";
     };
 
     services.nginx.virtualHosts."prowlarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {

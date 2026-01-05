@@ -13,6 +13,26 @@
     };
   };
 
+  config.users = lib.mkIf config.mine.server-media.enable {
+    groups = {
+      "media-movies" = {
+        gid = 3501;
+        name = "media-movies";
+      };
+      "media-tv" = {
+        gid = 3502;
+        name = "media-tv";
+      };
+      "media-music" = {
+        gid = 3503;
+        name = "media-music";
+      };
+      "rtorrent-data" = {
+        gid = 3601;
+        name = "torrent-data";
+      };
+    };
+  };
   config.mine.server-media = lib.mkIf config.mine.server-media.enable {
     domainBase = "mixeto.io";
 
