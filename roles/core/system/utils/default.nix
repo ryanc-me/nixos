@@ -47,6 +47,7 @@ let
     dnsutils
     socat
     nmap
+    net-tools
   ];
   system-monitoring = with pkgs; [
     htop
