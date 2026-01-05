@@ -25,7 +25,6 @@ in
       useACMEHost = "mixeto.io";
       acmeRoot = null; # because we're using DNS-01
       http2 = true;
-      default = true;
 
       extraConfig = ''
         include ${../nginx/snippets/ocsp-stapling.conf};
