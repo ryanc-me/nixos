@@ -20,8 +20,10 @@ in
       enable = true;
       dataDir = "/var/lib/rtorrent";
       downloadDir = "/mnt/torrent-data/torrents/other";
-      dataPermissions = "0750";
+      dataPermissions = "0770";
       configText = ''
+        network.bind_address.set = 0.0.0.0
+
         system.daemon.set = true
 
         directory.default.set = (cat,"/mnt/torrent-data/torrents/other")
@@ -79,6 +81,8 @@ in
       '';
     };
 
+    networking.firewall.allowedTCPPorts = [ 50000 ];
+
     users.users."rtorrent".extraGroups = [
       "torrent-data"
       "media-tv"
@@ -89,7 +93,5 @@ in
     #TODO: remove this
     # https://github.com/NixOS/nixpkgs/issues/445186
     systemd.services.rtorrent.serviceConfig.SystemCallFilter = ["@chown" ];
-
-    users.users."rtorrent".extraGroups = [ "media-tv" ];
   };
 }
