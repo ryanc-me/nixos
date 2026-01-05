@@ -22,6 +22,7 @@
       hostname.enable = true;
       impermanence.enable = true;
       kernel.package = lib.mkDefault pkgs.linuxPackages_latest;
+      network-firewall.enable = true;
       network-manager.enable = true;
       timezone.enable = true;
       utils = {
