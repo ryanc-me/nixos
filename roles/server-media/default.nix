@@ -39,8 +39,10 @@
     services = {
       bazarr.enable = true;
       certs.enable = true;
+      default.enable = true;
       lidarr.enable = true;
       nginx.enable = true;
+      oauth2-proxy.enable = true;
       overseerr.enable = true;
       plex.enable = true;
       prowlarr.enable = true;

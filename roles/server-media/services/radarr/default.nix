@@ -31,10 +31,14 @@ in
       extraConfig = ''
         include ${../nginx/snippets/ocsp-stapling.conf};
         include ${../nginx/snippets/ssl-secure.conf};
+        include ${../oauth2-proxy/snippets/main.conf};
       '';
 
       locations."/" = {
         proxyPass = "http://localhost:7878";
+        extraConfig = ''
+          include ${../oauth2-proxy/snippets/location.conf};
+        '';
       };
     };
   };
