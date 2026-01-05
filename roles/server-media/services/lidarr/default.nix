@@ -20,7 +20,7 @@ in
       enable = true;
       dataDir = "/var/lib/lidarr";
     };
-    users.users."lidarr".extraGroups = [ "media-music" ];
+    users.users."lidarr".extraGroups = [ "media-music" "torrent-data" "usenet-data" ];
 
     services.nginx.virtualHosts."lidarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;

@@ -20,7 +20,7 @@ in
       enable = true;
       dataDir = "/var/lib/radarr";
     };
-    users.users."radarr".extraGroups = [ "media-movies" ];
+    users.users."radarr".extraGroups = [ "media-movies" "torrent-data" "usenet-data" ];
 
     services.nginx.virtualHosts."radarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;

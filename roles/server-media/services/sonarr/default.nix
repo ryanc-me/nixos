@@ -21,7 +21,7 @@ in
       dataDir = "/var/lib/sonarr";
     };
 
-    users.users."sonarr".extraGroups = [ "media-tv" ];
+    users.users."sonarr".extraGroups = [ "media-tv" "torrent-data" "usenet-data" ];
 
     services.nginx.virtualHosts."sonarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;

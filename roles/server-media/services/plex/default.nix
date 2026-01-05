@@ -60,6 +60,12 @@ in
       openFirewall = true;
     };
 
+    users.users."plex".extraGroups = [
+      "media-movies"
+      "media-tv"
+      "media-music"
+    ];
+
     services.nginx.virtualHosts."plex.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";

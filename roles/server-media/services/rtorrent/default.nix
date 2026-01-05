@@ -80,6 +80,7 @@ in
     };
 
     users.users."rtorrent".extraGroups = [
+      "torrent-data"
       "media-tv"
       "media-movies"
       "media-music"
