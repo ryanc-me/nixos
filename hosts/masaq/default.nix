@@ -61,7 +61,7 @@ in
 
     # mergerfs
     "/mnt/raid-data" = {
-      device = "/mnt/disks/4TB-01:/mnt/disks/4TB-02/:/mnt/disks/10TB-01:/mnt/disks/10TB-02:/mnt/disks/10TB-04";
+      device = "/mnt/disks/4TB-01:/mnt/disks/4TB-02:/mnt/disks/10TB-01:/mnt/disks/10TB-02:/mnt/disks/10TB-04";
       fsType = "mergerfs";
       options = [
         "allow_other"
@@ -78,7 +78,7 @@ in
       ];
     };
     "/mnt/torrent-data" = {
-      device = "/mnt/disks/SSD-01:/mnt/disks/SSD-02/";
+      device = "/mnt/disks/SSD-01:/mnt/disks/SSD-02";
       fsType = "mergerfs";
       options = [
         "allow_other"
