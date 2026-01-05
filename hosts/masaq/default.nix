@@ -64,6 +64,7 @@ in
       device = "/mnt/disks/4TB-01:/mnt/disks/4TB-02:/mnt/disks/10TB-01:/mnt/disks/10TB-02:/mnt/disks/10TB-04";
       fsType = "mergerfs";
       options = [
+        "default_permissions"
         "allow_other"
         "fsname=raid-data"
         "threads=6"
@@ -81,6 +82,7 @@ in
       device = "/mnt/disks/SSD-01:/mnt/disks/SSD-02";
       fsType = "mergerfs";
       options = [
+        "default_permissions"
         "allow_other"
         "fsname=torrent-data"
         "threads=6"
