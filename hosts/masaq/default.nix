@@ -95,6 +95,38 @@ in
     };
   };
 
+  # the goal is:
+  # - users in the correct group (torrent-data) can read/write
+  # - all other users are blocked
+  # - new directories get the correct group + permissions
+  systemd.services.aquime-setgid-dirs = {
+    description = "Set the setgid bit on directories";
+    wantedBy = [ "multi-user.target" ];
+    after = [ "local-fs.target" ];
+    serviceConfig.Type = "oneshot";
+
+    script = ''
+      set_permissions() {
+        dir=$1
+        user=$2
+        group=$3
+        echo "Setting setgid on directories in ''${dir} (user=''${user}, group=''${group})"
+
+        ${pkgs.coreutils}/bin/chown -R ''${user}:''${group} "''${dir}"
+        ${pkgs.coreutils}/bin/chmod -R u=rwX,g=rwX,o= "''${dir}"
+        ${pkgs.findutils}/bin/find ''${dir} -type d -exec ${pkgs.coreutils}/bin/chmod g+s {} +
+        ${pkgs.acl}/bin/setfacl -R -m d:u::rwx,d:g::rwx,d:o::- "''${dir}"
+      }
+      
+      set_permissions /mnt/torrent-data/torrents rtorrent torrent-data
+      set_permissions /mnt/torrent-data/usenet rtorrent usenet-data
+      set_permissions /mnt/raid-data/media/movies root media-movies
+      set_permissions /mnt/raid-data/media/tv root media-tv
+      set_permissions /mnt/raid-data/media/music root media-music
+      set_permissions /mnt/raid-data/media/books root media-books
+    '';
+  };
+
   services.snapraid = {
     enable = true;
     dataDisks = {
