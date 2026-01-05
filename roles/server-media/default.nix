@@ -47,7 +47,10 @@
       plex.enable = true;
       prowlarr.enable = true;
       radarr.enable = true;
+      rtorrent.enable = true;
+      rutorrent.enable = true;
       sonarr.enable = true;
+      tautulli.enable = true;
     };
   };
 }
