@@ -13,6 +13,7 @@
     };
     services = {
       sshd.enable = true;
+      vscode-server.enable = true;
     };
     system = {
       boot-plymouth.enable = true;
@@ -36,7 +37,6 @@
         other-utils = true;
         system-tools = true;
       };
-      vscode-server.enable = true;
     };
   };
 }

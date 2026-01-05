@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkOption mkIf;
-  cfg = config.mine.core.system.vscode-server;
+  cfg = config.mine.core.services.vscode-server;
 in
 {
-  options.mine.core.system.vscode-server = {
+  options.mine.core.services.vscode-server = {
     enable = mkEnableOption "VSCode Server";
   };
 
