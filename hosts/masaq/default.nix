@@ -82,7 +82,7 @@ in
       fsType = "mergerfs";
       options = [
         "allow_other"
-        "fsname=raid-data"
+        "fsname=torrent-data"
         "threads=6"
         "moveonenospc=true"
         "minfreespace=50G"
