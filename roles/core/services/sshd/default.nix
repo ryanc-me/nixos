@@ -24,14 +24,22 @@ in
     services.openssh = {
       enable = true;
       ports = [ cfg.port ];
+      allowSFTP = false;
       settings = {
-        PasswordAuthentication = true;
+        PasswordAuthentication = false;
         PermitRootLogin = "no";
         AllowUsers =
           [ ]
           ++ lib.optionals (config.mine.users.ryan.enable) [ "ryan" ]
           ++ lib.optionals (config.mine.users.angel.enable) [ "angel" ];
+        AcceptEnv = [
+          "LANG"
+          "GIT_*"
+        ];
       };
+      extraConfig = ''
+        AllowAgentForwarding yes
+      '';
     };
     networking.firewall.allowedTCPPorts = lib.mkIf cfg.openPorts [ cfg.port ];
   };
