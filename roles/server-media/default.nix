@@ -70,6 +70,7 @@
       rutorrent.enable = true;
       sonarr.enable = true;
       tautulli.enable = true;
+      unpackerr.enable = true;
     };
   };
 }
