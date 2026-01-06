@@ -8,7 +8,7 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.mine.server-media.services.nzbhydra2;
-  nginx = config.mine.server-media.services.nginx;
+  nginx = config.mine.server-nginx.services.nginx;
 in
 {
   options.mine.server-media.services.nzbhydra2 = {
@@ -27,15 +27,15 @@ in
       http2 = true;
 
       extraConfig = ''
-        include ${../nginx/snippets/ocsp-stapling.conf};
-        include ${../nginx/snippets/ssl-secure.conf};
-        include ${../oauth2-proxy/snippets/main.conf};
+        include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
+        include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
+        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
       '';
 
       locations."/" = {
         proxyPass = "http://localhost:5076";
         extraConfig = ''
-          include ${../oauth2-proxy/snippets/location.conf};
+          include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';
       };
     };

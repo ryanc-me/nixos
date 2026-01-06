@@ -7,12 +7,12 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.server-media.services.oauth2-proxy;
-  nginx = config.mine.server-media.services.nginx;
+  cfg = config.mine.server-nginx.services.oauth2-proxy;
+  nginx = config.mine.server-nginx.services.nginx;
 in
 {
   #TODO: move this to server-auth (server-oauth2-proxy?)
-  options.mine.server-media.services.oauth2-proxy = {
+  options.mine.server-nginx.services.oauth2-proxy = {
     enable = mkEnableOption "oauth2-proxy (auth proxy)";
   };
 
@@ -36,7 +36,7 @@ in
       };
       upstream = [ "static://200" ];
       # nginx = {
-      #   domain = "auth.${config.mine.server-media.domainBase}";
+      #   domain = "auth.${config.mine.server-nginx.domainBase}";
       # };
 
       # various secrets set by the key file:

@@ -7,10 +7,10 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.server-media.services.default;
+  cfg = config.mine.server-nginx.services.default;
 in
 {
-  options.mine.server-media.services.default = {
+  options.mine.server-nginx.services.default = {
     enable = mkEnableOption "default Nginx vhost";
   };
 

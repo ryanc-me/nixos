@@ -7,11 +7,11 @@
 
 let
   inherit (lib) mkEnableOption mkIf;
-  cfg = config.mine.server-media.services.certs;
-  nginx = config.mine.server-media.services.nginx;
+  cfg = config.mine.server-nginx.services.certs;
+  nginx = config.mine.server-nginx.services.nginx;
 in
 {
-  options.mine.server-media.services.certs = {
+  options.mine.server-nginx.services.certs = {
     enable = mkEnableOption "certs for mixeto.io";
   };
 

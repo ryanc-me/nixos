@@ -39,6 +39,7 @@ in
     core.enable = true;
     users.enable = true;
     server-media.enable = true;
+    server-nginx.enable = true;
   };
 
   environment.systemPackages = with pkgs; [

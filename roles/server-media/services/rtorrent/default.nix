@@ -8,7 +8,7 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.mine.server-media.services.rtorrent;
-  nginx = config.mine.server-media.services.nginx;
+  nginx = config.mine.server-nginx.services.nginx;
 in
 {
   options.mine.server-media.services.rtorrent = {

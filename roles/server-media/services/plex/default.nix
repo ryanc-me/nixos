@@ -8,11 +8,11 @@
 let
   inherit (lib) mkEnableOption mkIf;
   cfg = config.mine.server-media.services.plex;
-  nginx = config.mine.server-media.services.nginx;
+  nginx = config.mine.server-nginx.services.nginx;
 
   nginxConfig = ''
-    include ${../nginx/snippets/ocsp-stapling.conf};
-    include ${../nginx/snippets/ssl-compat.conf};
+    include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
+    include ${../../../server-nginx/services/nginx/snippets/ssl-compat.conf};
 
     #Some players don't reopen a socket and playback stops totally instead of resuming after an extended pause
     send_timeout 100m;
