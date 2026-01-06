@@ -21,6 +21,7 @@ in
     };
 
     users.users."sabnzbd".extraGroups = [
+      "usenet-data"
       "media-tv"
       "media-movies"
       "media-music"
