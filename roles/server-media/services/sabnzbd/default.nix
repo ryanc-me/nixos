@@ -35,7 +35,7 @@ in
       pkgs.par2cmdline
     ];
 
-    services.nginx.virtualHosts."sabnzbd.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
+    services.nginx.virtualHosts."sabnzbd.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
       acmeRoot = null; # because we're using DNS-01

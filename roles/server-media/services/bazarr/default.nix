@@ -21,7 +21,7 @@ in
       dataDir = "/var/lib/bazarr";
     };
 
-    services.nginx.virtualHosts."bazarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
+    services.nginx.virtualHosts."bazarr.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
       acmeRoot = null; # because we're using DNS-01

@@ -22,7 +22,7 @@ in
     };
     users.users."radarr".extraGroups = [ "media-movies" "torrent-data" "usenet-data" ];
 
-    services.nginx.virtualHosts."radarr.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
+    services.nginx.virtualHosts."radarr.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
       acmeRoot = null; # because we're using DNS-01

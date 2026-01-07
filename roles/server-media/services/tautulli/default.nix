@@ -31,7 +31,7 @@ in
       groups."tautulli" = {};
     };
 
-    services.nginx.virtualHosts."tautulli.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
+    services.nginx.virtualHosts."tautulli.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
       acmeRoot = null; # because we're using DNS-01

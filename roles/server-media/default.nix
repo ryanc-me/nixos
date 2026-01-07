@@ -4,14 +4,7 @@
   ...
 }:
 {
-  options.mine.server-media = {
-    enable = lib.mkEnableOption "'server-media' role";
-
-    domainBase = lib.mkOption {
-      type = lib.types.str;
-      description = "Base domain for media server services.";
-    };
-  };
+  options.mine.server-media.enable = lib.mkEnableOption "'server-media' role";
 
   config.users = lib.mkIf config.mine.server-media.enable {
     groups = {
@@ -51,8 +44,6 @@
     ];
   };
   config.mine.server-media = lib.mkIf config.mine.server-media.enable {
-    domainBase = "mixeto.io";
-
     services = {
       bazarr.enable = true;
       lidarr.enable = true;

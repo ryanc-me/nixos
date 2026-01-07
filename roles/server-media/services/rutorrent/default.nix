@@ -20,7 +20,7 @@ in
       enable = true;
       dataDir = "/var/lib/rutorrent";
       nginx.enable = true;
-      hostName = "rutorrent.${config.mine.server-media.domainBase}";
+      hostName = "rutorrent.${config.mine.server-nginx.domainBase}";
       plugins = [
         "_getdir"
         "_noty"
@@ -45,7 +45,7 @@ in
 
     systemd.services.rtorrent.serviceConfig.SupplementaryGroups = [ config.services.rtorrent.group ];
 
-    services.nginx.virtualHosts."rutorrent.${config.mine.server-media.domainBase}" = mkIf nginx.enable {
+    services.nginx.virtualHosts."rutorrent.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
       acmeRoot = null; # because we're using DNS-01
