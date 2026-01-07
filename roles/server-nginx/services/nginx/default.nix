@@ -29,6 +29,23 @@ in
       recommendedTlsSettings = true;
       recommendedBrotliSettings = true;
       recommendedGzipSettings = true;
+
+      # default vhost for non-matched domains
+      # note that this only really works for mixeto.io due to the certs
+      virtualHosts."default" = {
+        forceSSL = true;
+        useACMEHost = "mixeto.io";
+        acmeRoot = null;
+        http2 = true;
+        default = true;
+
+        extraConfig = ''
+          include ${./snippets/ocsp-stapling.conf};
+          include ${./snippets/ssl-secure.conf};
+        '';
+
+        locations."/".return = "404";
+      };
     };
 
     networking.firewall.allowedTCPPorts = [ 80 443 ];

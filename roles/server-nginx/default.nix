@@ -17,9 +17,12 @@
 
     services = {
       certs.enable = true;
-      default.enable = true;
       nginx.enable = true;
       oauth2-proxy.enable = true;
+    };
+    domains = {
+      mixeto-io.enable = true;
+      steadia-co-nz.enable = true;
     };
   };
 }

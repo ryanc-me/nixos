@@ -12,7 +12,7 @@ let
 in
 {
   options.mine.server-nginx.services.certs = {
-    enable = mkEnableOption "certs for mixeto.io";
+    enable = mkEnableOption "acme certs";
   };
 
   config = mkIf cfg.enable {
@@ -20,24 +20,6 @@ in
       format = "dotenv";
       sopsFile = ../../../../secrets/acme-cloudflare.env;
       key = "";
-    };
-
-    security.acme = {
-      acceptTerms = true;
-      defaults.email = "admin+acme@ryanc.me";
-
-      certs."mixeto.io" = {
-        domain = "mixeto.io";
-        extraDomainNames = [ "*.mixeto.io" ];
-        dnsProvider = "cloudflare";
-        dnsPropagationCheck = true;
-        environmentFile = config.sops.secrets."cloudflare-api-token".path;
-        group = config.services.nginx.group;
-
-        reloadServices = mkIf nginx.enable [
-          "nginx"
-        ];
-      };
     };
   };
 }
