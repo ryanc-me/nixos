@@ -45,7 +45,11 @@ in
     server-nginx.enable = true;
   };
 
+  virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
+    # for intel_gpu_top
+    intel-gpu-tools
+
     mergerfs
     mergerfs-tools
   ];
