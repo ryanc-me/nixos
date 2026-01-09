@@ -24,7 +24,7 @@ in
     services.openssh = {
       enable = true;
       ports = [ cfg.port ];
-      allowSFTP = false;
+      allowSFTP = true;
       settings = {
         PasswordAuthentication = false;
         PermitRootLogin = "no";
