@@ -8,6 +8,7 @@
 
   config.mine.desktop-gaming = lib.mkIf config.mine.desktop-gaming.enable {
     apps = {
+      gamma-launcher.enable = true;
       lutris.enable = true;
       steam.enable = true;
     };
