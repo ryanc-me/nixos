@@ -32,7 +32,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://localhost:5055";
+        proxyPass = "http://127.0.0.1:${toString config.services.overseerr.port}";
       };
     };
   };

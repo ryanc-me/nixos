@@ -36,7 +36,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://localhost:8989";
+        proxyPass = "http://127.0.0.1:${toString config.services.sonarr.settings.server.port}";
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';

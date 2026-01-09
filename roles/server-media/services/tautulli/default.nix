@@ -44,7 +44,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://localhost:8181";
+        proxyPass = "http://127.0.0.1:${toString config.services.tautulli.port}";
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';

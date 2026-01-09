@@ -34,7 +34,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://localhost:6767";
+        proxyPass = "http://127.0.0.1:${toString config.services.bazarr.listenPort}";
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';

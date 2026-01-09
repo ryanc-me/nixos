@@ -34,7 +34,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://localhost:9696";
+        proxyPass = "http://127.0.0.1:${toString config.services.prowlarr.settings.server.port}";
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';
