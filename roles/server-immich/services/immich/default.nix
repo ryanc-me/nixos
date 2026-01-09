@@ -18,6 +18,16 @@ in
   config = mkIf cfg.enable {
     services.immich = {
       enable = true;
+      host = "127.0.0.1";
+      mediaLocation = "/mnt/raid-data/immich/uploads";
+      database = {
+        enableVectors = false;
+      };
+      settings = {
+        server = {
+          externalDomain = "https://immich.${config.mine.server-nginx.domainBase}";
+        };
+      };
     };
 
     services.nginx = {
@@ -28,7 +38,7 @@ in
         http2 = true;
 
         locations."/" = {
-          proxyPass = "http://127.0.0.1:${config.services.immich.port}";
+          proxyPass = "http://127.0.0.1:${toString config.services.immich.port}";
           proxyWebsockets = true;
           recommendedProxySettings = true;
           extraConfig = ''

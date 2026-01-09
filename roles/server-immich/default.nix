@@ -4,12 +4,12 @@
   ...
 }:
 {
-  options.mine.server-matrix = {
-    enable = lib.mkEnableOption "'server-matrix' role";
+  options.mine.server-immich = {
+    enable = lib.mkEnableOption "'server-immich' role";
   };
-  config.mine.server-matrix = lib.mkIf config.mine.server-matrix.enable {
+  config.mine.server-immich = lib.mkIf config.mine.server-immich.enable {
     services = {
-      continuwuity.enable = true;
+      immich.enable = true;
     };
   };
 }

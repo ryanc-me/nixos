@@ -38,6 +38,8 @@ in
     # enable roles
     core.enable = true;
     users.enable = true;
+    server-databases.enable = true;
+    server-immich.enable = true;
     server-matrix.enable = true;
     server-media.enable = true;
     server-nginx.enable = true;
