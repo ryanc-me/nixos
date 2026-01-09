@@ -75,7 +75,7 @@ in
 
       locations."/".return = "303 /web/index.html";
       locations."/web" = {
-        proxyPass = "http://127.0.0.1:32400";
+        proxyPass = "http://localhost:32400";
       };
     };
   };

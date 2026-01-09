@@ -35,7 +35,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.services.lidarr.settings.server.port}";
+        proxyPass = "http://localhost:${toString config.services.lidarr.settings.server.port}";
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';

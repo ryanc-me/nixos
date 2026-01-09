@@ -33,7 +33,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://127.0.0.1:5076";
+        proxyPass = "http://localhost:5076";
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
         '';
