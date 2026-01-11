@@ -39,6 +39,7 @@ in
     core.enable = true;
     users.enable = true;
     server-databases.enable = true;
+    server-home.enable = true;
     server-immich.enable = true;
     server-matrix.enable = true;
     server-media.enable = true;
