@@ -16,6 +16,28 @@ The goal is to have an ultra-comfortable environment across all of my devices.
  - 🔨 Non Linux-native apps via browser/PWA (Teams, Outlook, etc)
  - 🖥️ Gnome + Forge for a clean desktop experience
 
+## Todo
+
+ - Monitoring/alerting with Grafana, Prometheus, Loki, Promtail, etc
+ - Backups via restic (make a `mkResticBackup` function?)
+   * Stop the service
+   * Create a btrfs snapshot
+   * Start the service again
+   * Perform the restic backup
+   * Delete the snapshot
+   * Idea is: Minimal service downtime, consistent backups (even for services w/ DBs), max flexibility
+ - Re-organise the `secrets` folder (it's a dumping ground right now)
+ - Missing `media` services
+   * cross-seed
+   * tdarr?
+   * scrutiny
+   * notifiarr?
+ - Missing `home` services
+   * frigate
+   * gwn-manager
+   * smokeping?
+
+
 ## How does it work?
 
 **Note**: This repo is still very much a work-in-progress, so the below description might not align with the setup 100%.
