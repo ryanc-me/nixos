@@ -36,6 +36,7 @@
       via.enable = true;
       vlc.enable = true;
       vscode.enable = true;
+      zed.enable = true;
     };
     cli = {
       ruff.enable = true;
