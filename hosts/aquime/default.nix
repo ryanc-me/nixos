@@ -17,7 +17,7 @@ in
   ];
 
   mine = {
-    desktop-gnome.monitors-xml.source = monitors-xml;
+    desktop-gnome.gnome-monitors-xml.source = monitors-xml;
     desktop.services.display = {
       screenW = 1920;
       screenH = 1200;
