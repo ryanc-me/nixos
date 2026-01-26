@@ -27,7 +27,7 @@ in
       enable = true;
       package = pkgs."postgresql_${config.mine.server-databases.services.postgresql.version}";
 
-      authentication = pkgs.lib.mkOverride 10 ''
+      authentication = ''
         #type   database    DBuser      auth-method   optional_ident_map
         local   all         postgres    peer
         local   sameuser    all         peer
