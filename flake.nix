@@ -61,6 +61,7 @@
           habitsync = pkgs.callPackage ./packages/habitsync/default.nix { };
           microsoft-outlook = pkgs.callPackage ./packages/microsoft-outlook/default.nix { };
           microsoft-teams = pkgs.callPackage ./packages/microsoft-teams/default.nix { };
+          odoo = pkgs.callPackage ./packages/odoo/default.nix { };
           spotify = pkgs.callPackage ./packages/spotify/default.nix { };
           toggl-track = pkgs.callPackage ./packages/toggl-track/default.nix { };
           via = pkgs.callPackage ./packages/via/default.nix { };

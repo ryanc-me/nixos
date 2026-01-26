@@ -44,6 +44,7 @@ in
     server-matrix.enable = true;
     server-media.enable = true;
     server-nginx.enable = true;
+    server-odoo.enable = true;
   };
 
   virtualisation.docker.enable = true;
