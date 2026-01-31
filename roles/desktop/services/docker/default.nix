@@ -19,10 +19,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    virtualisation.docker = mkIf cfg.rootless {
-      # rootless only
-      enable = false;
-      rootless = {
+    virtualisation.docker = {
+      enable = !cfg.rootless;
+      rootless = mkIf cfg.rootless {
         enable = true;
 
         # setting DOCKER_HOST precludes the use of docker contexts, which will not

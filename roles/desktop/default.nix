@@ -45,7 +45,7 @@
     services = {
       docker = {
         enable = true;
-        rootless = true;
+        rootless = false;
       };
       flatpak.enable = true;
       fprintd.enable = true;
