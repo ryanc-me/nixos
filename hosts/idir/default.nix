@@ -43,6 +43,9 @@ in
     users.enable = true;
   };
 
+  #todo: remove this to a role (dev-blah?)
+  hardware.probe-rs.enable = true;
+
   # blacklist motherboard bluetooth (13d3:3533) because it was crap, and was
   # preventing my bluetooth USB dongle from working
   services.udev.extraRules = ''
