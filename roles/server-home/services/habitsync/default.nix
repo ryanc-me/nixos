@@ -23,7 +23,7 @@ in
       sopsFile = ../../../../secrets/habitsync.env;
       key = "";
     };
-  
+
     services.habitsync = {
       enable = true;
       environmentFile = config.sops.secrets."habitsync".path;

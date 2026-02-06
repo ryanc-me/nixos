@@ -31,7 +31,7 @@ in
     ./hardware-configuration.nix
     ../../roles
   ];
-  
+
   mine = {
     core.services.sshd.port = 25091;
 
@@ -47,6 +47,7 @@ in
     server-odoo.enable = true;
   };
 
+  #TODO: move this to a role
   virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
     # for intel_gpu_top
