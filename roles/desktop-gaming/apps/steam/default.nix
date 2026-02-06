@@ -41,10 +41,11 @@ in
   };
 
   config = mkIf cfg.enable {
+    security.rtkit.enable = true;
     programs = {
       gamescope = {
         enable = cfg.gamescope.enable;
-        capSysNice = true;
+        capSysNice = false;
         env = {
           DXVK_ENABLE_NVAPI = "1";
           PROTON_ENABLE_NVAPI = "1";
