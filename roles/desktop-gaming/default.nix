@@ -14,6 +14,7 @@
     };
     system = {
       sysctl.enable = true;
+      wine.enable = true;
     };
   };
 }
