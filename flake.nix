@@ -58,6 +58,7 @@
           };
         in
         {
+          ghost-cms = pkgs.callPackage ./packages/ghost-cms/default.nix { };
           habitsync = pkgs.callPackage ./packages/habitsync/default.nix { };
           microsoft-outlook = pkgs.callPackage ./packages/microsoft-outlook/default.nix { };
           microsoft-teams = pkgs.callPackage ./packages/microsoft-teams/default.nix { };
