@@ -22,6 +22,7 @@
     };
     domains = {
       mixeto-io.enable = true;
+      ryanc-me.enable = true;
       steadia-co-nz.enable = true;
     };
   };

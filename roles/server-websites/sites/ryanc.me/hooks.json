@@ -1,0 +1,11 @@
+[
+  {
+    "id": "rebuild",
+    "execute-command": "/run/current-system/sw/bin/systemctl",
+    "command-working-directory": "/",
+    "pass-arguments-to-command": [
+      { "source": "string", "name": "start" },
+      { "source": "string", "name": "www-ryanc-me-build.service" }
+    ]
+  }
+]
