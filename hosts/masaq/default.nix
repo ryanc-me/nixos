@@ -45,6 +45,7 @@ in
     server-media.enable = true;
     server-nginx.enable = true;
     server-odoo.enable = true;
+    server-websites.enable = true;
   };
 
   #TODO: move this to a role
@@ -128,7 +129,7 @@ in
         ${pkgs.findutils}/bin/find ''${dir} -type d -exec ${pkgs.coreutils}/bin/chmod g+s {} +
         ${pkgs.acl}/bin/setfacl -R -m d:u::rwx,d:g::rwx,d:o::- "''${dir}"
       }
-      
+
       set_permissions /mnt/torrent-data/torrents rtorrent torrent-data
       set_permissions /mnt/torrent-data/usenet rtorrent usenet-data
       set_permissions /mnt/raid-data/media/movies root media-movies
