@@ -25,6 +25,9 @@
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
     };
+    probe-rs-rules = {
+      url = "github:jneem/probe-rs-rules";
+    };
 
     self = {
       # make Nix copy the `secrets` submodule into the store
@@ -93,6 +96,7 @@
                 inputs.impermanence.nixosModules.impermanence
                 inputs.home-manager.nixosModules.home-manager
                 inputs.vscode-server.nixosModules.default
+                inputs.probe-rs-rules.nixosModules.${system}.default
 
                 # home-manager configuration
                 (
