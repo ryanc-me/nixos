@@ -34,7 +34,7 @@ in
         whitelist-domain = ".mixeto.io";
         skip-provider-button = "true";
       };
-      upstream = [ "static://200" ];
+      # upstream = [ "static://200" ];
       # nginx = {
       #   domain = "auth.${config.mine.server-nginx.domainBase}";
       # };
@@ -45,7 +45,6 @@ in
       # - OAUTH2_PROXY_COOKIE_SECRET
       # - OAUTH2_PROXY_GITHUB_USERS
       keyFile = config.sops.secrets."oauth2-proxy".path;
-
     };
   };
 }
