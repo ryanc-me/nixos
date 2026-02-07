@@ -28,6 +28,10 @@
     probe-rs-rules = {
       url = "github:jneem/probe-rs-rules";
     };
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     self = {
       # make Nix copy the `secrets` submodule into the store

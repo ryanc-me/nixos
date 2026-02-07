@@ -230,6 +230,26 @@
         "type": "indirect"
       }
     },
+    "noctalia": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1770436113,
+        "narHash": "sha256-Ekc6E1uo7OBMROUUZ3pBiTwha7KlHcsNf6jy1g1hCco=",
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "rev": "93838353573233b5584b106eb897a37f8a4e63ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "noctalia-dev",
+        "repo": "noctalia-shell",
+        "type": "github"
+      }
+    },
     "probe-rs-rules": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -257,6 +277,7 @@
         "mac-style-plymouth": "mac-style-plymouth",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
+        "noctalia": "noctalia",
         "probe-rs-rules": "probe-rs-rules",
         "sops-nix": "sops-nix",
         "vscode-server": "vscode-server"
