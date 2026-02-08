@@ -65,6 +65,10 @@ in
                   "quic4://masaq.lan:22000"
                   "tcp4://mixeto.io:22000"
                   "quic4://mixeto.io:22000"
+
+                  # temporary, until the server can be rebooted
+                  "tcp4://mixeto.lan:22000"
+                  "quic4://mixeto.lan:22000"
                 ];
               };
               "idir" = {
