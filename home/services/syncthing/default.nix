@@ -58,18 +58,11 @@ in
               localAnnounceEnabled = false;
             };
             devices = {
-              "heibohre" = {
-                id = "3LB2MBF-YOOEMJG-IQBI4QC-S3PYACP-MM2AJ3P-LFVXP26-V2IMWJN-JYJBXQF";
-                addresses = [
-                  "tcp4://heibohre.lan:22000"
-                  "quic4://heibohre.lan:22000"
-                ];
-              };
-              "sorpen" = {
+              "masaq" = {
                 id = "RFBG4OC-B4E4TY5-2TKYJNU-4RRTGTO-W4DETHH-BBGVEIK-P7GUJC6-EGWI5A2";
                 addresses = [
-                  "tcp4://mixeto.lan:22000"
-                  "quic4://mixeto.lan:22000"
+                  "tcp4://masaq.lan:22000"
+                  "quic4://masaq.lan:22000"
                   "tcp4://mixeto.io:22000"
                   "quic4://mixeto.io:22000"
                 ];
@@ -94,9 +87,8 @@ in
                 id = "ckker-ntjru";
                 path = "${config.home.homeDirectory}/work";
                 devices = [
-                  "heibohre"
                   "idir"
-                  "sorpen"
+                  "masaq"
                   "aquime"
                 ];
               };
@@ -104,9 +96,8 @@ in
                 id = "ou3jn-qhrwn";
                 path = "${config.home.homeDirectory}/calibre";
                 devices = [
-                  "heibohre"
                   "idir"
-                  "sorpen"
+                  "masaq"
                   "aquime"
                 ];
               };
@@ -114,9 +105,8 @@ in
                 id = "gtlm3-cyz4n";
                 path = "${config.home.homeDirectory}/temp";
                 devices = [
-                  "heibohre"
                   "idir"
-                  "sorpen"
+                  "masaq"
                   "aquime"
                 ];
               };
@@ -124,9 +114,8 @@ in
                 id = "ibzk4-hgtmj";
                 path = "${config.home.homeDirectory}/projects";
                 devices = [
-                  "heibohre"
                   "idir"
-                  "sorpen"
+                  "masaq"
                   "aquime"
                 ];
               };
@@ -135,9 +124,8 @@ in
                 id = "wpaud-nunjg";
                 path = "${config.home.homeDirectory}/.ssh";
                 devices = [
-                  "heibohre"
                   "idir"
-                  "sorpen"
+                  "masaq"
                   "aquime"
                 ];
               };

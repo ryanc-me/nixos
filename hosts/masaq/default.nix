@@ -48,6 +48,10 @@ in
     server-websites.enable = true;
   };
 
+  # manually enable syncthing (via home-manager)
+  mine.desktop.services.syncthing.enable = true;
+  networking.firewall.allowedTCPPorts = [ 22000 ];
+
   #TODO: move this to a role
   virtualisation.docker.enable = true;
   environment.systemPackages = with pkgs; [
