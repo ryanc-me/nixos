@@ -19,6 +19,7 @@ in
     services.mealie = {
       enable = true;
       listenAddress = "127.0.0.1";
+      port = 9020;
       settings = {
         DB_ENGINE = "postgres";
         POSTGRES_URL_OVERRIDE = "postgresql:///mealie?host=/run/postgresql";
