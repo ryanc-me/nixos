@@ -10,6 +10,7 @@
     services = {
       fluidd.enable = true;
       habitsync.enable = true;
+      mealie.enable = true;
       vikunja.enable = true;
     };
   };
