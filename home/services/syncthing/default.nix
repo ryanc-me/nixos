@@ -77,8 +77,8 @@ in
               "idir" = {
                 id = "KXVJMSK-KZNDPGX-6APM7ZC-2TW4WRY-6CC2MNN-S6RIHYA-SBLRVMZ-QCE5AAQ";
                 addresses = [
-                  "tcp4://ryan-pc.lan:22000"
-                  "quic4://ryan-pc.lan:22000"
+                  "tcp4://idir.lan:22000"
+                  "quic4://idir.lan:22000"
                 ];
               };
               "aquime" = {
