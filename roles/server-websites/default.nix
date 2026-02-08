@@ -10,6 +10,7 @@
   config.mine.server-websites = lib.mkIf config.mine.server-websites.enable {
     services = {
       ghost.enable = true;
+      plausible.enable = true;
     };
     sites = {
       ryanc-me.enable = true;
