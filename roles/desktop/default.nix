@@ -39,6 +39,7 @@
       zed.enable = true;
     };
     cli = {
+      direnv.enable = true;
       ruff.enable = true;
       step-cli.enable = true;
     };
