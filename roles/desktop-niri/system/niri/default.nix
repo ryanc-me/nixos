@@ -19,11 +19,11 @@ in
     environment.systemPackages = with pkgs; [
       niri
       xwayland-satellite
-      alacritty
       fuzzel
-      nautilus
 
+      nautilus
       gnome-keyring
+      gnome-calculator
 
       # cursor
       capitaine-cursors-themed
