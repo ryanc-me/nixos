@@ -32,6 +32,17 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    silentSDDM = {
+      url = "github:uiriansan/SilentSDDM";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    awww = {
+      url = "git+https://codeberg.org/LGFae/awww";
+    };
 
     self = {
       # make Nix copy the `secrets` submodule into the store
@@ -101,6 +112,9 @@
                 inputs.home-manager.nixosModules.home-manager
                 inputs.vscode-server.nixosModules.default
                 inputs.probe-rs-rules.nixosModules.${system}.default
+                inputs.noctalia.nixosModules.default
+                inputs.stylix.nixosModules.stylix
+                inputs.silentSDDM.nixosModules.default
 
                 # home-manager configuration
                 (
@@ -124,6 +138,7 @@
                         # and again, shared modules
                         inputs.sops-nix.homeManagerModules.sops
                         inputs.flatpaks.homeModules.default
+                        inputs.noctalia.homeModules.default
                       ];
 
                       useGlobalPkgs = true;
