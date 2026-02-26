@@ -61,6 +61,7 @@
         enable = true;
         path = ../../assets/wallpapers/wallhaven-z8zl6o.jpg;
       };
+      stylix.enable = true;
     };
   };
 }
