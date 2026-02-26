@@ -9,6 +9,7 @@
   config.mine.desktop = lib.mkIf config.mine.desktop.enable {
     apps = {
       onepassword.enable = true;
+      alacritty.enable = true;
       blender.enable = true;
       bottles.enable = true;
       calibre.enable = true;
