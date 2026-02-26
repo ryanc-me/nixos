@@ -24,7 +24,7 @@ in
     boot = {
       plymouth = {
         enable = true;
-        theme = "mac-style";
+        theme = lib.mkDefault "mac-style";
         themePackages = [ pkgs.mac-style-plymouth ];
         extraConfig = ''
           DeviceScale=2
