@@ -43,6 +43,11 @@ in
       refine
     ];
 
+    environment.variables = {
+      XCURSOR_THEME = "capitaine-cursors";
+      XCURSOR_SIZE = "32";
+    };
+
     # use firefox for various mime types
     xdg.mime.defaultApplications = mkIf config.mine.desktop.apps.firefox.enable {
       "text/html" = "firefox.desktop";
