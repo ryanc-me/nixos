@@ -15,8 +15,8 @@ let
   wp = config.mine.desktop.system.wallpaper;
 
   blurSigma = wp.blur * (wp.sizeW / dp.screenW) / 2 - 0.000001;
-  cropOffsetX = (dp.sizeW - dp.screenW) / 2;
-  cropOffsetY = (dp.sizeH - dp.screenH) / 2;
+  cropOffsetX = (wp.sizeW - dp.screenW) / 2;
+  cropOffsetY = (wp.sizeH - dp.screenH) / 2;
 
   scaledScreenW = dp.screenW / dp.screenScale;
   scaledScreenH = dp.screenH / dp.screenScale;
