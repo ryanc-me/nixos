@@ -16,8 +16,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [
-      inputs.noctalia.packages.${pkgs.stdenv.hostPlatform.system}.default
-    ];
+    services.noctalia-shell.enable = true;
   };
 }
