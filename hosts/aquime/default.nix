@@ -24,14 +24,14 @@ in
       screenScale = 1.25;
     };
     desktop.system.wallpaper.mode = "zoom";
-    desktop.services.fprintd.enable = true;
     users.angel.enable = true;
 
     # enable roles
     core.enable = true;
     desktop.enable = true;
-    desktop-gnome.enable = true;
-    desktop-gaming.enable = true;
+    # desktop-gnome.enable = true;
+    # desktop-gaming.enable = true;
+    desktop-niri.enable = true;
     desktop-vms.enable = true;
     monitoring.enable = true;
     monitoring-server.enable = true;
