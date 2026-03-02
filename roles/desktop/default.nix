@@ -10,6 +10,7 @@
     apps = {
       onepassword.enable = true;
       alacritty.enable = true;
+      anydesk.enable = true;
       blender.enable = true;
       bottles.enable = true;
       calibre.enable = true;
