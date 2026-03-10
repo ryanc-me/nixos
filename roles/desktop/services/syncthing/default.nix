@@ -106,8 +106,6 @@ in
     system.activationScripts.impermanence-sync-acl.text = ''
       ${pkgs.acl}/bin/setfacl -R -m u:syncthing:rwX /persist/sync || true
       ${pkgs.acl}/bin/setfacl -R -m d:u:syncthing:rwX /persist/sync || true
-      # ${pkgs.acl}/bin/setfacl -R -m m:rwX /persist/sync || true
-      # ${pkgs.acl}/bin/setfacl -R -m d:m:rwX /persist/sync || true
     '';
 
     systemd.services.syncthing.serviceConfig = {
