@@ -15,6 +15,7 @@
     system = {
       sysctl.enable = true;
       wine.enable = true;
+      wivrn.enable = true;
     };
   };
 }
