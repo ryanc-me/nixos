@@ -100,25 +100,15 @@ in
     # sudo setfacl -R -m d:u:syncthing:rwx /persist/sync
     systemd.tmpfiles.rules = [
       "d /persist/sync 0755 syncthing syncthing -"
-      "A+ /persist/sync - - - - u:syncthing:rwx"
-      "A+ /persist/sync - - - - d:u:syncthing:rwx"
-      "A+ /persist/sync - - - - m:rwx"
-
-      # for impermasync
       "d /persist/local 0755 root root -"
     ];
 
-    system.activationScripts.impermasync-acl.text = ''
-      ${pkgs.acl}/bin/setfacl -R -m u:syncthing:rwx /persist/sync || true
-      ${pkgs.acl}/bin/setfacl -R -m d:u:syncthing:rwx /persist/sync || true
-      ${pkgs.acl}/bin/setfacl -R -m m:rwx /persist/sync || true
+    system.activationScripts.impermanence-sync-acl.text = ''
+      ${pkgs.acl}/bin/setfacl -R -m u:syncthing:rwX /persist/sync || true
+      ${pkgs.acl}/bin/setfacl -R -m d:u:syncthing:rwX /persist/sync || true
+      # ${pkgs.acl}/bin/setfacl -R -m m:rwX /persist/sync || true
+      # ${pkgs.acl}/bin/setfacl -R -m d:m:rwX /persist/sync || true
     '';
-
-    systemd.services.syncthing.serviceConfig.ExecStartPre = [
-      "${pkgs.acl}/bin/setfacl -R -m u:syncthing:rwx /persist/sync"
-      "${pkgs.acl}/bin/setfacl -R -m d:u:syncthing:rwx /persist/sync"
-      "${pkgs.acl}/bin/setfacl -R -m m:rwx /persist/sync"
-    ];
 
     systemd.services.syncthing.serviceConfig = {
       # so syncthing can set ownership of files/dirs
