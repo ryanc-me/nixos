@@ -49,6 +49,7 @@
       "ssd"
       "space_cache=v2"
     ];
+    neededForBoot = true;
   };
 
   fileSystems."/nix" = {

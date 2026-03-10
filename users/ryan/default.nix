@@ -42,5 +42,21 @@
     };
   };
 
+  home.persistence."/persist/sync" = {
+    files = [
+      ".config/Code/User/settings.json"
+    ];
+    directories = [
+      ".config/forge"
+      ".config/noctalia"
+      ".config/niri"
+
+      ".aws"
+      ".ssh"
+
+      "projects"
+    ];
+  };
+
   home.stateVersion = "25.05";
 }

@@ -16,7 +16,7 @@ in
 
   config = mkIf cfg.enable {
     #TODO: script to switch subvol on boot (i.e.: make this actually impermanent)
-    environment.persistence."/persist" = {
+    environment.persistence."/persist/local" = {
       hideMounts = true;
       directories = [
         "/var/lib/bluetooth"
