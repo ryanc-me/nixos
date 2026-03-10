@@ -42,6 +42,8 @@
     };
   };
 
+  #TODO: move this to the NixOS side for better perf?
+  # https://github.com/nix-community/impermanence/issues/42#issuecomment-951093430
   home.persistence."/persist/sync" = {
     files = [
       ".config/Code/User/settings.json"
