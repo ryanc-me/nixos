@@ -18,7 +18,12 @@ in
     # https://nixos.wiki/wiki/Nvidia
     hardware.graphics = {
       enable = true;
+      enable32Bit = true;
       extraPackages = [ pkgs.gamescope-wsi ];
+    };
+    hardware.opengl = {
+      enable = true;
+      driSupport32Bit = true;
     };
 
     services.xserver.videoDrivers = [ "nvidia" ];
@@ -31,7 +36,7 @@ in
         enable = true;
         # finegrained = true;
       };
-      open = true;
+      open = false;
       nvidiaSettings = true;
 
       # stable driver
