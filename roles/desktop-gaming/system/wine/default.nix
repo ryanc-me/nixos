@@ -22,7 +22,7 @@ in
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      wineWowPackages.stable
+      wineWow64Packages.stable
       winetricks
       zenity
       libadwaita
