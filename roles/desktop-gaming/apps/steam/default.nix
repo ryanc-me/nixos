@@ -61,9 +61,35 @@ in
         enable = true;
         gamescopeSession.enable = cfg.gamescope.enable;
         extraCompatPackages = mkIf cfg.protonGE.enable [ pkgs.proton-ge-bin ];
-        package = mkIf cfg.gamemode.enable (pkgs.steam.override { extraPkgs = pkgs: [ pkgs.gamemode ]; });
+        package = pkgs.steam.override {
+          # include manual packages, plus the gamemode ones
+          extraPkgs =
+            pkgs':
+            lib.optionals (cfg.gamescope.enable) [
+              pkgs'.libXcursor
+              pkgs'.libXi
+              pkgs'.libXinerama
+              pkgs'.libXScrnSaver
+              pkgs'.libpng
+              pkgs'.libpulseaudio
+              pkgs'.libvorbis
+              pkgs'.stdenv.cc.cc.lib
+              pkgs'.libkrb5
+              pkgs'.keyutils
+            ]
+            ++ lib.optionals cfg.gamemode.enable [ pkgs'.gamemode ]
+            ++ lib.optionals cfg.mangohud.enable [ pkgs'.mangohud ];
+        };
+        remotePlay.openFirewall = true;
       };
     };
+
+    # networking.firewall = {
+    #   allowedUDPPorts = [
+    #     10400
+    #     10401
+    #   ];
+    # };
 
     environment.systemPackages = mkIf cfg.mangohud.enable [
       pkgs.mangohud
