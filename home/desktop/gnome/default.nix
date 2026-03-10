@@ -15,17 +15,5 @@ in
   ];
 
   config = mkIf (osConfig.mine ? desktop-gnome && osConfig.mine.desktop-gnome.gnome.enable) {
-    gtk = {
-      enable = true;
-      theme = {
-        name = "Adwaita-dark";
-        package = pkgs.gnome-themes-extra;
-      };
-    };
-    qt = {
-      enable = true;
-      platformTheme.name = "adwaita";
-      style.name = "adwaita-dark";
-    };
   };
 }
