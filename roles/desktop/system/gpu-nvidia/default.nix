@@ -21,10 +21,6 @@ in
       enable32Bit = true;
       extraPackages = [ pkgs.gamescope-wsi ];
     };
-    hardware.opengl = {
-      enable = true;
-      driSupport32Bit = true;
-    };
 
     services.xserver.videoDrivers = [ "nvidia" ];
 
