@@ -55,6 +55,7 @@
       ".ssh"
 
       "projects"
+      "work"
     ];
   };
 
