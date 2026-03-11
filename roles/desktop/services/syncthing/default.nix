@@ -91,29 +91,33 @@ in
               "masaq"
               "aquime"
             ];
+            syncOwnership = true;
+            sendOwnership = true;
           };
         };
       };
     };
 
-    # sudo setfacl -R -m u:syncthing:rwx /persist/sync
-    # sudo setfacl -R -m d:u:syncthing:rwx /persist/sync
     systemd.tmpfiles.rules = [
       "d /persist/sync 0755 syncthing syncthing -"
       "d /persist/local 0755 root root -"
     ];
-
-    system.activationScripts.impermanence-sync-acl.text = ''
-      ${pkgs.acl}/bin/setfacl -R -m u:syncthing:rwX /persist/sync || true
-      ${pkgs.acl}/bin/setfacl -R -m d:u:syncthing:rwX /persist/sync || true
-    '';
 
     systemd.services.syncthing.serviceConfig = {
       # so syncthing can set ownership of files/dirs
       AmbientCapabilities = [
         "CAP_CHOWN"
         "CAP_FOWNER"
+        "CAP_DAC_OVERRIDE"
       ];
+
+      CapabilityBoundingSet = [
+        "CAP_DAC_OVERRIDE"
+        "CAP_CHOWN"
+        "CAP_FOWNER"
+      ];
+
+      NoNewPrivileges = true;
 
       # limit access to these folders
       ProtectSystem = "strict";
@@ -126,10 +130,20 @@ in
 
       # so we know about other users (for ownership)
       PrivateUsers = lib.mkForce false;
+
+      PrivateTmp = true;
+      PrivateDevices = true;
+      ProtectKernelTunables = true;
+      ProtectKernelModules = true;
+      ProtectControlGroups = true;
+      RestrictSUIDSGID = true;
+      RestrictRealtime = true;
+      LockPersonality = true;
+      MemoryDenyWriteExecute = true;
     };
 
     systemd.services.syncthing.unitConfig = {
-      RequiresMountsFor = "/persist/sync";
+      RequiresMountsFor = "/persist";
       ConditionPathIsDirectory = "/persist/sync";
     };
   };
