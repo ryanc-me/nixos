@@ -80,6 +80,9 @@ in
               "quic4://aquime.lan:22000"
             ];
           };
+          "CPH2659" = {
+            id = "OKVWDK7-GTEJR6V-JYHPEHZ-KYZMXHV-EKL53PE-XV6COL3-IF7UFTQ-BPUJKAT";
+          };
         };
 
         folders = {
@@ -90,6 +93,18 @@ in
               "idir"
               "masaq"
               "aquime"
+            ];
+            syncOwnership = true;
+            sendOwnership = true;
+          };
+          obsidian = {
+            id = "pe5kt-ft3tc";
+            path = "/home/ryan/obsidian/";
+            devices = [
+              "idir"
+              "masaq"
+              "aquime"
+              "CPH2659"
             ];
             syncOwnership = true;
             sendOwnership = true;
