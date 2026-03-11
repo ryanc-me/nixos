@@ -47,19 +47,15 @@
   home.persistence."/persist/sync" = {
     files = [
       ".config/Code/User/settings.json"
-
-      ".ssh/config"
-      ".ssh/config-wedoo-clients"
-      ".ssh/config-wedoo-infra"
-      ".ssh/config-wedoo-internal"
-      ".ssh/config-wedoo-legacy"
     ];
     directories = [
       ".config/forge"
       ".config/noctalia"
       ".config/niri"
 
+      ".ssh"
       ".aws"
+
       "projects"
       "work"
     ];
