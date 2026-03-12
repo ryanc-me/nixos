@@ -3,12 +3,14 @@
   stdenv,
   fetchFromGitHub,
   nodejs_22,
+  nodePackages,
   yarn,
   fetchYarnDeps,
   yarnConfigHook,
   yarnInstallHook,
   yarnBuildHook,
   makeWrapper,
+  writeShellScriptBin,
   python3,
   pkg-config,
   vips,
@@ -27,6 +29,14 @@ let
   version = "6.16.1";
   rev = "refs/tags/v${version}";
   srcHash = "sha256-hQI52ZIVrXZjtUyCCnlHHhTOzYQJHbh/nXqTzT4DYzE=";
+
+  prebuildInstallShim = writeShellScriptBin "prebuild-install" ''
+    exit 1
+  '';
+
+  installFromCacheShim = writeShellScriptBin "install-from-cache" ''
+    exit 1
+  '';
 
   src = fetchFromGitHub {
     owner = "TryGhost";
@@ -135,7 +145,6 @@ let
 
     nativeBuildInputs = [
       nodejs_22
-      nodejs_22.dev
       yarn_node22
       makeWrapper
       python3
@@ -144,6 +153,9 @@ let
       which
       stdenv.cc
       stdenv.cc.bintools
+      nodePackages.node-gyp
+      prebuildInstallShim
+      installFromCacheShim
     ];
 
     buildInputs = [
@@ -183,7 +195,9 @@ let
         yarn config set yarn-offline-mirror-pruning false >/dev/null
 
         # for node-gyp
-        export npm_config_nodedir="${nodejs_22.dev}"
+        export NIX_NODEJS_BUILDNPMPACKAGE=1
+        export npm_config_nodedir="${nodejs_22}"
+        export npm_config_node_gyp="${nodePackages.node-gyp}/bin/node-gyp"
         export npm_config_build_from_source=true
 
         yarn install \
