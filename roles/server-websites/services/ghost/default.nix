@@ -38,11 +38,14 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
+        # include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
       '';
 
-      # port 2368
       locations."/" = {
         proxyPass = "http://localhost:2368";
+        extraConfig = ''
+          # include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+        '';
       };
       locations."=/" = {
         return = "302 /ghost";
