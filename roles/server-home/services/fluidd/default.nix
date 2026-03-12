@@ -29,7 +29,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://fluiddpi.lan:80";
+        proxyPass = "http://10.1.130:80";
         proxyWebsockets = true;
         extraConfig = ''
           include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
