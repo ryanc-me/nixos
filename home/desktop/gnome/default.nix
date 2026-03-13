@@ -12,6 +12,7 @@ in
   imports = [
     ./extensions.nix
     ./wallpaper.nix
+    ./screenshot.nix
   ];
 
   config = mkIf (osConfig.mine ? desktop-gnome && osConfig.mine.desktop-gnome.gnome.enable) {

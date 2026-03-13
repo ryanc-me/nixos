@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./awww.nix
+    ./screenshot.nix
   ];
 
   config = mkIf (osConfig.mine ? desktop-niri && osConfig.mine.desktop-niri.system.niri.enable) {
