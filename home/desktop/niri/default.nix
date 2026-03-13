@@ -43,5 +43,8 @@ in
         # this may also be a string or a path to a JSON file.
       };
     };
+
+    # we'll maintain the main config file manually, for now
+    xdg.configFile."noctalia/settings.json".enable = lib.mkForce false;
   };
 }
