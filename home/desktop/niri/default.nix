@@ -16,6 +16,18 @@ in
   ];
 
   config = mkIf (osConfig.mine ? desktop-niri && osConfig.mine.desktop-niri.system.niri.enable) {
+    programs.fuzzel = {
+      enable = true;
+
+      settings = {
+        main = {
+          # dpi-aware = true;
+          exit-on-keyboard-focus-loss = "yes";
+          keyboard-focus = "on-demand";
+        };
+      };
+    };
+
     programs.noctalia-shell = {
       enable = true;
       plugins = {
