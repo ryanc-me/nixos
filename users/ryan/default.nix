@@ -42,6 +42,15 @@
     };
   };
 
+  stylix = {
+    targets = {
+      vscode.enable = true;
+      fuzzel.enable = true;
+      qt.enable = true;
+      qt.standardDialogs = "xdgdesktopportal";
+    };
+  };
+
   #TODO: move this to the NixOS side for better perf?
   # https://github.com/nix-community/impermanence/issues/42#issuecomment-951093430
   home.persistence."/persist/sync" = {
