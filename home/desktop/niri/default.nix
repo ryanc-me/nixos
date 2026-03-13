@@ -10,9 +10,11 @@ let
   niriConfig = ./config.kdl;
 in
 {
-  config = mkIf (osConfig.mine ? desktop-niri && osConfig.mine.desktop-niri.system.niri.enable) {
-    # home.file.".config/niri/config.kdl".source = niriConfig;
+  imports = [
+    ./awww.nix
+  ];
 
+  config = mkIf (osConfig.mine ? desktop-niri && osConfig.mine.desktop-niri.system.niri.enable) {
     programs.noctalia-shell = {
       enable = true;
       plugins = {
