@@ -16,10 +16,13 @@ in
   };
 
   config = mkIf cfg.enable {
+    programs.niri = {
+      enable = true;
+      useNautilus = true;
+    };
+
     environment.systemPackages = with pkgs; [
-      niri
       xwayland-satellite
-      fuzzel
 
       nautilus
       gnome-keyring
@@ -41,6 +44,9 @@ in
       ];
       config.common.default = "*";
     };
+
+    services.gnome.gnome-keyring.enable = true;
+    services.gnome.gcr-ssh-agent.enable = false;
 
     # force Electron apps to use wayland instead of xwayland
     environment.sessionVariables.NIXOS_OZONE_WL = "1";
