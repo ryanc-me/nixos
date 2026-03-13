@@ -41,22 +41,27 @@ in
       ];
       sddm = {
         enable = true;
-        wayland.enable = true;
+        wayland = {
+          enable = true;
+          compositor = "kwin";
+        };
         extraPackages = [
           pkgs.capitaine-cursors-themed
         ];
         settings = {
           Theme = {
-            CursorTheme = "capitaine-cursors";
-            CursorSize = 32;
+            CursorTheme = "Capitaine Cursors";
+            CursorSize = 24;
           };
 
           General = {
+            InputMethod = "qtvirtualkeyboard";
             GreeterEnvironment = lib.mkForce (
-              # from the silentSDDM package
-              "QML2_IMPORT_PATH=${config.programs.silentSDDM.package'}/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard"
-              # custom
-              + ",XCURSOR_THEME=capitaine-cursors,XCURSOR_SIZE=32,QT_SCALE_FACTOR=1.25,QT_FONT_DPI=144"
+              "QML2_IMPORT_PATH=${config.programs.silentSDDM.package'}/share/sddm/themes/silent/components/"
+              + ",QT_IM_MODULE=qtvirtualkeyboard"
+              + ",XCURSOR_THEME=Capitaine Cursors"
+              + ",XCURSOR_SIZE=24"
+              + ",XCURSOR_PATH=${pkgs.capitaine-cursors-themed}/share/icons"
             );
           };
         };
