@@ -51,7 +51,7 @@
         rootless = false;
       };
       flatpak.enable = true;
-      fprintd.enable = true;
+      fprintd.enable = false;
       syncthing.enable = true;
     };
     system = {
