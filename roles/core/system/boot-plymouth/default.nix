@@ -27,7 +27,7 @@ in
         theme = lib.mkDefault "mac-style";
         themePackages = [ pkgs.mac-style-plymouth ];
         extraConfig = ''
-          DeviceScale=2
+          DeviceScale=1
         '';
       };
 
