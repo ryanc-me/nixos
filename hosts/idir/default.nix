@@ -36,7 +36,8 @@ in
     core.enable = true;
     desktop.enable = true;
     desktop-gaming.enable = true;
-    desktop-gnome.enable = true;
+    # desktop-gnome.enable = true;
+    desktop-niri.enable = true;
     desktop-vms.enable = true;
     monitoring.enable = true;
     monitoring-server.enable = true;
