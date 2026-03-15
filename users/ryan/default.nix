@@ -81,6 +81,7 @@
       microsoft-outlook &
       microsoft-teams &
       spotify &
+      toggl-track &
       subl &
 
       sleep 1
@@ -98,6 +99,7 @@
       msedge-outlook.office.com__mail_-Default
       msedge-teams.microsoft.com__v2_-Default
       msedge-open.spotify.com__-Default
+      msedge-track.toggl.com__-Default
       '
       for app in $app_ids; do
           window_id=$(niri msg --json windows | ${pkgs.jq}/bin/jq -r --arg app "$app" '
