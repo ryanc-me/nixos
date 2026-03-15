@@ -59,5 +59,28 @@ in
 
     # we'll maintain the main config file manually, for now
     xdg.configFile."noctalia/settings.json".enable = lib.mkForce false;
+
+    gtk = {
+      enable = true;
+
+      theme = {
+        name = "adw-gtk3-dark";
+        package = pkgs.adw-gtk3;
+      };
+
+      gtk3.extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
+
+      gtk4.extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
+
+      iconTheme = {
+        name = "Papirus-Dark";
+        package = pkgs.papirus-icon-theme;
+      };
+    };
+
   };
 }
