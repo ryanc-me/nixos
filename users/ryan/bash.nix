@@ -10,9 +10,9 @@
       export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/ssh-agent"
       export TERM="xterm-256color"
 
-      if [[ $(tty) == *"pts"* ]]; then
-        fastfetch
-      fi
+      # if [[ $(tty) == *"pts"* ]]; then
+      #   fastfetch
+      # fi
     '';
 
     shellAliases = {
