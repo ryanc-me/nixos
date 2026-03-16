@@ -9,6 +9,7 @@
   config.mine.server-home = lib.mkIf config.mine.server-home.enable {
     services = {
       fluidd.enable = true;
+      frigate.enable = true;
       habitsync.enable = true;
       mealie.enable = true;
       vikunja.enable = true;
