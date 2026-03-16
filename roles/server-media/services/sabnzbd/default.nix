@@ -18,6 +18,10 @@ in
   config = mkIf cfg.enable {
     services.sabnzbd = {
       enable = true;
+
+      settings = {
+        misc.port = 5959;
+      };
     };
 
     users.users."sabnzbd".extraGroups = [
