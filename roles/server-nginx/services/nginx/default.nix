@@ -22,7 +22,7 @@ in
     services.nginx = {
       enable = true;
 
-      sslDhparam = config.security.dhparams.params."nginx".path;
+      sslDhparam = "${config.security.dhparams.path}/nginx.pem";
 
       recommendedOptimisation = true;
       recommendedProxySettings = true;
@@ -48,6 +48,9 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
 }
