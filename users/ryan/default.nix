@@ -61,6 +61,7 @@
       ".config/forge"
       ".config/noctalia"
       ".config/niri"
+      ".config/SuperSlicer"
 
       ".ssh"
       ".aws"
