@@ -33,6 +33,7 @@
       prusa-slicer.enable = true;
       qmk.enable = true;
       sublime-text.enable = true;
+      superslicer.enable = true;
       spotify.enable = true;
       toggl-track.enable = true;
       via.enable = true;
