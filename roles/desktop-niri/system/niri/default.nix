@@ -27,6 +27,7 @@ in
       nautilus
       gnome-keyring
       gnome-calculator
+      gnome-connections
 
       # cursor
       capitaine-cursors-themed
