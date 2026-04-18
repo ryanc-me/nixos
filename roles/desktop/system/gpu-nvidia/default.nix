@@ -49,7 +49,6 @@ in
         #   persistencedSha256 = "sha256-QCwxXQfG/Pa7jSTBB0xD3lsIofcerAWWAHKvWjWGQtg=";
         # };
       };
-      opengl.enable = true;
     };
 
     environment.systemPackages = with pkgs; [
