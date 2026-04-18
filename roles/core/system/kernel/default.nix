@@ -12,8 +12,10 @@ in
 {
   options.mine.core.system.kernel = {
     package = mkOption {
-      type = lib.types.attrs;
+      type = lib.types.raw;
+      default = pkgs.linuxPackages;
       description = "The kernel package to use.";
+      example = lib.literalExpression "pkgs.linuxPackages_latest";
     };
   };
 
