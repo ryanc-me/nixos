@@ -65,6 +65,10 @@
       ];
     in
     {
+      images = {
+        tier = self.nixosConfigurations.tier.config.system.build.sdImage;
+      };
+
       packages = forEachSystem (
         system:
         let
