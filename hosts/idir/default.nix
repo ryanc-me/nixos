@@ -53,5 +53,8 @@ in
     SUBSYSTEM=="usb", ATTR{idVendor}=="13d3", ATTR{idProduct}=="3533", ATTR{authorized}="0"
   '';
 
+  # for RPi cross-compile
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   system.stateVersion = "25.05";
 }
