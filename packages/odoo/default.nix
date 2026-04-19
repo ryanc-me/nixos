@@ -95,7 +95,7 @@ let
       psycopg2
       pydot
       pyopenssl
-      pypdf2
+      pypdf
       pyserial
       python-dateutil
       python-ldap
