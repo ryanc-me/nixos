@@ -20,9 +20,6 @@ in
       enable = true;
       host = "127.0.0.1";
       mediaLocation = "/mnt/raid-data/immich/uploads";
-      database = {
-        enableVectors = false;
-      };
       settings = {
         server = {
           externalDomain = "https://immich.${config.mine.server-nginx.domainBase}";
