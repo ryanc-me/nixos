@@ -16,6 +16,12 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."mealie" = {
+      format = "dotenv";
+      sopsFile = ../../../../secrets/mealie.env;
+      key = "";
+    };
+
     services.mealie = {
       enable = true;
       listenAddress = "127.0.0.1";
@@ -24,6 +30,7 @@ in
         DB_ENGINE = "postgres";
         POSTGRES_URL_OVERRIDE = "postgresql:///mealie?host=/run/postgresql";
       };
+      credentialsFile = config.sops.secrets."habitsync".path;
     };
 
     services.postgresql = {
@@ -47,13 +54,13 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
       '';
 
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.mealie.port}";
         extraConfig = ''
-          include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
     };

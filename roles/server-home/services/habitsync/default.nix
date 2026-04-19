@@ -38,13 +38,13 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
       '';
 
       locations."/" = {
         proxyPass = "http://localhost:6842";
         extraConfig = ''
-          include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
       locations."/manifest.json" = {
@@ -52,6 +52,7 @@ in
         # set the correct content type
         extraConfig = ''
           default_type application/json;
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
     };

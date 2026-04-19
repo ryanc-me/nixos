@@ -21,7 +21,11 @@ in
       dataDir = "/var/lib/sonarr";
     };
 
-    users.users."sonarr".extraGroups = [ "media-tv" "torrent-data" "usenet-data" ];
+    users.users."sonarr".extraGroups = [
+      "media-tv"
+      "torrent-data"
+      "usenet-data"
+    ];
 
     services.nginx.virtualHosts."sonarr.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
@@ -32,13 +36,13 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
       '';
 
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.sonarr.settings.server.port}";
         extraConfig = ''
-          include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
     };

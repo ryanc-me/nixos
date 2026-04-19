@@ -25,16 +25,17 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
 
         # for large gcode uploads
         client_max_body_size 250m;
       '';
 
       locations."/" = {
-        proxyPass = "http://10.1.130:80";
+        proxyPass = "http://10.1.1.110:80";
         proxyWebsockets = true;
         extraConfig = ''
-          include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
     };
