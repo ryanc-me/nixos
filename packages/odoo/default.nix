@@ -4,6 +4,7 @@
   python312,
   rtlcss,
   wkhtmltopdf,
+  makeWrapper,
 }:
 let
   odoo_version = "19.0";
@@ -139,6 +140,7 @@ stdenv.mkDerivation {
 
   src = odooSrc;
 
+  nativeBuildInputs = [ makeWrapper ];
   buildInputs = baseBinDeps ++ extraBinDeps;
 
   dontBuild = true;
@@ -165,7 +167,7 @@ stdenv.mkDerivation {
     )}
 
     # python wrapper (so that workers > 0 will work)
-    cat > $out/bin/odoo <<'PY'
+    cat > $out/bin/.odoo-wrapped <<'PY'
     #!${pythonEnv}/bin/python
     import os
     import sys
@@ -193,7 +195,18 @@ stdenv.mkDerivation {
     if __name__ == "__main__":
       main()
     PY
-    chmod +x $out/bin/odoo
+    chmod +x $out/bin/.odoo-wrapped
+
+    makeWrapper $out/bin/.odoo-wrapped $out/bin/odoo \
+      --prefix PATH : ${
+        lib.makeBinPath (
+          [
+            wkhtmltopdf
+            rtlcss
+          ]
+          ++ extraBinDeps
+        )
+      }
 
     runHook postInstall
   '';
