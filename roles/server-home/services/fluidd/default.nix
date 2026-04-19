@@ -25,7 +25,9 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+
+        # for large gcode uploads
+        client_max_body_size 250m;
       '';
 
       locations."/" = {
