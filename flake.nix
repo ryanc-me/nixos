@@ -114,6 +114,9 @@
                 # the host will import any roles it needs
                 ./hosts/${hostname}
 
+                # some global nix settings
+                ./nix-settings.nix
+
                 # shared modules
                 inputs.sops-nix.nixosModules.sops
                 inputs.impermanence.nixosModules.impermanence
