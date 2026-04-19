@@ -39,6 +39,8 @@ in
         AmbientCapabilities = [ "CAP_PERFMON" ];
         CapabilityBoundingSet = [ "CAP_PERFMON" ];
       };
+      # for some reason, semaphores are not being cleaned-up on restart. might
+      # relate to the slow shutdown?
       preStart = ''
         find /dev/shm -maxdepth 1 -user frigate -delete 2>/dev/null || true
       '';
