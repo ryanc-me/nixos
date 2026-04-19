@@ -43,6 +43,10 @@
     awww = {
       url = "git+https://codeberg.org/LGFae/awww";
     };
+    authentik-nix = {
+      url = "github:nix-community/authentik-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     self = {
       # make Nix copy the `secrets` submodule into the store
@@ -119,6 +123,7 @@
                 inputs.noctalia.nixosModules.default
                 inputs.stylix.nixosModules.stylix
                 inputs.silentSDDM.nixosModules.default
+                inputs.authentik-nix.nixosModules.default
 
                 # home-manager configuration
                 (

@@ -38,6 +38,7 @@ in
     # enable roles
     core.enable = true;
     users.enable = true;
+    server-auth.enable = true;
     server-databases.enable = true;
     server-home.enable = true;
     server-immich.enable = true;
