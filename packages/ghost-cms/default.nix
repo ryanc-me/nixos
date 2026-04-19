@@ -3,7 +3,7 @@
   stdenv,
   fetchFromGitHub,
   nodejs_22,
-  nodePackages,
+  node-gyp,
   yarn,
   fetchYarnDeps,
   yarnConfigHook,
@@ -153,7 +153,7 @@ let
       which
       stdenv.cc
       stdenv.cc.bintools
-      nodePackages.node-gyp
+      node-gyp
       prebuildInstallShim
       installFromCacheShim
     ];
@@ -197,7 +197,7 @@ let
         # for node-gyp
         export NIX_NODEJS_BUILDNPMPACKAGE=1
         export npm_config_nodedir="${nodejs_22}"
-        export npm_config_node_gyp="${nodePackages.node-gyp}/bin/node-gyp"
+        export npm_config_node_gyp="${node-gyp}/bin/node-gyp"
         export npm_config_build_from_source=true
 
         yarn install \
