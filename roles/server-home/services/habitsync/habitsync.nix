@@ -23,7 +23,7 @@ in
       openFirewall = lib.mkOption {
         type = lib.types.bool;
         default = false;
-        description = "Open a port in the firewall for the Overseerr web interface.";
+        description = "Open a port in the firewall for the HabitSync web interface.";
       };
 
       package = lib.mkPackageOption self.packages.${pkgs.stdenv.hostPlatform.system} "habitsync" { };
