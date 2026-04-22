@@ -106,7 +106,7 @@ in
         "category.action=epall"
         "category.create=mspmfs"
         "category.search=ff"
-
+        "nofail"
       ];
     };
     "/mnt/torrent-data" = {
@@ -122,6 +122,7 @@ in
         "category.action=epall"
         "category.create=epmfs"
         "category.search=ff"
+        "nofail"
       ];
     };
   };
