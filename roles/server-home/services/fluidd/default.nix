@@ -38,6 +38,9 @@ in
           include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
+      locations."/sw.js" = {
+        return = "404";
+      };
 
       locations."/webcam-1/" = {
         proxyPass = "http://10.1.1.110";
