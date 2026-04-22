@@ -29,14 +29,28 @@
         utils.enable = true;
       };
     };
-    core.services.vscode-server.enable = lib.mkForce false;
-    core.system.home-manager.enable = lib.mkForce false;
+    printer.enable = true;
     users.enable = true;
   };
 
   # since we will not be syncing authorized_keys from idir/aquime
   users.users.ryan.openssh.authorizedKeys.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKP3tTOgblS6r8RtvIJ2joqm8arsX/Rxa0qnu3BSpeze ryan-master"
+  ];
+
+  # because we aren't using impermanence
+  sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
+  # other misc tuning
+  powerManagement.cpuFreqGovernor = "performance";
+
+  networking.wireless = {
+    enable = true;
+  };
+  hardware.enableRedistributableFirmware = true;
+
+  environment.systemPackages = with pkgs; [
+    v4l-utils
   ];
 
   # to build the image:
