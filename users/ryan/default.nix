@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  osConfig,
   ...
 }:
 
@@ -39,15 +40,6 @@
         name = "Ryan Cole";
         email = "admin@ryanc.me";
       };
-    };
-  };
-
-  stylix = {
-    targets = {
-      vscode.enable = true;
-      fuzzel.enable = true;
-      qt.enable = true;
-      qt.standardDialogs = "xdgdesktopportal";
     };
   };
 
@@ -121,4 +113,14 @@
   };
 
   home.stateVersion = "25.05";
+}
+// lib.optionalAttrs (osConfig.mine.desktop.system.stylix.enable or false) {
+  stylix = {
+    targets = {
+      vscode.enable = true;
+      fuzzel.enable = true;
+      qt.enable = true;
+      qt.standardDialogs = "xdgdesktopportal";
+    };
+  };
 }
