@@ -38,6 +38,18 @@ in
           include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
+
+      locations."/webcam-1/" = {
+        proxyPass = "http://10.1.1.110";
+        extraConfig = ''
+          proxy_http_version 1.1;
+          proxy_buffering off;
+          proxy_request_buffering off;
+          proxy_read_timeout 1d;
+          proxy_send_timeout 1d;
+          send_timeout 1d;
+        '';
+      };
     };
   };
 }
