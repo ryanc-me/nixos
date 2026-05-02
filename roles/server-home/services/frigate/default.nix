@@ -50,6 +50,14 @@ let
   '';
 in
 {
+  disabledModules = [
+    "services/video/frigate.nix"
+  ];
+
+  imports = [
+    ./frigate.nix
+  ];
+
   options.mine.server-home.services.frigate = {
     enable = mkEnableOption "frigate (NVR)";
   };
@@ -63,6 +71,24 @@ in
       settings = import ../../../../secrets/nix/frigate.nix {
         inherit lib pkgs;
       };
+      nginxAuthRequest = ''
+        auth_request /outpost.goauthentik.io/auth/nginx;
+        error_page 401 = @goauthentik_proxy_signin;
+
+        auth_request_set $authentik_user   $upstream_http_x_authentik_username;
+        auth_request_set $authentik_groups $upstream_http_x_authentik_groups;
+        auth_request_set $auth_cookie      $upstream_http_set_cookie;
+
+        proxy_set_header Remote-User   $authentik_user;
+        proxy_set_header Remote-Groups $authentik_groups;
+
+        # Temporary hard-code for proof. Replace with a map later.
+        proxy_set_header Remote-Role $frigate_role;
+
+        add_header Set-Cookie $auth_cookie always;
+        add_header X-Debug-AK-User "$authentik_user" always;
+        add_header X-Debug-AK-Groups "$authentik_groups" always;
+      '';
     };
     services.go2rtc = {
       enable = true;
@@ -95,14 +121,18 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
+
+        map $authentik_groups $frigate_role {
+          default viewer;
+          "~(^|\|)admin($|\|)" admin;
+        }
       '';
 
       locations."/" = {
-        # priority = 1;
-        # extraConfig = ''
-        #   include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
-        # '';
+        extraConfig = ''
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
+        '';
       };
     };
   };
