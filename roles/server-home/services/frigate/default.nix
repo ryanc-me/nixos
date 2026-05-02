@@ -112,6 +112,12 @@ in
       '';
     };
 
+    services.nginx.appendHttpConfig = ''
+      map $authentik_groups $frigate_role {
+        default viewer;
+        "~(^|\|)admin($|\|)" admin;
+      }
+    '';
     services.nginx.virtualHosts.${hostname} = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
@@ -122,11 +128,6 @@ in
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
         include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
-
-        map $authentik_groups $frigate_role {
-          default viewer;
-          "~(^|\|)admin($|\|)" admin;
-        }
       '';
 
       locations."/" = {
