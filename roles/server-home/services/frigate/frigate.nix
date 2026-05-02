@@ -168,6 +168,18 @@ in
       '';
     };
 
+    nginxAuthRequest = mkOption {
+      type = str;
+      default = nginxAuthRequest;
+      description = ''
+        Additional nginx configuration to add to locations that need authentication.
+
+        By default, this includes an auth_request to /auth and passes through auth related headers.
+
+        This can be used to, e.g., add additional headers or change the auth_request path.
+      '';
+    };
+
     vaapiDriver = mkOption {
       type = nullOr (enum [
         "i965"
@@ -358,7 +370,7 @@ in
             '';
           };
           "/vod/" = {
-            extraConfig = nginxAuthRequest + ''
+            extraConfig = config.services.frigate.nginxAuthRequest + ''
               aio threads;
               vod hls;
 
@@ -380,7 +392,7 @@ in
           };
           "/stream/" = {
             alias = "/var/cache/frigate/stream/";
-            extraConfig = nginxAuthRequest + ''
+            extraConfig = config.services.frigate.nginxAuthRequest + ''
               add_header Cache-Control "no-store";
               expires off;
 
@@ -394,7 +406,7 @@ in
           };
           "/clips/" = {
             root = "/var/lib/frigate";
-            extraConfig = nginxAuthRequest + ''
+            extraConfig = config.services.frigate.nginxAuthRequest + ''
               types {
                   video/mp4 mp4;
                   image/jpeg jpg;
@@ -413,7 +425,7 @@ in
           };
           "/recordings/" = {
             root = "/var/lib/frigate";
-            extraConfig = nginxAuthRequest + ''
+            extraConfig = config.services.frigate.nginxAuthRequest + ''
               types {
                   video/mp4 mp4;
               }
@@ -424,7 +436,7 @@ in
           };
           "/exports/" = {
             root = "/var/lib/frigate";
-            extraConfig = nginxAuthRequest + ''
+            extraConfig = config.services.frigate.nginxAuthRequest + ''
               types {
                 video/mp4 mp4;
               }
@@ -437,13 +449,13 @@ in
             proxyPass = "http://frigate-mqtt-ws/";
             recommendedProxySettings = true;
             proxyWebsockets = true;
-            extraConfig = nginxAuthRequest + nginxProxySettings;
+            extraConfig = config.services.frigate.nginxAuthRequest + nginxProxySettings;
           };
           "/live/jsmpeg" = {
             proxyPass = "http://frigate-jsmpeg/";
             recommendedProxySettings = true;
             proxyWebsockets = true;
-            extraConfig = nginxAuthRequest + nginxProxySettings;
+            extraConfig = config.services.frigate.nginxAuthRequest + nginxProxySettings;
           };
           # frigate lovelace card uses this path
           "/live/mse/api/ws" = {
@@ -451,7 +463,7 @@ in
             proxyWebsockets = true;
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 limit_except GET {
@@ -464,7 +476,7 @@ in
             proxyWebsockets = true;
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 limit_except GET {
@@ -477,7 +489,7 @@ in
             proxyPass = "http://frigate-go2rtc/webrtc.html";
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 limit_except GET {
@@ -490,7 +502,7 @@ in
             proxyPass = "http://frigate-go2rtc/api";
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 limit_except GET {
@@ -504,7 +516,7 @@ in
             proxyWebsockets = true;
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 limit_except GET {
@@ -516,7 +528,7 @@ in
             proxyPass = "http://frigate-api";
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 rewrite ^/api/(.*)$ /$1 break;
@@ -526,7 +538,7 @@ in
             proxyPass = "http://frigate-api/";
             recommendedProxySettings = true;
             extraConfig =
-              nginxAuthRequest
+              config.services.frigate.nginxAuthRequest
               + nginxProxySettings
               + ''
                 add_header Cache-Control "no-store";
@@ -541,7 +553,7 @@ in
                 add_header X-Cache-Status $upstream_cache_status;
 
                 location /api/vod/ {
-                    ${nginxAuthRequest}
+                    ${config.services.frigate.nginxAuthRequest}
                     proxy_pass http://frigate-api/vod/;
                     proxy_cache off;
                     add_header Cache-Control "no-store";
@@ -556,7 +568,7 @@ in
                 }
 
                 location /api/stats {
-                    ${nginxAuthRequest}
+                    ${config.services.frigate.nginxAuthRequest}
                     access_log off;
                     rewrite ^/api(/.*)$ $1 break;
                     add_header Cache-Control "no-store";
@@ -565,7 +577,7 @@ in
                 }
 
                 location /api/version {
-                    ${nginxAuthRequest}
+                    ${config.services.frigate.nginxAuthRequest}
                     access_log off;
                     rewrite ^/api(/.*)$ $1 break;
                     add_header Cache-Control "no-store";
