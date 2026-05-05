@@ -68,6 +68,8 @@ in
     services.frigate = {
       enable = true;
       hostname = "${hostname}";
+      vaapiDriver = "iHD";
+
       settings = import ../../../../secrets/nix/frigate.nix {
         inherit lib pkgs;
       };
@@ -105,10 +107,20 @@ in
         AmbientCapabilities = [ "CAP_PERFMON" ];
         CapabilityBoundingSet = [ "CAP_PERFMON" ];
       };
-      # for some reason, semaphores are not being cleaned-up on restart. might
-      # relate to the slow shutdown?
       preStart = ''
+        # for some reason, semaphores are not being cleaned-up on restart. might
+        # relate to the slow shutdown?
         find /dev/shm -maxdepth 1 -user frigate -delete 2>/dev/null || true
+
+        # ensure Nginx can read data from the export/clip/recording directories
+        # (required to play back recordings)
+        for dir in /mnt/disks/SSD-*/frigate/{exports,clips,recordings}; do
+          if [ -d "$dir" ]; then
+            chgrp -R nginx "$dir"
+            chmod -R g+rX "$dir"
+            find "$dir" -type d -exec chmod g+s {} +
+          fi
+        done
       '';
     };
 
