@@ -45,6 +45,7 @@ in
     server-matrix.enable = true;
     server-media.enable = true;
     server-nginx.enable = true;
+    server-vms.enable = true;
     server-odoo.enable = true;
     server-websites.enable = true;
   };
@@ -75,6 +76,13 @@ in
 
     mergerfs
     mergerfs-tools
+
+    virt-manager
+    virt-viewer
+    libvirt
+    qemu
+    xz
+    curl
   ];
   fileSystems = {
     # data disks
@@ -113,7 +121,7 @@ in
       device = "/mnt/disks/SSD-01:/mnt/disks/SSD-02";
       fsType = "mergerfs";
       options = [
-        "default_permissions"
+        #"default_permissions"
         "allow_other"
         "fsname=torrent-data"
         "threads=6"
@@ -179,6 +187,37 @@ in
     parityFiles = [
       "/mnt/disks/10TB-03-parity/snapraid.parity"
     ];
+  };
+
+  # for the hass VM
+  networking = {
+    useDHCP = false;
+
+    networkmanager = {
+      enable = true;
+      unmanaged = [ "interface-name:enp9s0" ];
+    };
+
+    bridges.br0.interfaces = [ "enp9s0" ];
+
+    interfaces.enp9s0.useDHCP = false;
+    interfaces.br0.useDHCP = false;
+
+    interfaces.br0.ipv4.addresses = [
+      {
+        address = "10.1.1.100";
+        prefixLength = 16;
+      }
+    ];
+
+    defaultGateway = {
+      address = "10.1.0.1";
+      interface = "br0";
+    };
+
+    nameservers = [ "10.1.0.1" ];
+
+    firewall.trustedInterfaces = [ "br0" ];
   };
 
   system.stateVersion = "25.05";
