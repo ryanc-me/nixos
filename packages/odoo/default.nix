@@ -50,8 +50,17 @@ let
       src = fetchGitHubSSH {
         owner = "OCA";
         repo = "web";
-        rev = "512b9f9e3aa1295c8de55d967f27e27401549144";
+        rev = "201cb8625ab206e3f0765b746de3b20b0ab1d648";
       };
+    }
+    {
+      name = "oca-server-auth";
+      src = fetchGitHubSSH {
+        owner = "OCA";
+        repo = "server-auth";
+        rev = "21cb18651681336b5b687a9d3f00b7754ce28f4a";
+      };
+      pythonDeps = ps: with ps; [ python-jose ];
     }
   ];
 
