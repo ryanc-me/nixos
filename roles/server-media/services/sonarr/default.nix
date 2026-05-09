@@ -46,5 +46,8 @@ in
         '';
       };
     };
+    mine.server-auth.services.authentik.proxyApplications.sonarr = {
+      namePretty = "Sonarr";
+    };
   };
 }

@@ -64,5 +64,14 @@ in
         '';
       };
     };
+    mine.server-auth.services.authentik.proxyApplications.mealie = {
+      namePretty = "Mealie";
+    };
+    mine.server-auth.services.authentik.outpostExtraProviders = [
+      {
+        model = "oauth2";
+        name = "Mealie (OIDC)";
+      }
+    ];
   };
 }

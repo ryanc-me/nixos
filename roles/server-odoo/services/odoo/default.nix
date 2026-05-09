@@ -75,10 +75,20 @@ in
         acmeRoot = null; # because we're using DNS-01
         http2 = true;
 
+        extraConfig = ''
+          include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
+          include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
+        '';
+
         locations."/" = {
           proxyPass = "http://127.0.0.1:8069";
           proxyWebsockets = true;
           recommendedProxySettings = true;
+          extraConfig = ''
+            include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
+            proxy_set_header Host $host;
+          '';
         };
         locations."/websocket" = {
           proxyPass = "http://127.0.0.1:8072";
@@ -88,7 +98,19 @@ in
         locations."/website/info" = {
           return = "302 /";
         };
+        locations."/robots.txt" = {
+          return = "200 'User-agent: *\nDisallow: /'";
+        };
       };
     };
+    mine.server-auth.services.authentik.proxyApplications.odoo = {
+      namePretty = "Odoo";
+    };
+    mine.server-auth.services.authentik.outpostExtraProviders = [
+      {
+        model = "oauth2";
+        name = "Odoo (OIDC)";
+      }
+    ];
   };
 }

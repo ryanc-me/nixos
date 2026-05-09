@@ -56,5 +56,14 @@ in
         '';
       };
     };
+    mine.server-auth.services.authentik.proxyApplications.habitsync = {
+      namePretty = "HabitSync";
+    };
+    mine.server-auth.services.authentik.outpostExtraProviders = [
+      {
+        model = "oauth2";
+        name = "HabitSync (OIDC)";
+      }
+    ];
   };
 }

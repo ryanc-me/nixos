@@ -16,6 +16,7 @@ in
   };
 
   config = mkIf cfg.enable {
+    # mine.server-auth.services.authentik.blueprints.rutorrent = rutorrentBlueprint;
     services.rutorrent = {
       enable = true;
       dataDir = "/var/lib/rutorrent";
@@ -54,12 +55,15 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
       '';
 
       locations."/".extraConfig = ''
-        include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
       '';
+    };
+    mine.server-auth.services.authentik.proxyApplications.rutorrent = {
+      namePretty = "ruTorrent";
     };
   };
 }

@@ -20,7 +20,11 @@ in
       enable = true;
       dataDir = "/var/lib/radarr";
     };
-    users.users."radarr".extraGroups = [ "media-movies" "torrent-data" "usenet-data" ];
+    users.users."radarr".extraGroups = [
+      "media-movies"
+      "torrent-data"
+      "usenet-data"
+    ];
 
     services.nginx.virtualHosts."radarr.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
@@ -31,15 +35,18 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../../secrets/oauth2-proxy/snippets/main.conf};
+        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
       '';
 
       locations."/" = {
         proxyPass = "http://localhost:${toString config.services.radarr.settings.server.port}";
         extraConfig = ''
-          include ${../../../server-nginx/services/oauth2-proxy/snippets/location.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';
       };
+    };
+    mine.server-auth.services.authentik.proxyApplications.radarr = {
+      namePretty = "Radarr";
     };
   };
 }

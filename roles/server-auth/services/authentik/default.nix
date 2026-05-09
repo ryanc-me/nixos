@@ -17,13 +17,104 @@ let
   cfg = config.mine.server-auth.services.authentik;
   nginx = config.mine.server-nginx.services.nginx;
 
+  hasHttpScheme = s: lib.hasPrefix "http://" s || lib.hasPrefix "https://" s;
+
+  mkExternalUrl =
+    name: url:
+    if hasHttpScheme url then url else "https://${url}.${config.mine.server-nginx.domainBase}";
+
+  mkIconUrl =
+    icon:
+    if icon == null then
+      ""
+    else if hasHttpScheme icon then
+      icon
+    else
+      "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/${icon}.svg";
+
+  indentString = n: lib.concatStrings (lib.genList (_: " ") n);
+
+  renderYamlAttrs =
+    indent: attrs:
+    concatStringsSep "\n" (
+      mapAttrsToList (k: v: "${indentString indent}${k}: ${builtins.toJSON v}") attrs
+    );
+
+  mkProxyBlueprint =
+    name: app:
+    let
+      orDefault = default: value: if value == null then default else value;
+
+      pretty = orDefault name app.namePretty;
+      slug = orDefault name app.slug;
+      externalHost = mkExternalUrl name (orDefault name app.url);
+      iconUrl = mkIconUrl (orDefault name app.icon);
+
+      providerAttrs = {
+        name = pretty;
+        mode = app.mode;
+        external_host = externalHost;
+        internal_host = "";
+        internal_host_ssl_validation = true;
+        intercept_header_auth = true;
+        cookie_domain = app.cookieDomain;
+        basic_auth_enabled = false;
+        skip_path_regex = app.skipPathRegex;
+      }
+      // app.providerAttrs;
+
+      applicationAttrs = {
+        name = pretty;
+        slug = slug;
+        group = app.group;
+        meta_icon = iconUrl;
+        meta_launch_url = app.launchUrl;
+        open_in_new_tab = app.openInNewTab;
+        policy_engine_mode = app.policyEngineMode;
+      }
+      // app.applicationAttrs;
+    in
+    pkgs.writeText "authentik-${slug}.yaml" ''
+      version: 1
+      metadata:
+        name: ${slug}
+        labels:
+          blueprints.goauthentik.io/instantiate: "true"
+
+      entries:
+        - model: authentik_providers_proxy.proxyprovider
+          identifiers:
+            name: ${builtins.toJSON pretty}
+          attrs:
+      ${renderYamlAttrs 6 providerAttrs}
+            authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
+            invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+
+        - model: authentik_core.application
+          identifiers:
+            slug: ${builtins.toJSON slug}
+          attrs:
+      ${renderYamlAttrs 6 applicationAttrs}
+            provider: !Find [authentik_providers_proxy.proxyprovider, [name, ${builtins.toJSON pretty}]]
+
+      ${app.extraYaml or ""}
+    '';
+
   blueprintsDir = "/var/lib/authentik/blueprints-custom";
   lockFile = "/run/authentik-blueprints.lock";
+
+  generatedProxyBlueprints = lib.mapAttrs' (
+    name: app: lib.nameValuePair "proxy-${name}" (mkProxyBlueprint name app)
+  ) cfg.proxyApplications;
+
+  generatedBlueprints = generatedProxyBlueprints // {
+    outpost-providers = mkOutpostBlueprint;
+  };
 
   copyCustomBlueprints = concatStringsSep "\n" (
     mapAttrsToList (name: path: ''
       install -m 0644 ${path} "$tmp/${name}.yaml"
-    '') cfg.blueprints
+    '') generatedBlueprints
   );
 
   prepareBlueprintsScript = pkgs.writeShellScript "prepare-authentik-blueprints" ''
@@ -54,15 +145,144 @@ let
 
     trap - EXIT
   '';
+
+  mkProviderName =
+    name: app:
+    let
+      orDefault = default: value: if value == null then default else value;
+    in
+    orDefault name app.namePretty;
+
+  mkProviderFind =
+    provider:
+    let
+      model =
+        if provider.model == "proxy" then
+          "authentik_providers_proxy.proxyprovider"
+        else if provider.model == "oauth2" then
+          "authentik_providers_oauth2.oauth2provider"
+        else
+          throw "Unsupported authentik provider model: ${provider.model}";
+    in
+    "              - !Find [${model}, [name, ${builtins.toJSON provider.name}]]";
+
+  generatedProxyProviders = mapAttrsToList (name: app: {
+    model = "proxy";
+    name = mkProviderName name app;
+  }) cfg.proxyApplications;
+
+  outpostProviders = generatedProxyProviders ++ cfg.outpostExtraProviders;
+
+  mkOutpostBlueprint = pkgs.writeText "authentik-outpost-providers.yaml" ''
+      version: 1
+      metadata:
+        name: outpost-providers
+        labels:
+          blueprints.goauthentik.io/instantiate: "true"
+
+      entries:
+        - model: authentik_outposts.outpost
+          identifiers:
+            name: authentik Embedded Outpost
+          attrs:
+            providers:
+    ${concatStringsSep "\n" (map mkProviderFind outpostProviders)}
+  '';
 in
 {
   options.mine.server-auth.services.authentik = {
     enable = mkEnableOption "authentik service";
 
-    blueprints = mkOption {
-      type = types.attrsOf types.path;
+    outpostExtraProviders = mkOption {
+      type = types.listOf (
+        types.submodule {
+          options = {
+            model = mkOption {
+              type = types.enum [
+                "proxy"
+                "oauth2"
+              ];
+              default = "proxy";
+            };
+
+            name = mkOption {
+              type = types.str;
+            };
+          };
+        }
+      );
+      default = [ ];
+    };
+
+    proxyApplications = mkOption {
       default = { };
-      description = "Extra authentik blueprints to expose to authentik.";
+      type = types.attrsOf (
+        types.submodule {
+          options = {
+            namePretty = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+            slug = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+            icon = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+            url = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+
+            group = mkOption {
+              type = types.str;
+              default = "Home";
+            };
+            mode = mkOption {
+              type = types.str;
+              default = "forward_single";
+            };
+            cookieDomain = mkOption {
+              type = types.str;
+              default = "";
+            };
+            skipPathRegex = mkOption {
+              type = types.str;
+              default = "";
+            };
+
+            providerAttrs = mkOption {
+              type = types.attrs;
+              default = { };
+            };
+            applicationAttrs = mkOption {
+              type = types.attrs;
+              default = { };
+            };
+            extraYaml = mkOption {
+              type = types.lines;
+              default = "";
+            };
+
+            launchUrl = mkOption {
+              type = types.str;
+              default = "";
+            };
+
+            openInNewTab = mkOption {
+              type = types.bool;
+              default = false;
+            };
+
+            policyEngineMode = mkOption {
+              type = types.str;
+              default = "any";
+            };
+          };
+        }
+      );
     };
   };
 

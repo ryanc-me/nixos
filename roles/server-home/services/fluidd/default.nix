@@ -54,5 +54,9 @@ in
         '';
       };
     };
+    mine.server-auth.services.authentik.proxyApplications.fluidd = {
+      namePretty = "Fluidd";
+      group = "Admin";
+    };
   };
 }
