@@ -49,7 +49,7 @@
       lidarr.enable = true;
       nzbhydra2.enable = true;
       sabnzbd.enable = true;
-      overseerr.enable = true;
+      seerr.enable = true;
       plex.enable = true;
       prowlarr.enable = true;
       radarr.enable = true;
