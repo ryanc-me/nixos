@@ -32,7 +32,7 @@ in
       settings = {
         auth = {
           local = {
-            enabled = true;
+            enabled = false;
           };
           openid = {
             enabled = true;
