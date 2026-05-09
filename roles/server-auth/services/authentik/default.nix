@@ -40,6 +40,9 @@ let
       mapAttrsToList (k: v: "${indentString indent}${k}: ${builtins.toJSON v}") attrs
     );
 
+  mkGroupFind =
+    groupName: "            - !Find [authentik_core.group, [name, ${builtins.toJSON groupName}]]";
+
   mkProxyBlueprint =
     name: app:
     let
@@ -87,8 +90,11 @@ let
             name: ${builtins.toJSON pretty}
           attrs:
       ${renderYamlAttrs 6 providerAttrs}
-            authorization_flow: !Find [authentik_flows.flow, [slug, default-provider-authorization-implicit-consent]]
-            invalidation_flow: !Find [authentik_flows.flow, [slug, default-provider-invalidation-flow]]
+            authorization_flow: !Find [authentik_flows.flow, [slug, ${builtins.toJSON app.authorizationFlow}]]
+            invalidation_flow: !Find [authentik_flows.flow, [slug, ${builtins.toJSON app.invalidationFlow}]]
+            ${lib.optionalString (app.authenticationFlow != null) ''
+              authentication_flow: !Find [authentik_flows.flow, [slug, ${builtins.toJSON app.authenticationFlow}]]
+            ''}
 
         - model: authentik_core.application
           identifiers:
@@ -96,7 +102,10 @@ let
           attrs:
       ${renderYamlAttrs 6 applicationAttrs}
             provider: !Find [authentik_providers_proxy.proxyprovider, [name, ${builtins.toJSON pretty}]]
-
+      ${lib.optionalString (app.assignedGroups != [ ]) ''
+            groups:
+        ${concatStringsSep "\n" (map mkGroupFind app.assignedGroups)}
+      ''}
       ${app.extraYaml or ""}
     '';
 
@@ -253,6 +262,11 @@ in
               default = "";
             };
 
+            assignedGroups = mkOption {
+              type = types.listOf types.str;
+              default = [ ];
+            };
+
             providerAttrs = mkOption {
               type = types.attrs;
               default = { };
@@ -279,6 +293,21 @@ in
             policyEngineMode = mkOption {
               type = types.str;
               default = "any";
+            };
+
+            authenticationFlow = mkOption {
+              type = types.nullOr types.str;
+              default = null;
+            };
+
+            authorizationFlow = mkOption {
+              type = types.str;
+              default = "default-provider-authorization-implicit-consent";
+            };
+
+            invalidationFlow = mkOption {
+              type = types.str;
+              default = "default-provider-invalidation-flow";
             };
           };
         }
