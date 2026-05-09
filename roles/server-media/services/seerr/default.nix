@@ -27,7 +27,7 @@ in
       http2 = true;
 
       locations."/" = {
-        return = 301 "https://seerr.${config.mine.server-nginx.domainBase}$request_uri";
+        return = "301 https://seerr.${config.mine.server-nginx.domainBase}$request_uri";
       };
     };
 
