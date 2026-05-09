@@ -29,8 +29,14 @@ in
       settings = {
         DB_ENGINE = "postgres";
         POSTGRES_URL_OVERRIDE = "postgresql:///mealie?host=/run/postgresql";
+        BASE_URL = "https://mealie.mixeto.io";
+        OIDC_REDIRECT_URI = "https://mealie.mixeto.io/login";
       };
-      credentialsFile = config.sops.secrets."habitsync".path;
+      credentialsFile = config.sops.secrets."mealie".path;
+      extraOptions = [
+        "--forwarded-allow-ips"
+        "127.0.0.1"
+      ];
     };
 
     services.postgresql = {
@@ -58,7 +64,7 @@ in
       '';
 
       locations."/" = {
-        proxyPass = "http://localhost:${toString config.services.mealie.port}";
+        proxyPass = "http://127.0.0.1:${toString config.services.mealie.port}";
         extraConfig = ''
           include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
         '';

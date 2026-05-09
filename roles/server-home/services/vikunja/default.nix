@@ -16,10 +16,36 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."vikunja" = {
+      format = "dotenv";
+      sopsFile = ../../../../secrets/vikunja.env;
+      key = "";
+    };
+
     services.vikunja = {
       enable = true;
-      frontendScheme = "http";
-      frontendHostname = "localhost";
+      frontendScheme = "https";
+      frontendHostname = "vikunja.${config.mine.server-nginx.domainBase}";
+      environmentFiles = [
+        config.sops.secrets."vikunja".path
+      ];
+      settings = {
+        auth = {
+          local = {
+            enabled = true;
+          };
+          openid = {
+            enabled = true;
+            providers.authentik = {
+              name = "Authentik";
+              authurl = "https://auth.mixeto.io/application/o/vikunja-oidc/";
+              scope = "openid profile email";
+              usernamefallback = true;
+              emailfallback = true;
+            };
+          };
+        };
+      };
     };
 
     services.nginx.virtualHosts."vikunja.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
@@ -46,5 +72,11 @@ in
       group = "Home";
       assignedGroups = [ "user-home" ];
     };
+    mine.server-auth.services.authentik.outpostExtraProviders = [
+      {
+        model = "oauth2";
+        name = "Vikunja (OIDC)";
+      }
+    ];
   };
 }
