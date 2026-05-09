@@ -20,6 +20,17 @@ in
       enable = true;
     };
 
+    services.nginx.virtualHosts."overseerr.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
+      forceSSL = true;
+      useACMEHost = "mixeto.io";
+      acmeRoot = null; # because we're using DNS-01
+      http2 = true;
+
+      locations."/" = {
+        return = 301 "https://seerr.${config.mine.server-nginx.domainBase}$request_uri";
+      };
+    };
+
     services.nginx.virtualHosts."seerr.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
