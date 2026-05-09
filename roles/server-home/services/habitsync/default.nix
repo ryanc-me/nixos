@@ -58,6 +58,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.habitsync = {
       namePretty = "HabitSync";
+      group = "Home";
+      assignedGroups = [ "user-home" ];
     };
     mine.server-auth.services.authentik.outpostExtraProviders = [
       {

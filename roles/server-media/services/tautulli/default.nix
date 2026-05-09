@@ -52,6 +52,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.tautulli = {
       namePretty = "Tautulli";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

@@ -47,6 +47,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.radarr = {
       namePretty = "Radarr";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

@@ -42,6 +42,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.prowlarr = {
       namePretty = "Prowlarr";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

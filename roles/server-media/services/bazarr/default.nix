@@ -42,6 +42,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.bazarr = {
       namePretty = "Bazarr";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

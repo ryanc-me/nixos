@@ -64,6 +64,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.rutorrent = {
       namePretty = "ruTorrent";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

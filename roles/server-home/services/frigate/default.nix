@@ -111,6 +111,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.frigate = {
       namePretty = "Frigate";
+      group = "Home";
+      assignedGroups = [ "user-home" ];
     };
   };
 }

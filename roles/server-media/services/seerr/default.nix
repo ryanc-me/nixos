@@ -52,6 +52,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.seerr = {
       namePretty = "Seerr";
+      group = "Media";
+      assignedGroups = [ "user-media" ];
     };
   };
 }

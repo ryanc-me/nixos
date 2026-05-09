@@ -66,6 +66,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.mealie = {
       namePretty = "Mealie";
+      group = "Home";
+      assignedGroups = [ "user-home" ];
     };
     mine.server-auth.services.authentik.outpostExtraProviders = [
       {

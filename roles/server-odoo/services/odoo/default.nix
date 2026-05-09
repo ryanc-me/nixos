@@ -105,6 +105,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.odoo = {
       namePretty = "Odoo";
+      group = "Home";
+      assignedGroups = [ "user-home" ];
     };
     mine.server-auth.services.authentik.outpostExtraProviders = [
       {

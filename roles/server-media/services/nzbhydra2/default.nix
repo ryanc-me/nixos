@@ -41,6 +41,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.nzbhydra2 = {
       namePretty = "NZBHydra2";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

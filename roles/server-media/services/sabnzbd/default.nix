@@ -60,6 +60,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.sabnzbd = {
       namePretty = "SABnzbd";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

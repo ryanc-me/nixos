@@ -47,6 +47,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.lidarr = {
       namePretty = "Lidarr";
+      group = "Media";
+      assignedGroups = [ "admin" ];
     };
   };
 }

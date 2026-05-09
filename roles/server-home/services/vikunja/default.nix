@@ -43,6 +43,8 @@ in
     };
     mine.server-auth.services.authentik.proxyApplications.vikunja = {
       namePretty = "Vikunja";
+      group = "Home";
+      assignedGroups = [ "user-home" ];
     };
   };
 }
