@@ -20,11 +20,7 @@ in
       enable = true;
       host = "127.0.0.1";
       mediaLocation = "/mnt/raid-data/immich/uploads";
-      settings = {
-        server = {
-          externalDomain = "https://immich.${config.mine.server-nginx.domainBase}";
-        };
-      };
+      settings = null;
     };
 
     services.nginx = {
@@ -33,6 +29,12 @@ in
         useACMEHost = "mixeto.io";
         acmeRoot = null; # because we're using DNS-01
         http2 = true;
+
+        extraConfig = ''
+          include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
+          include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
+          include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
+        '';
 
         locations."/" = {
           proxyPass = "http://127.0.0.1:${toString config.services.immich.port}";
@@ -43,9 +45,22 @@ in
             proxy_read_timeout   600s;
             proxy_send_timeout   600s;
             send_timeout         600s;
+
+            include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
           '';
         };
       };
     };
+    mine.server-auth.services.authentik.proxyApplications.immich = {
+      namePretty = "Immich";
+      group = "Home";
+      assignedGroups = [ "user-home" ];
+    };
+    mine.server-auth.services.authentik.outpostExtraProviders = [
+      {
+        model = "oauth2";
+        name = "Immich (OIDC)";
+      }
+    ];
   };
 }
