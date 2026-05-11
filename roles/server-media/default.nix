@@ -52,6 +52,7 @@
       seerr.enable = true;
       plex.enable = true;
       prowlarr.enable = true;
+      qbittorrent.enable = true;
       radarr.enable = true;
       rtorrent.enable = true;
       rutorrent.enable = true;
