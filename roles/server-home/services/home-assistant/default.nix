@@ -16,6 +16,16 @@ in
   };
 
   config = mkIf cfg.enable {
+    # frigate, go2rtc
+    networking.firewall.extraCommands = ''
+      iptables -A nixos-fw -i br0 -s 10.1.1.128 -p tcp --dport 8554 -j ACCEPT
+      iptables -A nixos-fw -i br0 -s 10.1.1.128 -p tcp --dport 8555 -j ACCEPT
+    '';
+    networking.firewall.extraStopCommands = ''
+      iptables -D nixos-fw -i br0 -s 10.1.1.128 -p tcp --dport 8554 -j ACCEPT 2>/dev/null || true
+      iptables -D nixos-fw -i br0 -s 10.1.1.128 -p tcp --dport 8555 -j ACCEPT 2>/dev/null || true
+    '';
+
     services.nginx.virtualHosts."home.${config.mine.server-nginx.domainBase}" = mkIf nginx.enable {
       forceSSL = true;
       useACMEHost = "mixeto.io";
