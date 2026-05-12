@@ -405,7 +405,7 @@ in
             '';
           };
           "/clips/" = {
-            root = "/var/lib/frigate";
+            root = "/mnt/torrent-data/frigate";
             extraConfig = config.services.frigate.nginxAuthRequest + ''
               types {
                   video/mp4 mp4;
@@ -424,7 +424,7 @@ in
             '';
           };
           "/recordings/" = {
-            root = "/var/lib/frigate";
+            root = "/mnt/torrent-data/frigate";
             extraConfig = config.services.frigate.nginxAuthRequest + ''
               types {
                   video/mp4 mp4;
@@ -435,7 +435,7 @@ in
             '';
           };
           "/exports/" = {
-            root = "/var/lib/frigate";
+            root = "/mnt/torrent-data/frigate";
             extraConfig = config.services.frigate.nginxAuthRequest + ''
               types {
                 video/mp4 mp4;
