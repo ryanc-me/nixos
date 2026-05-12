@@ -68,16 +68,35 @@ in
         # for some reason, semaphores are not being cleaned-up on restart. might
         # relate to the slow shutdown?
         find /dev/shm -maxdepth 1 -user frigate -delete 2>/dev/null || true
+      '';
+    };
 
-        # ensure Nginx can read data from the export/clip/recording directories
-        # (required to play back recordings)
-        for dir in /mnt/disks/SSD-*/frigate/{exports,clips,recordings}; do
-          if [ -d "$dir" ]; then
-            chgrp -R nginx "$dir"
-            chmod -R g+rX "$dir"
-            find "$dir" -type d -exec chmod g+s {} +
-          fi
-        done
+    # so Nginx can access Frigate's files (through MergerFS mount, which doesn't
+    # look at supplimentary groups)
+    systemd.services.masaq-frigate-perms = {
+      description = "Ensure Nginx can read Frigate media files";
+
+      wantedBy = [ "multi-user.target" ];
+      before = [ "frigate.service" ];
+      requiredBy = [ "frigate.service" ];
+
+      path = with pkgs; [
+        acl
+        findutils
+      ];
+
+      serviceConfig = {
+        Type = "oneshot";
+        RemainAfterExit = true;
+      };
+
+      script = ''
+        set -eu
+        dir=/mnt/torrent-data/frigate
+        if [ -d "$dir" ]; then
+          setfacl -R -m u:nginx:rX "$dir"
+          setfacl -R -m d:u:nginx:rX "$dir"
+        fi
       '';
     };
 
