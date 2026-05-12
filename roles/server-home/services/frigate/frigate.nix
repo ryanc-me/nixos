@@ -623,7 +623,7 @@ in
         extraConfig = ''
           # Frigate wants to connect on 127.0.0.1:5000 for unauthenticated requests
           # https://github.com/NixOS/nixpkgs/issues/370349
-          listen 127.0.0.1:5000;
+          #listen 0.0.0.0:5000;
 
           # vod settings
           vod_base_url "";

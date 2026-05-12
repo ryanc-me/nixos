@@ -45,15 +45,11 @@ in
         auth_request_set $authentik_groups $upstream_http_x_authentik_groups;
         auth_request_set $auth_cookie      $upstream_http_set_cookie;
 
-        proxy_set_header Remote-User   $authentik_user;
-        proxy_set_header Remote-Groups $authentik_groups;
-
-        # Temporary hard-code for proof. Replace with a map later.
-        proxy_set_header Remote-Role $frigate_role;
+        proxy_set_header Remote-User   $frigate_user;
+        proxy_set_header Remote-Groups $frigate_groups;
+        proxy_set_header Remote-Role   $frigate_role;
 
         add_header Set-Cookie $auth_cookie always;
-        add_header X-Debug-AK-User "$authentik_user" always;
-        add_header X-Debug-AK-Groups "$authentik_groups" always;
       '';
     };
     services.go2rtc = {
@@ -86,9 +82,29 @@ in
     };
 
     services.nginx.appendHttpConfig = ''
-      map $authentik_groups $frigate_role {
+      geo $frigate_hass_bypass {
+        default 0;
+        10.1.1.128 1;
+      }
+
+      map $frigate_hass_bypass $frigate_user {
+        1 home-assistant;
+        default $authentik_user;
+      }
+
+      map $frigate_hass_bypass $frigate_groups {
+        1 admin;
+        default $authentik_groups;
+      }
+
+      map $authentik_groups $frigate_authentik_role {
         default viewer;
         "~(^|\|)admin($|\|)" admin;
+      }
+
+      map $frigate_hass_bypass $frigate_role {
+        1 admin;
+        default $frigate_authentik_role;
       }
     '';
     services.nginx.virtualHosts.${hostname} = mkIf nginx.enable {
@@ -100,7 +116,35 @@ in
       extraConfig = ''
         include ${../../../server-nginx/services/nginx/snippets/ocsp-stapling.conf};
         include ${../../../server-nginx/services/nginx/snippets/ssl-secure.conf};
-        include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
+
+        #include ${../../../server-auth/services/authentik/nginx-snippets/server-block.conf};
+        absolute_redirect off;
+        location /outpost.goauthentik.io {
+          # allow hass without auth
+          if ($frigate_hass_bypass) {
+            return 204;
+          }
+
+          proxy_pass              https://127.0.0.1:5443/outpost.goauthentik.io;
+          proxy_set_header        Host $host;
+          proxy_set_header        X-Original-URL $scheme://$http_host$request_uri;
+          proxy_set_header        X-Forwarded-Proto $scheme;
+          proxy_set_header        X-Forwarded-Host $http_host;
+          proxy_set_header        X-Forwarded-Uri $request_uri;
+          proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+
+          proxy_set_header        Cookie $http_cookie;
+          add_header              Set-Cookie $auth_cookie always;
+          auth_request_set        $auth_cookie $upstream_http_set_cookie;
+
+          proxy_pass_request_body off;
+          proxy_set_header        Content-Length "";
+        }
+        location @goauthentik_proxy_signin {
+          internal;
+          add_header Set-Cookie $auth_cookie always;
+          return 302 /outpost.goauthentik.io/start?rd=$scheme://$http_host$request_uri;
+        }
       '';
 
       locations."/" = {
