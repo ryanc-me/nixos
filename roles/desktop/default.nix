@@ -30,6 +30,7 @@
       nrf-connect.enable = true;
       obs-studio.enable = true;
       obsidian.enable = true;
+      plex-desktop.enable = true;
       prusa-slicer.enable = true;
       qmk.enable = true;
       sublime-text.enable = true;
