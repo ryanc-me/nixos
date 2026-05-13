@@ -31,6 +31,7 @@ in
           extraGroups = [
             "wheel"
           ]
+          ++ lib.optionals config.mine.core.system.network-manager.enable [ "networkmanager" ]
           ++ lib.optionals config.mine.desktop-vms.system.libvirt.enable [ "libvirtd" ];
         };
       };
