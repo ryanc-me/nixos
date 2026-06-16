@@ -4,6 +4,9 @@ default:
 switch:
     nixos-rebuild switch --flake /home/ryan/nixos#$(hostname) --sudo --ask-sudo-password
 
+boot:
+    nixos-rebuild boot --flake /home/ryan/nixos#$(hostname) --sudo --ask-sudo-password
+
 remote machine:
     nixos-rebuild switch --flake /home/ryan/nixos#{{ machine }} --target-host {{ machine }} --sudo --ask-sudo-password
 
