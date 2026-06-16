@@ -123,7 +123,6 @@
                 inputs.home-manager.nixosModules.home-manager
                 inputs.vscode-server.nixosModules.default
                 inputs.probe-rs-rules.nixosModules.${system}.default
-                inputs.noctalia.nixosModules.default
                 inputs.stylix.nixosModules.stylix
                 inputs.silentSDDM.nixosModules.default
                 inputs.authentik-nix.nixosModules.default

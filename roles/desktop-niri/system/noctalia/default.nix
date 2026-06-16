@@ -16,6 +16,6 @@ in
   };
 
   config = mkIf cfg.enable {
-    services.noctalia-shell.enable = true;
+    # services.noctalia-shell.enable = true;
   };
 }
