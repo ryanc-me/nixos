@@ -121,6 +121,7 @@
       fuzzel.enable = true;
       qt.enable = true;
       qt.standardDialogs = "xdgdesktopportal";
+      noctalia-shell.enable = true;
     };
   };
 }
