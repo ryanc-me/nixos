@@ -10,7 +10,6 @@ let
 in
 {
   imports = [
-    ./awww.nix
     ./screenshot.nix
   ];
 
