@@ -7,7 +7,6 @@
 }:
 let
   inherit (lib) mkIf;
-  niriConfig = ./config.kdl;
 in
 {
   imports = [
