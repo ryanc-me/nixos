@@ -15,7 +15,7 @@
         niri.enable = true;
         noctalia.enable = true;
         power-profiles-daemon.enable = true;
-        sddm.enable = true;
+        sddm.enable = false;
         upower.enable = true;
       };
     };

@@ -17,5 +17,17 @@ in
 
   config = mkIf cfg.enable {
     # services.noctalia-shell.enable = true;
+    programs.noctalia-greeter = {
+      enable = true;
+
+      package = inputs.noctalia-greeter.packages.${pkgs.stdenv.hostPlatform.system}.default;
+
+      greeter-args = "--session=Niri --user=ryan";
+      settings.cursor = {
+        theme = "\"Capitaine Cursors\"";
+        size = 24;
+        package = pkgs.capitaine-cursors-themed;
+      };
+    };
   };
 }

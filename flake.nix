@@ -32,6 +32,10 @@
       url = "github:noctalia-dev/noctalia-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    noctalia-greeter = {
+      url = "github:noctalia-dev/noctalia-greeter";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -126,6 +130,7 @@
                 inputs.stylix.nixosModules.stylix
                 inputs.silentSDDM.nixosModules.default
                 inputs.authentik-nix.nixosModules.default
+                inputs.noctalia-greeter.nixosModules.default
 
                 # home-manager configuration
                 (
