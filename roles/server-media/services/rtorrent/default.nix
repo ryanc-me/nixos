@@ -92,6 +92,6 @@ in
 
     #TODO: remove this
     # https://github.com/NixOS/nixpkgs/issues/445186
-    systemd.services.rtorrent.serviceConfig.SystemCallFilter = ["@chown" ];
+    systemd.services.rtorrent.serviceConfig.SystemCallFilter = [ "@chown" ];
   };
 }
