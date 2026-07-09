@@ -15,14 +15,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    security.dhparams = {
-      enable = true;
-      params."nginx".bits = 3072;
-    };
     services.nginx = {
       enable = true;
-
-      sslDhparam = "${config.security.dhparams.path}/nginx.pem";
 
       recommendedOptimisation = true;
       recommendedProxySettings = true;
