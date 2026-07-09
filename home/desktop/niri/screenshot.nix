@@ -34,7 +34,7 @@ in
         # screenshot
         niri msg action screenshot --path "$outfile"
 
-        sleep 1
+        sleep 2
 
         # edit/annotate
         satty \
