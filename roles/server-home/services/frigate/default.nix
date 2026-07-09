@@ -144,7 +144,7 @@ in
             return 204;
           }
 
-          proxy_pass              https://127.0.0.1:5443/outpost.goauthentik.io;
+          proxy_pass              https://127.0.0.1:9443/outpost.goauthentik.io;
           proxy_set_header        Host $host;
           proxy_set_header        X-Original-URL $scheme://$http_host$request_uri;
           proxy_set_header        X-Forwarded-Proto $scheme;

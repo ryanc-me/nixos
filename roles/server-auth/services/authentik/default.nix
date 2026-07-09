@@ -348,7 +348,7 @@ in
         cookie_domain = config.mine.server-nginx.domainBase;
         listen = {
           http = "127.0.0.1:5080";
-          https = "127.0.0.1:5443";
+          https = "127.0.0.1:9443";
         };
       };
     };
@@ -361,7 +361,7 @@ in
         http2 = true;
 
         locations."/" = {
-          proxyPass = "https://127.0.0.1:5443";
+          proxyPass = "https://127.0.0.1:9443";
           proxyWebsockets = true;
           recommendedProxySettings = true;
         };
