@@ -14,6 +14,7 @@
       blender.enable = true;
       bottles.enable = true;
       calibre.enable = true;
+      codex-desktop.enable = true;
       dbeaver.enable = true;
       discord.enable = true;
       element.enable = true;
