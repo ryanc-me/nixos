@@ -195,20 +195,24 @@ in
 
     networkmanager = {
       enable = true;
-      unmanaged = [ "interface-name:enp9s0" ];
+      unmanaged = [
+        "interface-name:enp9s0"
+        "interface-name:br0"
+      ];
     };
 
     bridges.br0.interfaces = [ "enp9s0" ];
 
     interfaces.enp9s0.useDHCP = false;
-    interfaces.br0.useDHCP = false;
-
-    interfaces.br0.ipv4.addresses = [
-      {
-        address = "10.1.1.100";
-        prefixLength = 16;
-      }
-    ];
+    interfaces.br0 = {
+      useDHCP = false;
+      ipv4.addresses = [
+        {
+          address = "10.1.1.100";
+          prefixLength = 16;
+        }
+      ];
+    };
 
     defaultGateway = {
       address = "10.1.0.1";
@@ -217,7 +221,10 @@ in
 
     nameservers = [ "10.1.0.1" ];
 
-    firewall.trustedInterfaces = [ "br0" ];
+    firewall = {
+      enable = true;
+      trustedInterfaces = [ ];
+    };
   };
 
   system.stateVersion = "25.05";
