@@ -20,12 +20,15 @@ in
       secrets = {
         "guiPassword" = {
           sopsFile = ../../../../secrets/syncthing.yaml;
+          owner = "syncthing";
         };
         "${config.networking.hostName}/key" = {
           sopsFile = ../../../../secrets/syncthing.yaml;
+          owner = "syncthing";
         };
         "${config.networking.hostName}/cert" = {
           sopsFile = ../../../../secrets/syncthing.yaml;
+          owner = "syncthing";
         };
       };
     };
