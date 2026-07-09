@@ -52,6 +52,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    codex-desktop-linux = {
+      # url = "github:ilysenko/codex-desktop-linux/main";
+      url = "github:ilysenko/codex-desktop-linux/codex/nix-upstream-refresh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     self = {
       # make Nix copy the `secrets` submodule into the store
       submodules = true;
@@ -131,6 +141,7 @@
                 inputs.silentSDDM.nixosModules.default
                 inputs.authentik-nix.nixosModules.default
                 inputs.noctalia-greeter.nixosModules.default
+                inputs.codex-desktop-linux.nixosModules.default
 
                 # home-manager configuration
                 (
