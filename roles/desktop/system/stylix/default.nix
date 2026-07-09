@@ -28,7 +28,7 @@ in
 
     stylix = {
       enable = true;
-      base16Scheme = "${pkgs.base16-schemes}/share/themes/default-dark.yaml";
+      base16Scheme = "${pkgs.base16-schemes}/share/themes/ayu-dark.yaml";
       image = "${wp}/share/wallpapers/plain.png";
       polarity = "dark";
       autoEnable = false;
