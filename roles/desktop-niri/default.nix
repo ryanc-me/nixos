@@ -11,12 +11,10 @@
     services.gvfs.enable = true;
     mine.desktop-niri = {
       system = {
-        awww.enable = true;
         niri.enable = true;
         noctalia.enable = true;
         playerctl.enable = true;
         power-profiles-daemon.enable = true;
-        sddm.enable = false;
         upower.enable = true;
       };
     };

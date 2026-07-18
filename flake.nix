@@ -40,13 +40,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    silentSDDM = {
-      url = "github:uiriansan/SilentSDDM";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    awww = {
-      url = "git+https://codeberg.org/LGFae/awww";
-    };
     authentik-nix = {
       url = "github:nix-community/authentik-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -137,7 +130,6 @@
                 inputs.vscode-server.nixosModules.default
                 inputs.probe-rs-rules.nixosModules.${system}.default
                 inputs.stylix.nixosModules.stylix
-                inputs.silentSDDM.nixosModules.default
                 inputs.authentik-nix.nixosModules.default
                 inputs.noctalia-greeter.nixosModules.default
                 inputs.codex-desktop-linux.nixosModules.default
