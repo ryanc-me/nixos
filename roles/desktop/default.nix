@@ -12,7 +12,7 @@
       alacritty.enable = true;
       anydesk.enable = true;
       blender.enable = true;
-      bottles.enable = true;
+      bottles.enable = false;
       calibre.enable = true;
       codex-desktop.enable = true;
       dbeaver.enable = true;
