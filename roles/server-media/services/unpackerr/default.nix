@@ -11,7 +11,7 @@ let
   nginx = config.mine.server-nginx.services.nginx;
 in
 {
-  imports = [ ./unpackerr.nix ];
+  # imports = [ ./unpackerr.nix ];
 
   options.mine.server-media.services.unpackerr = {
     enable = mkEnableOption "unpackerr (archive extraction daemon)";
@@ -26,9 +26,13 @@ in
 
     services.unpackerr = {
       enable = true;
-      environmentFile = config.sops.secrets."unpackerr".path;
     };
+    systemd.services.unpackerr.serviceConfig.EnvironmentFile =
+      config.services.unpackerr.environmentFile;
 
-    users.users."unpackerr".extraGroups = ["torrent-data" "usenet-data" ];
+    users.users."unpackerr".extraGroups = [
+      "torrent-data"
+      "usenet-data"
+    ];
   };
 }
