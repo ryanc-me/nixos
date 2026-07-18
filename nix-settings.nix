@@ -28,5 +28,9 @@
     permittedInsecurePackages = [
       "openssl-1.1.1w"
     ];
+
+    problems.handlers = {
+      sublimetext4.broken = "warn";
+    };
   };
 }
