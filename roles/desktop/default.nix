@@ -19,7 +19,7 @@
       discord.enable = true;
       element.enable = true;
       firefox.enable = true;
-      freecad.enable = true;
+      freecad.enable = false;
       gimp.enable = true;
       google-chrome.enable = true;
       inkscape.enable = true;
