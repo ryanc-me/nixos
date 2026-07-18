@@ -57,8 +57,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     codex-desktop-linux = {
-      # url = "github:ilysenko/codex-desktop-linux/main";
-      url = "github:ilysenko/codex-desktop-linux/codex/nix-upstream-refresh";
+      url = "github:ilysenko/codex-desktop-linux/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
