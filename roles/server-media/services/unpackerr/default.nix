@@ -24,6 +24,18 @@ in
 
     services.unpackerr = {
       enable = true;
+      settings = {
+        radarr = [
+          {
+            url = "http://127.0.0.1:8989";
+          }
+        ];
+        sonarr = [
+          {
+            url = "http://127.0.0.1:7878";
+          }
+        ];
+      };
     };
     systemd.services.unpackerr.serviceConfig.EnvironmentFile = config.sops.secrets."unpackerr".path;
 
