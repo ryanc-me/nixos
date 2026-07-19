@@ -44,7 +44,7 @@ in
         network.xmlrpc.size_limit.set = 4M
         network.max_open_sockets.set = 999
         network.max_open_files.set = 600
-        network.http.max_open.set = 99
+        # network.http.max_open.set = 99
 
         trackers.numwant.set = 100
 
@@ -62,16 +62,16 @@ in
         protocol.pex.set = yes
         trackers.use_udp.set = yes
 
-        encoding.add = utf8
+        # encoding.add = utf8
         system.umask.set = 0022
 
         #schedule2 = watch_directory, 1, 1, (cat,"load.start=","/watch/","*.torrent")
         #schedule2 = untied_directory, 5, 5, (cat,"stop_untied=","/watch/","*.torrent")
         #schedule2 = watch_directory_1,5,5,(cat, "load.start=", "/watch/", "*.torrent")
 
-        schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace,10000M))
+        # schedule2 = monitor_diskspace, 15, 60, ((close_low_diskspace,10000M))
 
-        schedule2 = session_save, 1200, 43200, ((session.save))
+        # schedule2 = session_save, 1200, 43200, ((session.save))
 
         #schedule = watch_directory,1,5, "load.start=/watch/books/*.torrent,d.directory.set=/mnt/torrent-data/torrents/__books/,d.delete_tied=,d.custom1.set=books"
 
