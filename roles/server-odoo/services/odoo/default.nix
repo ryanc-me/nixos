@@ -94,6 +94,9 @@ in
           proxyPass = "http://127.0.0.1:8072";
           proxyWebsockets = true;
           recommendedProxySettings = true;
+          extraConfig = ''
+            include ${../../../server-auth/services/authentik/nginx-snippets/location-block.conf};
+          '';
         };
         locations."/website/info" = {
           return = "302 /";
