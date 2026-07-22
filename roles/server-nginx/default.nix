@@ -18,7 +18,6 @@
     services = {
       certs.enable = true;
       nginx.enable = true;
-      oauth2-proxy.enable = true;
     };
     domains = {
       mixeto-io.enable = true;
