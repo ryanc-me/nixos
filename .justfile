@@ -10,6 +10,18 @@ boot:
 remote machine:
     nixos-rebuild switch --flake /home/ryan/nixos#{{ machine }} --target-host {{ machine }} --sudo --ask-sudo-password
 
+remote-aquime:
+    nixos-rebuild switch --flake /home/ryan/nixos#aquime --target-host aquime --sudo --ask-sudo-password
+
+remote-masaq:
+    nixos-rebuild switch --flake /home/ryan/nixos#masaq --target-host masaq --sudo --ask-sudo-password
+
+remote-tier:
+    nixos-rebuild switch --flake /home/ryan/nixos#tier --target-host tier --sudo --ask-sudo-password
+
+remote-idir:
+    nixos-rebuild switch --flake /home/ryan/nixos#idir --target-host idir --sudo --ask-sudo-password
+
 gc:
     sudo nix-collect-garbage -d && nix-collect-garbage -d
 
