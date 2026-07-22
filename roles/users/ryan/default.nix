@@ -30,6 +30,7 @@ in
           hashedPasswordFile = config.sops.secrets."ryan/password".path;
           extraGroups = [
             "wheel"
+            "dialout"
           ]
           ++ lib.optionals config.mine.core.system.network-manager.enable [ "networkmanager" ]
           ++ lib.optionals config.mine.desktop-vms.system.libvirt.enable [ "libvirtd" ];
