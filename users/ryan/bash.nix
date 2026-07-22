@@ -5,7 +5,7 @@
     enable = true;
     enableCompletion = true;
     bashrcExtra = ''
-      export EDITOR="nvim"
+      export EDITOR="nano"
       export PATH="$PATH:$HOME/bin:$HOME/.local/bin:$HOME/.cargo/bin"
       export SSH_AUTH_SOCK="''${XDG_RUNTIME_DIR}/ssh-agent"
       export TERM="xterm-256color"
