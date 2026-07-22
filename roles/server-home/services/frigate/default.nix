@@ -25,6 +25,19 @@ in
   };
 
   config = mkIf cfg.enable {
+    sops.secrets."frigate" = {
+      format = "dotenv";
+      sopsFile = ../../../../secrets/frigate.env;
+      key = "";
+      owner = "frigate";
+    };
+    sops.secrets."go2rtc" = {
+      format = "dotenv";
+      sopsFile = ../../../../secrets/go2rtc.env;
+      key = "";
+      owner = "frigate";
+    };
+
     users.users.frigate.extraGroups = [
       "render"
     ];
@@ -33,6 +46,11 @@ in
       enable = true;
       hostname = "${hostname}";
       vaapiDriver = "iHD";
+
+      preCheckConfig = ''
+        export FRIGATE_MQTT_PASSWORD=validation-placeholder
+        export FRIGATE_INSIDE_ONVIF_PASSWORD=validation-placeholder
+      '';
 
       settings = import ../../../../secrets/nix/frigate.nix {
         inherit lib pkgs;
@@ -63,12 +81,19 @@ in
       serviceConfig = {
         AmbientCapabilities = [ "CAP_PERFMON" ];
         CapabilityBoundingSet = [ "CAP_PERFMON" ];
+
+        EnvironmentFile = config.sops.secrets."frigate".path;
       };
       preStart = ''
         # for some reason, semaphores are not being cleaned-up on restart. might
         # relate to the slow shutdown?
         find /dev/shm -maxdepth 1 -user frigate -delete 2>/dev/null || true
       '';
+    };
+    systemd.services.go2rtc = {
+      serviceConfig = {
+        EnvironmentFile = config.sops.secrets."go2rtc".path;
+      };
     };
 
     # so Nginx can access Frigate's files (through MergerFS mount, which doesn't
