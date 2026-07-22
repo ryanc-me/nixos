@@ -10,6 +10,7 @@
   config.mine.server-immich = lib.mkIf config.mine.server-immich.enable {
     services = {
       immich.enable = true;
+      immich-public-proxy.enable = true;
     };
   };
 }
