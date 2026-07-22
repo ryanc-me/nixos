@@ -13,6 +13,7 @@
       habitsync.enable = true;
       home-assistant.enable = true;
       mealie.enable = true;
+      paperless.enable = true;
       vikunja.enable = true;
     };
   };
