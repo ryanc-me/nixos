@@ -45,6 +45,7 @@
     };
     cli = {
       direnv.enable = true;
+      pangolin-cli.enable = true;
       ruff.enable = true;
       step-cli.enable = true;
     };
