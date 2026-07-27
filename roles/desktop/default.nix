@@ -23,6 +23,7 @@
       gimp.enable = true;
       google-chrome.enable = true;
       inkscape.enable = true;
+      kicad.enable = true;
       libreoffice.enable = true;
       lite-xl.enable = true;
       microsoft-edge.enable = true;
