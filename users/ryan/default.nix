@@ -54,6 +54,7 @@
       ".config/noctalia"
       ".config/niri"
       ".config/SuperSlicer"
+      ".config/kicad"
 
       ".ssh"
       ".aws"
