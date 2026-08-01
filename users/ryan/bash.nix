@@ -16,12 +16,12 @@
     '';
 
     shellAliases = {
-      l = "eza -lb --icons";
-      ll = "eza -lab --icons";
-      lt = "eza -lab -TRL1 --icons --total-size";
-      lt2 = "eza -lab -TRL2 --icons --total-size";
-      lt3 = "eza -lab -TRL3 --icons --total-size";
-      lt4 = "eza -lab -TRL4 --icons --total-size";
+      l = "eza -lb --icons auto";
+      ll = "eza -lab --icons auto";
+      lt = "eza -lab -TRL1 --icons auto --total-size";
+      lt2 = "eza -lab -TRL2 --icons auto --total-size";
+      lt3 = "eza -lab -TRL3 --icons auto --total-size";
+      lt4 = "eza -lab -TRL4 --icons auto --total-size";
       c = "clear";
     };
   };
