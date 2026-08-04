@@ -20,9 +20,13 @@
       ll = "eza -lab --icons auto";
       lt = "eza -lab -TRL1 --icons auto --total-size";
       lt2 = "eza -lab -TRL2 --icons auto --total-size";
+      ltt = "eza -lab -TRL2 --icons auto --total-size";
       lt3 = "eza -lab -TRL3 --icons auto --total-size";
+      lttt = "eza -lab -TRL3 --icons auto --total-size";
       lt4 = "eza -lab -TRL4 --icons auto --total-size";
+      ltttt = "eza -lab -TRL4 --icons auto --total-size";
       c = "clear";
+      refresh_auth = "ssh-add -D && step ssh login --provisioner 'Outlook' && ssh-add ~/.ssh/github";
     };
   };
 }
